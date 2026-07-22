@@ -1,0 +1,12 @@
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\bin\Debug\net9.0\SmartAttendance.Shared.deps.json
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\bin\Debug\net9.0\SmartAttendance.Shared.dll
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\bin\Debug\net9.0\SmartAttendance.Shared.pdb
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.AssemblyInfoInputs.cache
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.AssemblyInfo.cs
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.csproj.CoreCompileInputs.cache
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.sourcelink.json
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.dll
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\refint\SmartAttendance.Shared.dll
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\SmartAttendance.Shared.pdb
+C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Shared\obj\Debug\net9.0\ref\SmartAttendance.Shared.dll

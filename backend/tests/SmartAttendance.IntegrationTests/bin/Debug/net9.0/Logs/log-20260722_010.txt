@@ -1,0 +1,184 @@
+2026-07-22 13:47:29.414 +03:00 [INF] Started database seeding process.
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.541 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.541 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.540 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.541 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.704 +03:00 [INF] Started database seeding process.
+2026-07-22 13:47:29.711 +03:00 [INF] Started database seeding process.
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.757 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.758 +03:00 [INF] Committed Transaction for LoginCommand
+2026-07-22 13:47:29.839 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-07-22 13:47:29.843 +03:00 [ERR] Error handling transaction for LoginCommand
+System.UnauthorizedAccessException: Invalid credentials.
+   at SmartAttendance.Infrastructure.Identity.Services.AuthenticationService.LoginAsync(String email, String password) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Identity\Services\AuthenticationService.cs:line 38
+   at SmartAttendance.Application.Features.Authentication.Commands.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Features\Authentication\Commands\LoginCommand.cs:line 43
+   at SmartAttendance.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\TransactionBehavior.cs:line 41
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:03.989 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.167 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.169 +03:00 [INF] Starting Web Host
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.237 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 13:50:07.500 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.500 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.500 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.500 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.500 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.507 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 13:50:07.562 +03:00 [INF] HTTP GET /api/v1/does-not-exist responded 404 in 82 ms
+2026-07-22 13:50:07.625 +03:00 [INF] HTTP POST /api/v1/companies responded 401 in 11 ms
+2026-07-22 13:50:07.902 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:08.029 +03:00 [INF] SmartAttendance Request: GetBranchesQuery f155df32-96d9-41ae-b74b-ef024d4c5471 admin {"Name":null,"Code":null,"IsActive":null,"SortBy":null,"SortDescending":false,"PageNumber":1,"PageSize":10,"$type":"GetBranchesQuery"}
+2026-07-22 13:50:08.029 +03:00 [INF] SmartAttendance Request: GetCompaniesQuery f09e09fd-669c-4a32-98bd-0a578e4bcf75 admin {"Name":null,"RegistrationNumber":null,"IsActive":null,"SortBy":null,"SortDescending":false,"PageNumber":1,"PageSize":10,"$type":"GetCompaniesQuery"}
+2026-07-22 13:50:08.029 +03:00 [INF] SmartAttendance Request: GetDepartmentsQuery 8e613974-2a6b-462a-9bbd-a3592d20a0b9 admin {"SearchTerm":null,"SortBy":null,"SortDescending":false,"PageNumber":1,"PageSize":10,"$type":"GetDepartmentsQuery"}
+2026-07-22 13:50:08.029 +03:00 [INF] SmartAttendance Request: GetShiftsQuery 1a34089d-2833-4777-94dc-eb75531093b0 admin {"SearchTerm":null,"IsActive":null,"SortBy":null,"SortDesc":false,"PageNumber":1,"PageSize":10,"$type":"GetShiftsQuery"}
+2026-07-22 13:50:08.049 +03:00 [INF] Beginning Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.049 +03:00 [INF] Beginning Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.049 +03:00 [INF] Beginning Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.049 +03:00 [INF] Beginning Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.049 +03:00 [INF] Beginning Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.056 +03:00 [INF] Committed Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.056 +03:00 [INF] Committed Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.056 +03:00 [INF] Committed Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.056 +03:00 [INF] Committed Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.056 +03:00 [INF] Committed Transaction for CreateCompanyCommand
+2026-07-22 13:50:08.153 +03:00 [INF] SmartAttendance Request: CreateWorkScheduleCommand 01f432cb-9113-4e77-ada5-4daedb7be42b admin {"CompanyId":"93cc5b5a-3bea-4b22-bdbe-e206f86d2c27","Name":"Act Schedule","Description":null,"IsFlexible":false,"WeeklyWorkingHours":40,"GracePeriodMinutes":0,"AllowEarlyCheckInMinutes":0,"AllowLateCheckOutMinutes":0,"$type":"CreateWorkScheduleCommand"}
+2026-07-22 13:50:08.149 +03:00 [INF] SmartAttendance Request: CreateBranchCommand b40ede75-f22d-48aa-93f3-40f0af4e716f admin {"CompanyId":"4b6989d2-d94d-4712-858f-c6e2132a61e5","Name":"Integration Test Branch for Emp","Code":"IT-BR-EMP","AddressStreet":"123 Test St","AddressCity":"Testville","AddressState":"TS","AddressCountry":"Testland","AddressZipCode":"12345","PhoneNumber":"+1234567891","Email":"branch-emp@integration.com","Latitude":40.7128,"Longitude":-74.006,"AllowedRadiusMeters":100,"TimeZone":"America/New_York","IsHeadOffice":true,"$type":"CreateBranchCommand"}
+2026-07-22 13:50:08.147 +03:00 [INF] SmartAttendance Request: CreateBranchCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","Name":"Main Branch","Code":"IT-BR","AddressStreet":"123 St","AddressCity":"City","AddressState":"TS","AddressCountry":"Land","AddressZipCode":"12345","PhoneNumber":"+1234567891","Email":"branch@integration.com","Latitude":40.71,"Longitude":-74,"AllowedRadiusMeters":100,"TimeZone":"America/New_York","IsHeadOffice":true,"$type":"CreateBranchCommand"}
+2026-07-22 13:50:08.149 +03:00 [INF] SmartAttendance Request: CreateWorkScheduleCommand d3524835-2f21-4155-9ae3-7726053bb8e9 admin {"CompanyId":"5ffa1f7b-3faa-43e1-ad94-80cce441c2a5","Name":"Base Schedule","Description":null,"IsFlexible":false,"WeeklyWorkingHours":40,"GracePeriodMinutes":0,"AllowEarlyCheckInMinutes":0,"AllowLateCheckOutMinutes":0,"$type":"CreateWorkScheduleCommand"}
+2026-07-22 13:50:08.176 +03:00 [INF] SmartAttendance Request: CreateAttendanceDeviceCommand b8e3039f-b627-44c6-9438-fa0e9fd4a8b3 admin {"CompanyId":"061c3380-7812-4f27-b985-846da1acbb93","Name":"Test Device","Code":"DEV-001","SerialNumber":null,"DeviceType":"WallMounted","OperatingSystem":null,"ApplicationVersion":null,"BranchId":null,"Latitude":0,"Longitude":0,"AllowedRadiusMeters":50,"PublicKey":null,"DeviceFingerprint":null,"RequireDeviceApproval":false,"RequireSecureConnection":false,"SupportsFaceRecognition":false,"SupportsFingerprint":false,"SupportsGPS":false,"SupportsOfflineAttendance":false,"SupportsQRCode":false,"SupportsNFC":false,"IpAddress":null,"Port":99999,"CommunicationProtocol":"0","$type":"CreateAttendanceDeviceCommand"}
+2026-07-22 13:50:08.182 +03:00 [INF] Beginning Transaction for CreateBranchCommand
+2026-07-22 13:50:08.182 +03:00 [INF] Beginning Transaction for CreateBranchCommand
+2026-07-22 13:50:08.184 +03:00 [INF] Beginning Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.184 +03:00 [INF] Beginning Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.196 +03:00 [INF] Committed Transaction for CreateBranchCommand
+2026-07-22 13:50:08.196 +03:00 [INF] Committed Transaction for CreateBranchCommand
+2026-07-22 13:50:08.201 +03:00 [INF] Started database seeding process.
+2026-07-22 13:50:08.202 +03:00 [INF] Committed Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.202 +03:00 [INF] Committed Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.244 +03:00 [INF] SmartAttendance Request: CreateDepartmentCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","BranchId":"4d2fa40a-f9ea-4305-827b-3f81777f04f8","Name":"IT","Code":"IT-DEPT","Description":"IT Dept","$type":"CreateDepartmentCommand"}
+2026-07-22 13:50:08.244 +03:00 [INF] SmartAttendance Request: CreateDepartmentCommand b40ede75-f22d-48aa-93f3-40f0af4e716f admin {"CompanyId":"4b6989d2-d94d-4712-858f-c6e2132a61e5","BranchId":"b39b6dbe-9ac0-4611-9777-003df0968a88","Name":"Integration Test Department for Emp","Code":"IT-DEPT-EMP","Description":"A department for integration tests","$type":"CreateDepartmentCommand"}
+2026-07-22 13:50:08.256 +03:00 [INF] Beginning Transaction for CreateDepartmentCommand
+2026-07-22 13:50:08.256 +03:00 [INF] Beginning Transaction for CreateDepartmentCommand
+2026-07-22 13:50:08.287 +03:00 [ERR] SmartAttendance Request: Unhandled Exception for Request CreateAttendanceDeviceCommand {"CompanyId":"061c3380-7812-4f27-b985-846da1acbb93","Name":"Test Device","Code":"DEV-001","SerialNumber":null,"DeviceType":"WallMounted","OperatingSystem":null,"ApplicationVersion":null,"BranchId":null,"Latitude":0,"Longitude":0,"AllowedRadiusMeters":50,"PublicKey":null,"DeviceFingerprint":null,"RequireDeviceApproval":false,"RequireSecureConnection":false,"SupportsFaceRecognition":false,"SupportsFingerprint":false,"SupportsGPS":false,"SupportsOfflineAttendance":false,"SupportsQRCode":false,"SupportsNFC":false,"IpAddress":null,"Port":99999,"CommunicationProtocol":"0","$type":"CreateAttendanceDeviceCommand"}
+FluentValidation.ValidationException: Validation failed: 
+ -- Port: Port must be between 1 and 65535. Severity: Error
+ -- CommunicationProtocol: CommunicationProtocol is invalid. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+2026-07-22 13:50:08.303 +03:00 [INF] Committed Transaction for CreateDepartmentCommand
+2026-07-22 13:50:08.303 +03:00 [INF] Committed Transaction for CreateDepartmentCommand
+2026-07-22 13:50:08.333 +03:00 [INF] SmartAttendance Request: CreateAttendancePolicyCommand 415d0fc5-96f1-4591-85d3-f4a0fa64b074 admin {"CompanyId":"f9103b62-f39d-471d-a44c-476829a602d8","Name":"Standard Office Policy","Code":"STD-OFF-01","Description":"Standard office working policy","AttendanceMode":"Office","RequireFaceRecognition":true,"RequireGPS":false,"RequireApprovedDevice":false,"RequireCompanyNetwork":true,"AllowMobileCheckIn":false,"AllowDesktopCheckIn":true,"AllowWebCheckIn":true,"AllowOfflineAttendance":false,"AllowedRadiusMeters":50,"AllowMultipleCheckIn":false,"AllowManualAttendance":false,"RequireManagerApproval":false,"MaximumDistanceMeters":100,"LateToleranceMinutes":0,"EarlyLeaveToleranceMinutes":0,"GracePeriodMinutes":0,"OvertimeThresholdMinutes":0,"MinimumOvertimeMinutes":0,"MaximumOvertimeMinutes":0,"AutoCheckoutEnabled":false,"AutoCheckoutTime":null,"MultipleShiftsSupport":false,"RoundTimeRule":"None","MissingPunchPolicy":"Reject","WeekendPolicy":"Regular","HolidayPolicy":"Regular","$type":"CreateAttendancePolicyCommand"}
+2026-07-22 13:50:08.339 +03:00 [INF] SmartAttendance Request: CreateAttendancePolicyCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","Name":"Standard Policy","Code":"SP01","Description":"Test Policy","AttendanceMode":"Remote","RequireFaceRecognition":false,"RequireGPS":false,"RequireApprovedDevice":false,"RequireCompanyNetwork":false,"AllowMobileCheckIn":true,"AllowDesktopCheckIn":true,"AllowWebCheckIn":true,"AllowOfflineAttendance":false,"AllowedRadiusMeters":100,"AllowMultipleCheckIn":false,"AllowManualAttendance":false,"RequireManagerApproval":false,"MaximumDistanceMeters":1000,"LateToleranceMinutes":0,"EarlyLeaveToleranceMinutes":0,"GracePeriodMinutes":0,"OvertimeThresholdMinutes":0,"MinimumOvertimeMinutes":0,"MaximumOvertimeMinutes":0,"AutoCheckoutEnabled":false,"AutoCheckoutTime":null,"MultipleShiftsSupport":false,"RoundTimeRule":"None","MissingPunchPolicy":"Reject","WeekendPolicy":"Regular","HolidayPolicy":"Regular","$type":"CreateAttendancePolicyCommand"}
+2026-07-22 13:50:08.352 +03:00 [INF] Beginning Transaction for CreateAttendancePolicyCommand
+2026-07-22 13:50:08.352 +03:00 [INF] Beginning Transaction for CreateAttendancePolicyCommand
+2026-07-22 13:50:08.345 +03:00 [INF] SmartAttendance Request: CreateShiftCommand 01f432cb-9113-4e77-ada5-4daedb7be42b admin {"WorkScheduleId":"51e60429-6131-4ef4-a42d-c5dc812c1abc","CompanyId":"93cc5b5a-3bea-4b22-bdbe-e206f86d2c27","Name":"Status Toggle","Code":"ACT-01","Description":null,"StartTime":"09:00:00.0000000","EndTime":"17:00:00.0000000","ShiftType":"0","IsFlexible":false,"MinimumWorkingHours":7,"MaximumWorkingHours":8,"GracePeriodMinutes":0,"AllowEarlyCheckInMinutes":0,"AllowLateCheckOutMinutes":0,"$type":"CreateShiftCommand"}
+2026-07-22 13:50:08.347 +03:00 [INF] SmartAttendance Request: CreateShiftCommand d3524835-2f21-4155-9ae3-7726053bb8e9 admin {"WorkScheduleId":"784d84cc-2bc6-4a7d-8d20-eaceb810835c","CompanyId":"5ffa1f7b-3faa-43e1-ad94-80cce441c2a5","Name":"Base Shift","Code":"SH-afbd3","Description":null,"StartTime":"09:00:00.0000000","EndTime":"17:00:00.0000000","ShiftType":"0","IsFlexible":false,"MinimumWorkingHours":7,"MaximumWorkingHours":8,"GracePeriodMinutes":0,"AllowEarlyCheckInMinutes":0,"AllowLateCheckOutMinutes":0,"$type":"CreateShiftCommand"}
+2026-07-22 13:50:08.365 +03:00 [INF] Committed Transaction for CreateAttendancePolicyCommand
+2026-07-22 13:50:08.365 +03:00 [INF] Committed Transaction for CreateAttendancePolicyCommand
+2026-07-22 13:50:08.382 +03:00 [INF] SmartAttendance Request: CreateAttendanceDeviceCommand b8e3039f-b627-44c6-9438-fa0e9fd4a8b3 admin {"CompanyId":"5c7162cb-cc37-4a84-9378-fef15fc66599","Name":"Test Device","Code":"DEV-001","SerialNumber":null,"DeviceType":"WallMounted","OperatingSystem":null,"ApplicationVersion":null,"BranchId":null,"Latitude":0,"Longitude":0,"AllowedRadiusMeters":50,"PublicKey":null,"DeviceFingerprint":null,"RequireDeviceApproval":false,"RequireSecureConnection":false,"SupportsFaceRecognition":false,"SupportsFingerprint":false,"SupportsGPS":false,"SupportsOfflineAttendance":false,"SupportsQRCode":false,"SupportsNFC":false,"IpAddress":"192.168.1.100","Port":8080,"CommunicationProtocol":"TCP","$type":"CreateAttendanceDeviceCommand"}
+2026-07-22 13:50:08.384 +03:00 [INF] Beginning Transaction for CreateAttendanceDeviceCommand
+2026-07-22 13:50:08.387 +03:00 [INF] Beginning Transaction for CreateShiftCommand
+2026-07-22 13:50:08.387 +03:00 [INF] SmartAttendance Request: CreateWorkScheduleCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","Name":"Standard Morning Schedule","Description":"Standard 40 hours","IsFlexible":false,"WeeklyWorkingHours":40,"GracePeriodMinutes":15,"AllowEarlyCheckInMinutes":30,"AllowLateCheckOutMinutes":30,"$type":"CreateWorkScheduleCommand"}
+2026-07-22 13:50:08.387 +03:00 [INF] Beginning Transaction for CreateShiftCommand
+2026-07-22 13:50:08.387 +03:00 [INF] Beginning Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.388 +03:00 [INF] Committed Transaction for CreateWorkScheduleCommand
+2026-07-22 13:50:08.404 +03:00 [INF] SmartAttendance Request: GetAttendancePolicyByIdQuery 415d0fc5-96f1-4591-85d3-f4a0fa64b074 admin {"AttendancePolicyId":"08155bc9-71b7-4499-8e2a-14278997c1a7","$type":"GetAttendancePolicyByIdQuery"}
+2026-07-22 13:50:08.417 +03:00 [INF] SmartAttendance Request: CreateShiftCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"WorkScheduleId":"c595e42e-86e2-4e65-80d1-84f1cd4cf1e8","CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","Name":"Morning Shift","Code":"MS01","Description":null,"StartTime":"09:00:00.0000000","EndTime":"17:00:00.0000000","ShiftType":"0","IsFlexible":false,"MinimumWorkingHours":7,"MaximumWorkingHours":8,"GracePeriodMinutes":0,"AllowEarlyCheckInMinutes":0,"AllowLateCheckOutMinutes":0,"$type":"CreateShiftCommand"}
+2026-07-22 13:50:08.417 +03:00 [INF] Beginning Transaction for CreateShiftCommand
+2026-07-22 13:50:08.420 +03:00 [INF] SmartAttendance Request: CreateEmployeeCommand b40ede75-f22d-48aa-93f3-40f0af4e716f admin {"CompanyId":"4b6989d2-d94d-4712-858f-c6e2132a61e5","BranchId":"b39b6dbe-9ac0-4611-9777-003df0968a88","DepartmentId":"f4bee009-8b34-44b5-b59b-207e4807c47a","AttendancePolicyId":"310fe3d5-7cca-4372-b74c-26b60ce39f7a","EmployeeNumber":"EMP-001","FirstName":"John","LastName":"Doe","MiddleName":null,"PreferredName":null,"NationalId":null,"PassportNumber":null,"Email":"john.doe@integration.com","PhoneNumber":"+19876543210","DateOfBirth":"1990-01-01T00:00:00.0000000","Gender":"Male","HireDate":"2023-01-01T00:00:00.0000000","JobTitle":"Software Engineer","Street":"456 Emp St","City":"Empville","State":"ES","ZipCode":"54321","Country":"Empland","$type":"CreateEmployeeCommand"}
+2026-07-22 13:50:08.440 +03:00 [INF] Beginning Transaction for CreateEmployeeCommand
+2026-07-22 13:50:08.512 +03:00 [INF] Committed Transaction for CreateShiftCommand
+2026-07-22 13:50:08.512 +03:00 [INF] Committed Transaction for CreateShiftCommand
+2026-07-22 13:50:08.512 +03:00 [INF] Committed Transaction for CreateShiftCommand
+2026-07-22 13:50:08.529 +03:00 [INF] SmartAttendance Request: CreateAttendanceDeviceCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","Name":"Main Gate","Code":"DEV01","SerialNumber":"1234","DeviceType":"WallMounted","OperatingSystem":null,"ApplicationVersion":null,"BranchId":"4d2fa40a-f9ea-4305-827b-3f81777f04f8","Latitude":0,"Longitude":0,"AllowedRadiusMeters":0,"PublicKey":null,"DeviceFingerprint":null,"RequireDeviceApproval":false,"RequireSecureConnection":false,"SupportsFaceRecognition":false,"SupportsFingerprint":false,"SupportsGPS":false,"SupportsOfflineAttendance":false,"SupportsQRCode":false,"SupportsNFC":false,"IpAddress":"127.0.0.1","Port":null,"CommunicationProtocol":"TCP","$type":"CreateAttendanceDeviceCommand"}
+2026-07-22 13:50:08.530 +03:00 [INF] Beginning Transaction for CreateAttendanceDeviceCommand
+2026-07-22 13:50:08.535 +03:00 [INF] SmartAttendance Request: ActivateShiftCommand 01f432cb-9113-4e77-ada5-4daedb7be42b admin {"ShiftId":"d5be7d17-63b0-43c6-8fc9-4e5cd1bb6f78","$type":"ActivateShiftCommand"}
+2026-07-22 13:50:08.541 +03:00 [INF] Beginning Transaction for ActivateShiftCommand
+2026-07-22 13:50:08.563 +03:00 [INF] Committed Transaction for ActivateShiftCommand
+2026-07-22 13:50:08.583 +03:00 [INF] Committed Transaction for CreateAttendanceDeviceCommand
+2026-07-22 13:50:08.583 +03:00 [INF] Committed Transaction for CreateAttendanceDeviceCommand
+2026-07-22 13:50:08.613 +03:00 [INF] SmartAttendance Request: CreateEmployeeCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"CompanyId":"13c5466d-f70c-4d9f-aa0b-1f5ab2ac021b","BranchId":"4d2fa40a-f9ea-4305-827b-3f81777f04f8","DepartmentId":"4752a066-8a32-421b-bdc3-327d6daf0cbd","AttendancePolicyId":"9dc843e6-1524-488e-abb8-9373bc11c371","EmployeeNumber":"EMP-001","FirstName":"John","LastName":"Doe","MiddleName":null,"PreferredName":null,"NationalId":null,"PassportNumber":null,"Email":"john.doe@integration.com","PhoneNumber":"+19876543210","DateOfBirth":"1990-01-01T00:00:00.0000000","Gender":"Male","HireDate":"2023-01-01T00:00:00.0000000","JobTitle":"SE","Street":"456 Emp St","City":"Empville","State":"ES","ZipCode":"54321","Country":"Empland","$type":"CreateEmployeeCommand"}
+2026-07-22 13:50:08.618 +03:00 [INF] Beginning Transaction for CreateEmployeeCommand
+2026-07-22 13:50:08.638 +03:00 [INF] Committed Transaction for CreateEmployeeCommand
+2026-07-22 13:50:08.666 +03:00 [INF] SmartAttendance Request: GetEmployeeByIdQuery b40ede75-f22d-48aa-93f3-40f0af4e716f admin {"EmployeeId":"65e974d2-8ba1-4d48-b60c-5bd4a5ce0ec8","$type":"GetEmployeeByIdQuery"}
+2026-07-22 13:50:08.669 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.669 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.669 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.669 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.670 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.689 +03:00 [INF] SmartAttendance Request: CreateAttendanceCommand ef2adbb5-e0a4-43d1-80c4-cf9136209805 admin {"EmployeeId":"f38acd0e-d530-47b5-8388-5a2427477488","AttendanceDeviceId":"6f745b3e-5544-4cfe-820a-506dd4fb47bd","AttendancePolicyId":"9dc843e6-1524-488e-abb8-9373bc11c371","ShiftId":"a4753f17-0fb1-4d35-b990-fad907c88810","CheckInTime":"2026-07-22T10:50:08.6404844Z","CheckInMethod":"Manual","$type":"CreateAttendanceCommand"}
+2026-07-22 13:50:08.690 +03:00 [INF] Beginning Transaction for CreateAttendanceCommand
+2026-07-22 13:50:08.697 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.752 +03:00 [INF] SmartAttendance Request: GetShiftByIdQuery 01f432cb-9113-4e77-ada5-4daedb7be42b admin {"ShiftId":"19316ac1-d3a5-43cd-a6e8-c74a9cb283ae","$type":"GetShiftByIdQuery"}
+2026-07-22 13:50:08.798 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.805 +03:00 [INF] SmartAttendance Request: GetBreaksQuery d3524835-2f21-4155-9ae3-7726053bb8e9 admin {"SearchTerm":"Lunch","IsActive":null,"SortBy":null,"SortDesc":false,"PageNumber":1,"PageSize":10,"$type":"GetBreaksQuery"}
+2026-07-22 13:50:08.832 +03:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-22 13:50:08.916 +03:00 [INF] Committed Transaction for CreateAttendanceCommand
+2026-07-22 13:50:08.936 +03:00 [INF] SmartAttendance Request: ActivateAttendancePolicyCommand 415d0fc5-96f1-4591-85d3-f4a0fa64b074 admin {"AttendancePolicyId":"23c9123b-7970-4f9f-acf1-071f201433f3","$type":"ActivateAttendancePolicyCommand"}
+2026-07-22 13:50:08.937 +03:00 [INF] Beginning Transaction for ActivateAttendancePolicyCommand
+2026-07-22 13:50:08.953 +03:00 [INF] Committed Transaction for ActivateAttendancePolicyCommand
+2026-07-22 13:50:08.966 +03:00 [INF] SmartAttendance Request: GetAttendancePoliciesQuery 415d0fc5-96f1-4591-85d3-f4a0fa64b074 admin {"SearchTerm":null,"IsActive":true,"SortBy":null,"SortDesc":false,"PageNumber":1,"PageSize":10,"$type":"GetAttendancePoliciesQuery"}

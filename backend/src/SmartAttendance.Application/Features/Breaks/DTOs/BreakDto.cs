@@ -1,0 +1,19 @@
+using System;
+using SmartAttendance.Domain.Enums;
+
+using SmartAttendance.Application.Common.Mappings;
+using SmartAttendance.Domain.Entities;
+namespace SmartAttendance.Application.Features.Breaks.DTOs;
+
+public class BreakDto : IMapFrom<Break>
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public TimeOnly StartTime { get; set; }
+    public TimeOnly EndTime { get; set; }
+    public int DurationMinutes { get; set; }
+    public BreakType BreakType { get; set; }
+    public bool IsPaid { get; set; }
+    public bool IsMandatory { get; set; }
+    public bool IsActive { get; set; }
+}

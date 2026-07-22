@@ -1,0 +1,255 @@
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:43.922 +03:00 [INF] Started database seeding process.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.213 +03:00 [INF] Database seeding completed successfully.
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.214 +03:00 [INF] Starting Web Host
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.301 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.620 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-22 11:56:47.737 +03:00 [INF] HTTP GET /api/v1/does-not-exist responded 404 in 152 ms
+2026-07-22 11:56:47.737 +03:00 [INF] HTTP GET /api/v1/companies responded 401 in 117 ms
+2026-07-22 11:56:47.813 +03:00 [INF] HTTP POST /api/v1/companies responded 401 in 8 ms
+2026-07-22 11:56:48.122 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.122 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.122 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.122 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.123 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.123 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.123 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 506 ms
+2026-07-22 11:56:48.123 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 507 ms
+2026-07-22 11:56:48.123 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 507 ms
+2026-07-22 11:56:48.383 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 210 ms
+2026-07-22 11:56:48.383 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 211 ms
+2026-07-22 11:56:48.383 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 210 ms
+2026-07-22 11:56:48.511 +03:00 [INF] HTTP POST /api/v1/branches responded 200 in 105 ms
+2026-07-22 11:56:48.516 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 110 ms
+2026-07-22 11:56:48.523 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 117 ms
+2026-07-22 11:56:48.600 +03:00 [INF] HTTP POST /api/v1/attendancedevices responded 200 in 354 ms
+2026-07-22 11:56:48.600 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Port: Port must be between 1 and 65535. Severity: Error
+ -- CommunicationProtocol: CommunicationProtocol is invalid. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.AttendanceDevicesController.CreateAttendanceDevice(CreateAttendanceDeviceCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\AttendanceDevicesController.cs:line 45
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-22 11:56:48.628 +03:00 [INF] HTTP POST /api/v1/departments responded 200 in 111 ms
+2026-07-22 11:56:48.770 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 57 ms
+2026-07-22 11:56:48.844 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 248 ms
+2026-07-22 11:56:48.885 +03:00 [INF] HTTP POST /api/v1/shifts/ab732ca3-d38b-4336-9092-631501393a89/activate responded 204 in 40 ms
+2026-07-22 11:56:48.913 +03:00 [INF] HTTP POST /api/v1/shifts/ab732ca3-d38b-4336-9092-631501393a89/deactivate responded 204 in 26 ms
+2026-07-22 11:56:48.941 +03:00 [INF] HTTP POST /api/v1/employees responded 200 in 268 ms
+2026-07-22 11:56:48.992 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 67 ms
+2026-07-22 11:56:48.999 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.008 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 8 ms
+2026-07-22 11:56:49.013 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 4 ms
+2026-07-22 11:56:49.028 +03:00 [INF] HTTP POST /api/v1/attendancedevices responded 200 in 245 ms
+2026-07-22 11:56:49.066 +03:00 [INF] HTTP GET /api/v1/branches responded 200 in 911 ms
+2026-07-22 11:56:49.066 +03:00 [INF] HTTP GET /api/v1/shifts responded 200 in 911 ms
+2026-07-22 11:56:49.074 +03:00 [INF] HTTP GET /api/v1/attendance responded 200 in 919 ms
+2026-07-22 11:56:49.094 +03:00 [INF] HTTP GET /api/v1/departments responded 200 in 939 ms
+2026-07-22 11:56:49.094 +03:00 [INF] HTTP GET /api/v1/companies responded 200 in 939 ms
+2026-07-22 11:56:49.103 +03:00 [INF] HTTP GET /api/v1/employees/d58894fe-fd5a-4ac1-84ea-6365cc75cb13 responded 200 in 160 ms
+2026-07-22 11:56:49.103 +03:00 [INF] HTTP GET /api/v1/workschedules/2e809f9d-ca10-4111-9167-22f114d61efa responded 200 in 585 ms
+2026-07-22 11:56:49.123 +03:00 [INF] HTTP GET /api/v1/shifts/4b3dc76d-34a6-45c5-bb48-bb4c663e4030 responded 200 in 108 ms
+2026-07-22 11:56:49.142 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 70 ms
+2026-07-22 11:56:49.153 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 8 ms
+2026-07-22 11:56:49.172 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 96 ms
+2026-07-22 11:56:49.174 +03:00 [INF] HTTP POST /api/v1/branches responded 200 in 19 ms
+2026-07-22 11:56:49.174 +03:00 [INF] HTTP GET /api/v1/work-schedules responded 404 in 0 ms
+2026-07-22 11:56:49.178 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 77 ms
+2026-07-22 11:56:49.201 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 21 ms
+2026-07-22 11:56:49.201 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 83 ms
+2026-07-22 11:56:49.201 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 72 ms
+2026-07-22 11:56:49.201 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 77 ms
+2026-07-22 11:56:49.201 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 101 ms
+2026-07-22 11:56:49.208 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.209 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-22 11:56:49.219 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 13 ms
+2026-07-22 11:56:49.219 +03:00 [INF] HTTP POST /api/v1/branches responded 200 in 16 ms
+2026-07-22 11:56:49.220 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 11 ms
+2026-07-22 11:56:49.221 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 4 ms
+2026-07-22 11:56:49.228 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 6 ms
+2026-07-22 11:56:49.228 +03:00 [INF] HTTP POST /api/v1/departments responded 200 in 9 ms
+2026-07-22 11:56:49.243 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 22 ms
+2026-07-22 11:56:49.243 +03:00 [INF] HTTP GET /api/v1/branches/77dc0956-cea6-40d7-982c-5f4467c7e979 responded 200 in 68 ms
+2026-07-22 11:56:49.246 +03:00 [INF] HTTP POST /api/v1/shifts responded 409 in 17 ms
+2026-07-22 11:56:49.264 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 86 ms
+2026-07-22 11:56:49.265 +03:00 [INF] HTTP GET /api/v1/employees responded 200 in 60 ms
+2026-07-22 11:56:49.275 +03:00 [INF] HTTP GET /api/v1/audit-logs responded 404 in 0 ms
+2026-07-22 11:56:49.275 +03:00 [INF] HTTP GET /api/v1/companies/3b86d958-5913-48c8-90d1-98ba99942f34 responded 200 in 55 ms
+2026-07-22 11:56:49.289 +03:00 [INF] HTTP GET /api/v1/departments/e3eb6c83-1efb-44b0-b745-1561031b76c0 responded 200 in 59 ms
+2026-07-22 11:56:49.294 +03:00 [INF] HTTP GET /api/v1/workschedules responded 200 in 50 ms
+2026-07-22 11:56:49.310 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 57 ms
+2026-07-22 11:56:49.315 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.318 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-22 11:56:49.323 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-22 11:56:49.326 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-22 11:56:49.343 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 16 ms
+2026-07-22 11:56:49.344 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 67 ms
+2026-07-22 11:56:49.347 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-22 11:56:49.352 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 4 ms
+2026-07-22 11:56:49.353 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 50 ms
+2026-07-22 11:56:49.359 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.362 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-22 11:56:49.381 +03:00 [INF] HTTP GET /api/v1/shifts/work-schedule/ba33c5ac-bc87-4125-8288-b484ac27be88 responded 200 in 25 ms
+2026-07-22 11:56:49.384 +03:00 [INF] HTTP DELETE /api/v1/workschedules/15786aaa-5a2f-460c-98ab-42143dd21a1c responded 204 in 21 ms
+2026-07-22 11:56:49.386 +03:00 [INF] HTTP GET /api/v1/notifications responded 200 in 40 ms
+2026-07-22 11:56:49.390 +03:00 [INF] HTTP GET /api/v1/workschedules/15786aaa-5a2f-460c-98ab-42143dd21a1c responded 404 in 5 ms
+2026-07-22 11:56:49.395 +03:00 [INF] HTTP GET /api/v1/shifts/work-schedule/ba33c5ac-bc87-4125-8288-b484ac27be88 responded 200 in 6 ms
+2026-07-22 11:56:49.442 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 49 ms
+2026-07-22 11:56:49.443 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 55 ms
+2026-07-22 11:56:49.448 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.451 +03:00 [INF] HTTP GET /api/v1/departments responded 200 in 6 ms
+2026-07-22 11:56:49.453 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 4 ms
+2026-07-22 11:56:49.456 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 57 ms
+2026-07-22 11:56:49.457 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.461 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.461 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.464 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-22 11:56:49.465 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.468 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.477 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 10 ms
+2026-07-22 11:56:49.480 +03:00 [INF] HTTP GET /api/v1/workschedules responded 200 in 11 ms
+2026-07-22 11:56:49.486 +03:00 [INF] HTTP GET /api/v1/workschedules responded 200 in 4 ms
+2026-07-22 11:56:49.494 +03:00 [INF] HTTP PUT /api/v1/shifts/300277ca-91b8-4795-8047-785a538a55f9 responded 204 in 15 ms
+2026-07-22 11:56:49.498 +03:00 [INF] HTTP GET /api/v1/shifts/300277ca-91b8-4795-8047-785a538a55f9 responded 200 in 2 ms
+2026-07-22 11:56:49.510 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 56 ms
+2026-07-22 11:56:49.538 +03:00 [INF] HTTP GET /api/v1/leaves responded 200 in 26 ms
+2026-07-22 11:56:49.541 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 51 ms
+2026-07-22 11:56:49.547 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-22 11:56:49.551 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.551 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 50 ms
+2026-07-22 11:56:49.555 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-22 11:56:49.557 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 5 ms
+2026-07-22 11:56:49.560 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 4 ms
+2026-07-22 11:56:49.569 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-22 11:56:49.583 +03:00 [INF] HTTP POST /api/v1/workschedules/994465ff-115f-4bd9-9485-ce90c0f31094/activate responded 204 in 25 ms
+2026-07-22 11:56:49.589 +03:00 [INF] HTTP GET /api/v1/workschedules/994465ff-115f-4bd9-9485-ce90c0f31094 responded 200 in 6 ms
+2026-07-22 11:56:49.602 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 61 ms
+2026-07-22 11:56:49.603 +03:00 [INF] HTTP POST /api/v1/workschedules/994465ff-115f-4bd9-9485-ce90c0f31094/deactivate responded 204 in 10 ms
+2026-07-22 11:56:49.607 +03:00 [INF] HTTP GET /api/v1/workschedules/994465ff-115f-4bd9-9485-ce90c0f31094 responded 200 in 2 ms
+2026-07-22 11:56:49.610 +03:00 [INF] HTTP GET /api/v1/branches responded 200 in 6 ms
+2026-07-22 11:56:49.624 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 52 ms
+2026-07-22 11:56:49.630 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-22 11:56:49.634 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-22 11:56:49.637 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-22 11:56:49.646 +03:00 [INF] HTTP DELETE /api/v1/shifts/30739880-abee-43c6-8c7c-6eff8442be19 responded 204 in 7 ms
+2026-07-22 11:56:49.649 +03:00 [INF] HTTP GET /api/v1/shifts/30739880-abee-43c6-8c7c-6eff8442be19 responded 404 in 3 ms
+2026-07-22 11:56:49.673 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 62 ms
+2026-07-22 11:56:49.677 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-22 11:56:49.685 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 6 ms
+2026-07-22 11:56:49.687 +03:00 [INF] HTTP POST /api/v1/workschedules responded 409 in 1 ms
+2026-07-22 11:56:49.698 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 45 ms
+2026-07-22 11:56:49.702 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-22 11:56:49.705 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-22 11:56:49.709 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-22 11:56:49.709 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Code: 'Code' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.ShiftsController.CreateShift(CreateShiftCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\ShiftsController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-22 11:56:49.714 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-22 11:56:49.716 +03:00 [INF] HTTP GET /api/v1/shifts/ed40e56f-ea01-46e2-9e92-0569fd909549 responded 200 in 1 ms
+2026-07-22 11:56:49.735 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 45 ms
+2026-07-22 11:56:49.740 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-22 11:56:49.743 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-22 11:56:49.761 +03:00 [INF] HTTP PUT /api/v1/workschedules/f1808a4c-605e-493e-b0b6-c02b5fac105b responded 204 in 15 ms
+2026-07-22 11:56:49.767 +03:00 [INF] HTTP GET /api/v1/workschedules/f1808a4c-605e-493e-b0b6-c02b5fac105b responded 200 in 5 ms

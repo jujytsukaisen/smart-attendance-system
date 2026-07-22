@@ -1,0 +1,548 @@
+2026-07-20 17:10:54.577 +03:00 [INF] Started database seeding process.
+2026-07-20 17:10:54.585 +03:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 17), @p2='?' (DbType = DateTimeOffset), @p3='?' (DbType = DateTimeOffset), @p4='?' (Size = 31), @p5='?' (DbType = Boolean), @p6='?' (Size = 10), @p7='?' (Size = 17), @p8='?' (DbType = Binary), @p9='?' (DbType = DateTimeOffset)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Permissions" ("Id", "Code", "CreatedAt", "DeletedAt", "Description", "IsSystemPermission", "Module", "Name", "RowVersion", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9)
+RETURNING "IsDeleted";
+2026-07-20 17:10:54.589 +03:00 [ERR] An exception occurred in the database while saving changes for context type 'SmartAttendance.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Permissions.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Permissions.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-07-20 17:10:54.590 +03:00 [ERR] Database seeding failed. Transaction rolled back.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Permissions.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at SmartAttendance.Infrastructure.Persistence.Seed.ApplicationDbContextSeed.SeedPermissionsAsync(ApplicationDbContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Seed\ApplicationDbContextSeed.cs:line 69
+   at SmartAttendance.Infrastructure.Persistence.Seed.ApplicationDbContextSeed.SeedAsync(ApplicationDbContext context, RoleManager`1 roleManager, UserManager`1 userManager) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Seed\ApplicationDbContextSeed.cs:line 22
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.<TrySeedAsync>b__8_0() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 81
+2026-07-20 17:10:54.591 +03:00 [ERR] An error occurred while seeding the database.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Permissions.RowVersion'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at SmartAttendance.Infrastructure.Persistence.Seed.ApplicationDbContextSeed.SeedPermissionsAsync(ApplicationDbContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Seed\ApplicationDbContextSeed.cs:line 69
+   at SmartAttendance.Infrastructure.Persistence.Seed.ApplicationDbContextSeed.SeedAsync(ApplicationDbContext context, RoleManager`1 roleManager, UserManager`1 userManager) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Seed\ApplicationDbContextSeed.cs:line 22
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.<TrySeedAsync>b__8_0() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 81
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.<TrySeedAsync>b__8_0() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 90
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.<TrySeedAsync>b__8_0() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 91
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.TrySeedAsync() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 75
+   at SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer.SeedAsync() in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Persistence\Initialization\ApplicationDbContextInitializer.cs:line 60
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:10.995 +03:00 [INF] Started database seeding process.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.106 +03:00 [INF] Database seeding completed successfully.
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.108 +03:00 [INF] Starting Web Host
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.187 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.476 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.477 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-07-20 17:16:14.592 +03:00 [INF] HTTP GET /api/v1/companies responded 401 in 108 ms
+2026-07-20 17:16:14.592 +03:00 [INF] HTTP GET /api/v1/does-not-exist responded 404 in 129 ms
+2026-07-20 17:16:14.632 +03:00 [INF] HTTP POST /api/v1/companies responded 401 in 2 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 418 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 418 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 418 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 418 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 419 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 419 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 419 ms
+2026-07-20 17:16:14.893 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 419 ms
+2026-07-20 17:16:14.896 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 422 ms
+2026-07-20 17:16:14.925 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 11 ms
+2026-07-20 17:16:14.925 +03:00 [WRN] Unauthorized access.
+System.UnauthorizedAccessException: Invalid credentials.
+   at SmartAttendance.Infrastructure.Identity.Services.AuthenticationService.LoginAsync(String email, String password) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Infrastructure\Identity\Services\AuthenticationService.cs:line 38
+   at SmartAttendance.Application.Features.Authentication.Commands.LoginCommandHandler.Handle(LoginCommand request, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Features\Authentication\Commands\LoginCommand.cs:line 43
+   at SmartAttendance.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\TransactionBehavior.cs:line 41
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.AuthController.Login(LoginCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\AuthController.cs:line 17
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:15.055 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 126 ms
+2026-07-20 17:16:15.055 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 126 ms
+2026-07-20 17:16:15.055 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 126 ms
+2026-07-20 17:16:15.055 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 126 ms
+2026-07-20 17:16:15.184 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 86 ms
+2026-07-20 17:16:15.185 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 88 ms
+2026-07-20 17:16:15.185 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 88 ms
+2026-07-20 17:16:15.187 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 88 ms
+2026-07-20 17:16:15.336 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 116 ms
+2026-07-20 17:16:15.336 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 116 ms
+2026-07-20 17:16:15.386 +03:00 [INF] HTTP PUT /api/v1/shifts/662beaf2-3fcd-4d7e-b85f-c47df09cac93/activate responded 204 in 47 ms
+2026-07-20 17:16:15.394 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/32bfb566-bf8f-4d3d-a889-11b2afe8f0fd responded 200 in 203 ms
+2026-07-20 17:16:15.439 +03:00 [INF] HTTP PUT /api/v1/shifts/662beaf2-3fcd-4d7e-b85f-c47df09cac93/deactivate responded 204 in 52 ms
+2026-07-20 17:16:15.452 +03:00 [INF] HTTP GET /api/v1/workschedules/d8b6592b-c334-4968-b0fd-9d54647ab891 responded 200 in 262 ms
+2026-07-20 17:16:15.461 +03:00 [INF] HTTP GET /api/v1/shifts responded 200 in 541 ms
+2026-07-20 17:16:15.461 +03:00 [INF] HTTP GET /api/v1/branches responded 200 in 541 ms
+2026-07-20 17:16:15.477 +03:00 [INF] HTTP GET /api/v1/companies responded 200 in 557 ms
+2026-07-20 17:16:15.481 +03:00 [INF] HTTP GET /api/v1/departments responded 200 in 561 ms
+2026-07-20 17:16:15.489 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 75 ms
+2026-07-20 17:16:15.503 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 11 ms
+2026-07-20 17:16:15.509 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 5 ms
+2026-07-20 17:16:15.521 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 152 ms
+2026-07-20 17:16:15.533 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 88 ms
+2026-07-20 17:16:15.533 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 22 ms
+2026-07-20 17:16:15.539 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 9 ms
+2026-07-20 17:16:15.560 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 95 ms
+2026-07-20 17:16:15.562 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:15.567 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:15.567 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 92 ms
+2026-07-20 17:16:15.567 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 101 ms
+2026-07-20 17:16:15.578 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 93 ms
+2026-07-20 17:16:15.578 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 94 ms
+2026-07-20 17:16:15.579 +03:00 [INF] HTTP PUT /api/v1/attendancepolicies/d8bfbd66-4906-4983-af98-3d3f48b54d66/activate responded 204 in 44 ms
+2026-07-20 17:16:15.579 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 10 ms
+2026-07-20 17:16:15.582 +03:00 [INF] HTTP GET /api/v1/work-schedules responded 404 in 0 ms
+2026-07-20 17:16:15.584 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:15.599 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 12 ms
+2026-07-20 17:16:15.602 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 17 ms
+2026-07-20 17:16:15.602 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 15 ms
+2026-07-20 17:16:15.606 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 17 ms
+2026-07-20 17:16:15.619 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 19 ms
+2026-07-20 17:16:15.620 +03:00 [INF] HTTP GET /api/v1/breaks/search responded 200 in 80 ms
+2026-07-20 17:16:15.641 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/active responded 200 in 60 ms
+2026-07-20 17:16:15.655 +03:00 [INF] HTTP GET /api/v1/companies/56bd3a75-c225-44bc-ab19-181d88d30b85 responded 200 in 51 ms
+2026-07-20 17:16:15.661 +03:00 [INF] HTTP POST /api/v1/branches responded 200 in 48 ms
+2026-07-20 17:16:15.661 +03:00 [INF] HTTP POST /api/v1/branches responded 200 in 48 ms
+2026-07-20 17:16:15.674 +03:00 [INF] HTTP GET /api/v1/workschedules/search responded 200 in 50 ms
+2026-07-20 17:16:15.676 +03:00 [INF] HTTP GET /api/v1/shifts/3e380c88-d97f-4737-9122-0ea3bbdcd689 responded 200 in 96 ms
+2026-07-20 17:16:15.727 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 115 ms
+2026-07-20 17:16:15.729 +03:00 [INF] HTTP POST /api/v1/departments responded 200 in 50 ms
+2026-07-20 17:16:15.731 +03:00 [INF] HTTP GET /api/v1/audit-logs responded 404 in 0 ms
+2026-07-20 17:16:15.731 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 85 ms
+2026-07-20 17:16:15.732 +03:00 [INF] HTTP GET /api/v1/branches/63d6b084-b3db-4a34-a573-6f6bdc4c9ed8 responded 200 in 69 ms
+2026-07-20 17:16:15.736 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:15.748 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 10 ms
+2026-07-20 17:16:15.750 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 74 ms
+2026-07-20 17:16:15.753 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 4 ms
+2026-07-20 17:16:15.762 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 8 ms
+2026-07-20 17:16:15.762 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- RequireFaceRecognition: Office mode requires Face Recognition. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.AttendancePoliciesController.CreatePolicy(CreateAttendancePolicyCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\AttendancePoliciesController.cs:line 47
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:15.768 +03:00 [INF] HTTP GET /api/v1/departments/187dd440-7fd8-41bb-8c52-0641a92c99be responded 200 in 38 ms
+2026-07-20 17:16:15.775 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 20 ms
+2026-07-20 17:16:15.785 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 9 ms
+2026-07-20 17:16:15.785 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- CompanyId: 'Company Id' must not be empty. Severity: Error
+ -- DurationMinutes: 'Duration Minutes' must be greater than '0'. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.BreaksController.CreateBreak(CreateBreakCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\BreaksController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:15.797 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 71 ms
+2026-07-20 17:16:15.804 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 79 ms
+2026-07-20 17:16:15.808 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:15.810 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:15.810 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 77 ms
+2026-07-20 17:16:15.812 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 4 ms
+2026-07-20 17:16:15.814 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:15.823 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 9 ms
+2026-07-20 17:16:15.829 +03:00 [INF] HTTP POST /api/v1/shifts responded 409 in 5 ms
+2026-07-20 17:16:15.848 +03:00 [INF] HTTP DELETE /api/v1/workschedules/7a113894-83a9-48b3-a301-a65387ae5bc5 responded 204 in 33 ms
+2026-07-20 17:16:15.851 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 75 ms
+2026-07-20 17:16:15.851 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 60 ms
+2026-07-20 17:16:15.853 +03:00 [INF] HTTP GET /api/v1/notifications responded 200 in 40 ms
+2026-07-20 17:16:15.855 +03:00 [INF] HTTP GET /api/v1/workschedules/7a113894-83a9-48b3-a301-a65387ae5bc5 responded 404 in 5 ms
+2026-07-20 17:16:15.859 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 5 ms
+2026-07-20 17:16:15.859 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 5 ms
+2026-07-20 17:16:15.870 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 9 ms
+2026-07-20 17:16:15.870 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 10 ms
+2026-07-20 17:16:15.874 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 409 in 3 ms
+2026-07-20 17:16:15.874 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-20 17:16:15.879 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 3 ms
+2026-07-20 17:16:15.893 +03:00 [INF] HTTP DELETE /api/v1/breaks/16382159-bd21-4c23-85a6-e16c72ec93f7 responded 204 in 13 ms
+2026-07-20 17:16:15.904 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 71 ms
+2026-07-20 17:16:15.908 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:15.912 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:15.916 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-20 17:16:15.916 +03:00 [INF] HTTP GET /api/v1/breaks/16382159-bd21-4c23-85a6-e16c72ec93f7 responded 404 in 22 ms
+2026-07-20 17:16:15.927 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 72 ms
+2026-07-20 17:16:15.928 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 69 ms
+2026-07-20 17:16:15.928 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 11 ms
+2026-07-20 17:16:15.933 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:15.933 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 4 ms
+2026-07-20 17:16:15.937 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-20 17:16:15.937 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:15.945 +03:00 [INF] HTTP GET /api/v1/departments responded 200 in 15 ms
+2026-07-20 17:16:15.945 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 7 ms
+2026-07-20 17:16:15.947 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 9 ms
+2026-07-20 17:16:15.949 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 71 ms
+2026-07-20 17:16:15.949 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:15.953 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:15.956 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:15.956 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:15.960 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 3 ms
+2026-07-20 17:16:15.970 +03:00 [INF] HTTP PUT /api/v1/attendancepolicies/2f0235cb-d25c-4062-abcc-8e05b85b115c/activate responded 204 in 3 ms
+2026-07-20 17:16:15.975 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/2f0235cb-d25c-4062-abcc-8e05b85b115c responded 200 in 3 ms
+2026-07-20 17:16:15.977 +03:00 [INF] HTTP GET /api/v1/shifts/work-schedule/3b13e27b-0af8-4da2-bca6-82505ea46ba7 responded 200 in 29 ms
+2026-07-20 17:16:15.978 +03:00 [INF] HTTP GET /api/v1/workschedules responded 200 in 21 ms
+2026-07-20 17:16:15.992 +03:00 [INF] HTTP GET /api/v1/workschedules responded 200 in 10 ms
+2026-07-20 17:16:15.994 +03:00 [INF] HTTP GET /api/v1/shifts/work-schedule/3b13e27b-0af8-4da2-bca6-82505ea46ba7 responded 200 in 12 ms
+2026-07-20 17:16:15.995 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 69 ms
+2026-07-20 17:16:15.996 +03:00 [INF] HTTP PUT /api/v1/attendancepolicies/2f0235cb-d25c-4062-abcc-8e05b85b115c/deactivate responded 204 in 19 ms
+2026-07-20 17:16:16.000 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:16.000 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/2f0235cb-d25c-4062-abcc-8e05b85b115c responded 200 in 4 ms
+2026-07-20 17:16:16.004 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 56 ms
+2026-07-20 17:16:16.005 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:16.009 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-20 17:16:16.018 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 8 ms
+2026-07-20 17:16:16.023 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 4 ms
+2026-07-20 17:16:16.028 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 4 ms
+2026-07-20 17:16:16.034 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 4 ms
+2026-07-20 17:16:16.036 +03:00 [INF] HTTP GET /api/v1/leaves responded 200 in 30 ms
+2026-07-20 17:16:16.038 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 3 ms
+2026-07-20 17:16:16.068 +03:00 [INF] HTTP GET /api/v1/breaks/shift/c3fc8b61-dea5-4018-97a7-d5f6a7287ab3 responded 200 in 29 ms
+2026-07-20 17:16:16.074 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 69 ms
+2026-07-20 17:16:16.075 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 79 ms
+2026-07-20 17:16:16.078 +03:00 [INF] HTTP GET /api/v1/breaks/shift/c3fc8b61-dea5-4018-97a7-d5f6a7287ab3 responded 200 in 6 ms
+2026-07-20 17:16:16.080 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 81 ms
+2026-07-20 17:16:16.081 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:16.081 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:16.085 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.085 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:16.085 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 3 ms
+2026-07-20 17:16:16.088 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.101 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 11 ms
+2026-07-20 17:16:16.101 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 15 ms
+2026-07-20 17:16:16.101 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 63 ms
+2026-07-20 17:16:16.108 +03:00 [INF] HTTP DELETE /api/v1/attendancepolicies/f05e3802-0200-4c16-8ffc-65d833877fa4 responded 204 in 21 ms
+2026-07-20 17:16:16.110 +03:00 [INF] HTTP GET /api/v1/branches responded 200 in 6 ms
+2026-07-20 17:16:16.111 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/f05e3802-0200-4c16-8ffc-65d833877fa4 responded 404 in 2 ms
+2026-07-20 17:16:16.128 +03:00 [INF] HTTP PUT /api/v1/shifts/e7d3093f-bc23-4021-b7ed-3eb3792e00cf responded 204 in 25 ms
+2026-07-20 17:16:16.131 +03:00 [INF] HTTP GET /api/v1/shifts/e7d3093f-bc23-4021-b7ed-3eb3792e00cf responded 200 in 3 ms
+2026-07-20 17:16:16.131 +03:00 [INF] HTTP PUT /api/v1/workschedules/3c2d075f-7a6b-4e2c-a015-a897f0cd7f70/activate responded 204 in 30 ms
+2026-07-20 17:16:16.136 +03:00 [INF] HTTP GET /api/v1/workschedules/3c2d075f-7a6b-4e2c-a015-a897f0cd7f70 responded 200 in 3 ms
+2026-07-20 17:16:16.140 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 58 ms
+2026-07-20 17:16:16.153 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 10 ms
+2026-07-20 17:16:16.154 +03:00 [INF] HTTP PUT /api/v1/workschedules/3c2d075f-7a6b-4e2c-a015-a897f0cd7f70/deactivate responded 204 in 17 ms
+2026-07-20 17:16:16.156 +03:00 [INF] HTTP GET /api/v1/workschedules/3c2d075f-7a6b-4e2c-a015-a897f0cd7f70 responded 200 in 1 ms
+2026-07-20 17:16:16.157 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.161 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-20 17:16:16.166 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 4 ms
+2026-07-20 17:16:16.172 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 57 ms
+2026-07-20 17:16:16.177 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:16.180 +03:00 [INF] HTTP PUT /api/v1/breaks/9ed00edc-7bf6-42a4-8c8f-864e7f6890a7 responded 204 in 11 ms
+2026-07-20 17:16:16.183 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 4 ms
+2026-07-20 17:16:16.185 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 49 ms
+2026-07-20 17:16:16.186 +03:00 [INF] HTTP GET /api/v1/breaks/9ed00edc-7bf6-42a4-8c8f-864e7f6890a7 responded 200 in 5 ms
+2026-07-20 17:16:16.193 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 9 ms
+2026-07-20 17:16:16.196 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:16.197 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 3 ms
+2026-07-20 17:16:16.200 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.206 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 4 ms
+2026-07-20 17:16:16.217 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/search responded 200 in 19 ms
+2026-07-20 17:16:16.219 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 59 ms
+2026-07-20 17:16:16.230 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:16.233 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.237 +03:00 [INF] HTTP POST /api/v1/workschedules responded 409 in 3 ms
+2026-07-20 17:16:16.252 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 54 ms
+2026-07-20 17:16:16.258 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 49 ms
+2026-07-20 17:16:16.258 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:16.262 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:16.262 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.266 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-20 17:16:16.266 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:16.269 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 2 ms
+2026-07-20 17:16:16.270 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-20 17:16:16.269 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- CompanyId: 'Company Id' must not be empty. Severity: Error
+ -- DurationMinutes: 'Duration Minutes' must be greater than '0'. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.BreaksController.CreateBreak(CreateBreakCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\BreaksController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:16.280 +03:00 [INF] HTTP DELETE /api/v1/shifts/ac484485-7f07-4d39-870e-88bc1d47e843 responded 204 in 9 ms
+2026-07-20 17:16:16.291 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 64 ms
+2026-07-20 17:16:16.294 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 53 ms
+2026-07-20 17:16:16.294 +03:00 [INF] HTTP GET /api/v1/shifts/ac484485-7f07-4d39-870e-88bc1d47e843 responded 404 in 3 ms
+2026-07-20 17:16:16.298 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 3 ms
+2026-07-20 17:16:16.301 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 4 ms
+2026-07-20 17:16:16.302 +03:00 [INF] HTTP POST /api/v1/attendancepolicies responded 200 in 3 ms
+2026-07-20 17:16:16.306 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 4 ms
+2026-07-20 17:16:16.326 +03:00 [INF] HTTP PUT /api/v1/workschedules/90c688f6-7172-49c4-a0d5-47cbb50dbb6e responded 204 in 17 ms
+2026-07-20 17:16:16.329 +03:00 [INF] HTTP GET /api/v1/workschedules/90c688f6-7172-49c4-a0d5-47cbb50dbb6e responded 200 in 1 ms
+2026-07-20 17:16:16.336 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 60 ms
+2026-07-20 17:16:16.338 +03:00 [INF] HTTP PUT /api/v1/attendancepolicies/039ff21b-f6a4-4deb-9a39-056cf51912e7 responded 200 in 33 ms
+2026-07-20 17:16:16.340 +03:00 [INF] HTTP GET /api/v1/attendancepolicies/039ff21b-f6a4-4deb-9a39-056cf51912e7 responded 200 in 1 ms
+2026-07-20 17:16:16.340 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:16.344 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 3 ms
+2026-07-20 17:16:16.348 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 3 ms
+2026-07-20 17:16:16.351 +03:00 [INF] HTTP POST /api/v1/breaks responded 200 in 2 ms
+2026-07-20 17:16:16.352 +03:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 54 ms
+2026-07-20 17:16:16.355 +03:00 [INF] HTTP GET /api/v1/breaks/86d6ebbf-f6ef-436f-813b-aecd7103c699 responded 200 in 3 ms
+2026-07-20 17:16:16.356 +03:00 [INF] HTTP POST /api/v1/companies responded 200 in 2 ms
+2026-07-20 17:16:16.359 +03:00 [INF] HTTP POST /api/v1/workschedules responded 200 in 2 ms
+2026-07-20 17:16:16.363 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 2 ms
+2026-07-20 17:16:16.363 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Code: 'Code' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.ShiftsController.CreateShift(CreateShiftCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\ShiftsController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:16.366 +03:00 [INF] HTTP POST /api/v1/shifts responded 200 in 1 ms
+2026-07-20 17:16:16.366 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Code: 'Code' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.ShiftsController.CreateShift(CreateShiftCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\ShiftsController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 26
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-07-20 17:16:16.381 +03:00 [INF] HTTP GET /api/v1/shifts/search responded 200 in 13 ms
