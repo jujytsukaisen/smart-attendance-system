@@ -1,0 +1,46 @@
+src/features/audit-logs/pages/AuditLogDetailsPage.tsx(13,28): error TS2451: Cannot redeclare block-scoped variable 'error'.
+src/features/audit-logs/pages/AuditLogDetailsPage.tsx(13,44): error TS2451: Cannot redeclare block-scoped variable 'error'.
+src/features/branches/pages/BranchDetailsPage.tsx(20,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/branches/pages/BranchDetailsPage.tsx(20,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/branches/pages/BranchDetailsPage.tsx(20,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/branches/pages/BranchDetailsPage.tsx(21,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/branches/pages/EditBranchPage.tsx(41,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/branches/pages/EditBranchPage.tsx(41,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/branches/pages/EditBranchPage.tsx(41,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/branches/pages/EditBranchPage.tsx(42,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/CompanyDetailsPage.tsx(20,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/companies/pages/CompanyDetailsPage.tsx(20,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/CompanyDetailsPage.tsx(20,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/CompanyDetailsPage.tsx(21,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/EditCompanyPage.tsx(41,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/companies/pages/EditCompanyPage.tsx(41,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/EditCompanyPage.tsx(41,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/companies/pages/EditCompanyPage.tsx(42,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/DepartmentDetailsPage.tsx(43,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/departments/pages/DepartmentDetailsPage.tsx(43,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/DepartmentDetailsPage.tsx(43,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/DepartmentDetailsPage.tsx(44,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/EditDepartmentPage.tsx(25,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/departments/pages/EditDepartmentPage.tsx(25,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/EditDepartmentPage.tsx(25,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/departments/pages/EditDepartmentPage.tsx(26,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/devices/pages/DeviceDetailsPage.tsx(70,52): error TS2531: Object is possibly 'null'.
+src/features/devices/pages/DeviceDetailsPage.tsx(70,131): error TS2531: Object is possibly 'null'.
+src/features/devices/pages/DeviceDetailsPage.tsx(71,15): error TS2531: Object is possibly 'null'.
+src/features/devices/pages/EditDevicePage.tsx(37,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/devices/pages/EditDevicePage.tsx(37,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/devices/pages/EditDevicePage.tsx(37,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/devices/pages/EditDevicePage.tsx(38,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EditEmployeePage.tsx(31,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/employees/pages/EditEmployeePage.tsx(31,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EditEmployeePage.tsx(31,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EditEmployeePage.tsx(32,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EmployeeDetailsPage.tsx(25,12): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+src/features/employees/pages/EmployeeDetailsPage.tsx(25,45): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EmployeeDetailsPage.tsx(25,111): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/employees/pages/EmployeeDetailsPage.tsx(26,21): error TS2339: Property 'message' does not exist on type 'never'.
+src/features/notifications/pages/NotificationDetailsPage.tsx(14,28): error TS2451: Cannot redeclare block-scoped variable 'error'.
+src/features/notifications/pages/NotificationDetailsPage.tsx(14,44): error TS2451: Cannot redeclare block-scoped variable 'error'.
+src/features/reports/pages/AttendanceReportsPage.tsx(31,52): error TS2531: Object is possibly 'null'.
+src/features/reports/pages/AttendanceReportsPage.tsx(31,131): error TS2531: Object is possibly 'null'.
+src/features/reports/pages/AttendanceReportsPage.tsx(32,15): error TS2531: Object is possibly 'null'.
