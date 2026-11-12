@@ -7,17 +7,51 @@ interface AttendanceDetailsCardProps {
   attendance: AttendanceDetailsDto;
 }
 
-const getMethodName = (method?: CheckInMethod) => {
-  switch (method) {
-    case CheckInMethod.FaceRecognition: return 'Face Recognition';
-    case CheckInMethod.GPS: return 'GPS';
-    case CheckInMethod.BiometricDevice: return 'Biometric Device';
-    case CheckInMethod.Web: return 'Web';
-    case CheckInMethod.Mobile: return 'Mobile';
-    case CheckInMethod.Manual: return 'Manual';
-    default: return 'Unknown';
+const getMethodName = (method?: CheckInMethod | string | number) => {
+  const m = String(method || '').toLowerCase();
+  switch (m) {
+    case 'facerecognition':
+    case '1':
+      return 'Face Recognition';
+    case 'gps':
+    case '2':
+      return 'GPS';
+    case 'biometricdevice':
+    case '3':
+      return 'Biometric Device';
+    case 'web':
+    case '4':
+      return 'Web';
+    case 'mobile':
+    case '5':
+      return 'Mobile';
+    case 'manual':
+    case '6':
+      return 'Manual';
+    default:
+      return String(method || 'Unknown');
   }
 };
+
+function formatUtcDateTime(dateStr?: string | null, formatPattern: string = 'PPpp'): string {
+  if (!dateStr) return '-';
+  let s = dateStr.trim();
+  if (s.includes('T') && !s.endsWith('Z') && !s.includes('+') && !s.match(/-\d\d:\d\d$/)) {
+    s += 'Z';
+  }
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return dateStr;
+  return format(d, formatPattern);
+}
+
+function formatDuration(minutes: number): string {
+  if (!minutes || minutes <= 0) return '0m';
+  const h = Math.floor(minutes / 60);
+  const m = Math.floor(minutes % 60);
+  if (h > 0 && m > 0) return `${h}h ${m}m`;
+  if (h > 0) return `${h}h`;
+  return `${m}m`;
+}
 
 export function AttendanceDetailsCard({ attendance }: AttendanceDetailsCardProps) {
   return (
@@ -30,26 +64,53 @@ export function AttendanceDetailsCard({ attendance }: AttendanceDetailsCardProps
           </div>
         </CardHeader>
         <CardContent>
-          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-8">
+          <dl className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-6">
             <div className="sm:col-span-1">
-              <dt className="text-sm font-medium text-gray-500">Employee ID</dt>
-              <dd className="mt-1 text-sm text-gray-900">{attendance.employeeId}</dd>
+              <dt className="text-sm font-medium text-gray-500">Employee</dt>
+              <dd className="mt-1 text-sm font-semibold text-gray-900">
+                {attendance.employeeName || 'Unknown Employee'}
+              </dd>
+              <dd className="text-xs text-gray-500 font-mono">
+                {attendance.employeeNumber ? `ID: ${attendance.employeeNumber}` : attendance.employeeId}
+              </dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Shift</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {attendance.shiftName || attendance.shiftId || 'Standard Shift'}
+              </dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Policy</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {attendance.policyName || attendance.attendancePolicyId || 'Standard Policy'}
+              </dd>
             </div>
             <div className="sm:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Total Working Time</dt>
-              <dd className="mt-1 text-sm text-gray-900">{Math.floor(attendance.workingMinutes / 60)}h {attendance.workingMinutes % 60}m</dd>
+              <dd className="mt-1 text-sm text-gray-900">{formatDuration(attendance.workingMinutes)}</dd>
             </div>
             <div className="sm:col-span-1">
-              <dt className="text-sm font-medium text-gray-500">Late / Early Leave</dt>
+              <dt className="text-sm font-medium text-gray-500">Late</dt>
               <dd className="mt-1 text-sm text-gray-900">
-                {attendance.lateMinutes > 0 && <span className="text-yellow-600 block">{attendance.lateMinutes} mins late</span>}
-                {attendance.earlyLeaveMinutes > 0 && <span className="text-orange-600 block">{attendance.earlyLeaveMinutes} mins early leave</span>}
-                {attendance.lateMinutes === 0 && attendance.earlyLeaveMinutes === 0 && 'On time'}
+                {attendance.lateMinutes > 0 ? <span className="text-yellow-600">{formatDuration(attendance.lateMinutes)}</span> : '0m'}
+              </dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Early Leave</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {attendance.earlyLeaveMinutes > 0 ? <span className="text-orange-600">{formatDuration(attendance.earlyLeaveMinutes)}</span> : '0m'}
               </dd>
             </div>
             <div className="sm:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Overtime</dt>
-              <dd className="mt-1 text-sm text-gray-900">{attendance.overtimeMinutes} mins</dd>
+              <dd className="mt-1 text-sm text-gray-900">{formatDuration(attendance.overtimeMinutes)}</dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Excess Break</dt>
+              <dd className="mt-1 text-sm text-gray-900">
+                {attendance.excessBreakMinutes > 0 ? <span className="text-red-600">{formatDuration(attendance.excessBreakMinutes)}</span> : '0m'}
+              </dd>
             </div>
           </dl>
         </CardContent>
@@ -64,7 +125,7 @@ export function AttendanceDetailsCard({ attendance }: AttendanceDetailsCardProps
             <dl className="space-y-4">
               <div>
                 <dt className="text-sm font-medium text-gray-500">Time</dt>
-                <dd className="mt-1 text-sm text-gray-900">{format(new Date(attendance.checkInTime), 'PPpp')}</dd>
+                <dd className="mt-1 text-sm text-gray-900">{formatUtcDateTime(attendance.checkInTime, 'PPpp')}</dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Method</dt>
@@ -91,7 +152,7 @@ export function AttendanceDetailsCard({ attendance }: AttendanceDetailsCardProps
               <dl className="space-y-4">
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Time</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{format(new Date(attendance.checkOutTime), 'PPpp')}</dd>
+                  <dd className="mt-1 text-sm text-gray-900">{formatUtcDateTime(attendance.checkOutTime, 'PPpp')}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Method</dt>

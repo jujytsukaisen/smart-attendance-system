@@ -34,7 +34,6 @@ public sealed class BranchConfiguration : IEntityTypeConfiguration<Branch>
             .HasPrecision(10, 2);
 
         builder.Property(b => b.TimeZone)
-            .IsRequired()
             .HasMaxLength(100);
 
         builder.Property(b => b.IsHeadOffice)

@@ -79,9 +79,9 @@ public class UpdateEmployeeCommandHandler : IRequestHandler<UpdateEmployeeComman
         if (employee == null)
             return Result.Failure(new[] { "Employee not found." });
 
-        var duplicateEmail = await _context.Employees.AnyAsync(e => e.Id != request.EmployeeId && e.Email.Value == request.Email, cancellationToken);
+        var duplicateEmail = await _context.Employees.AnyAsync(e => e.Id != request.EmployeeId && e.CompanyId == employee.CompanyId && e.Email.Value == request.Email, cancellationToken);
         if (duplicateEmail)
-            return Result.Failure(new[] { "Email already exists." });
+            return Result.Failure(new[] { "Email already exists in this company." });
 
         employee.UpdatePersonalInformation(
             request.FirstName,

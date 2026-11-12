@@ -23,6 +23,7 @@ public class RoleDto : IMapFrom<Role>
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public bool IsActive { get; set; }
+    public System.Collections.Generic.List<SmartAttendance.Application.Features.Permissions.Queries.PermissionDto> Permissions { get; set; } = new();
 
     public void Mapping(Profile profile)
     {

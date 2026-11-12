@@ -47,5 +47,49 @@ public class RolesController : ApiControllerBase
     {
         return HandleResult(await Mediator.Send(new DeleteRoleCommand { RoleId = id }));
     }
-}
 
+    // ────────────────────────────────────────────────
+    // Status management
+    // ────────────────────────────────────────────────
+
+    [HttpPost("{id}/activate")]
+    [Authorize(Policy = "Permission:Roles.Update")]
+    public async Task<IActionResult> ActivateRole(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new ActivateRoleCommand { RoleId = id }));
+    }
+
+    [HttpPost("{id}/deactivate")]
+    [Authorize(Policy = "Permission:Roles.Update")]
+    public async Task<IActionResult> DeactivateRole(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new DeactivateRoleCommand { RoleId = id }));
+    }
+
+    // ────────────────────────────────────────────────
+    // Permission assignment
+    // ────────────────────────────────────────────────
+
+    /// <summary>
+    /// Assigns permissions to a role. Sends { permissionIds: string[] } in body.
+    /// </summary>
+    [HttpPost("{id}/assign-permissions")]
+    [Authorize(Policy = "Permission:Roles.Update")]
+    public async Task<IActionResult> AssignPermissions(Guid id, [FromBody] AssignPermissionsCommand command)
+    {
+        command.RoleId = id;
+        return HandleResult(await Mediator.Send(command));
+    }
+
+    // ────────────────────────────────────────────────
+    // Clone
+    // ────────────────────────────────────────────────
+
+    [HttpPost("{id}/clone")]
+    [Authorize(Policy = "Permission:Roles.Create")]
+    public async Task<IActionResult> CloneRole(Guid id, [FromBody] CloneRoleCommand command)
+    {
+        command.SourceRoleId = id;
+        return HandleResult(await Mediator.Send(command));
+    }
+}

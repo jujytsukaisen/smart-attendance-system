@@ -14,6 +14,7 @@ public class DepartmentDto : IMapFrom<Department>
     public string Code { get; set; } = string.Empty;
     public string? Description { get; set; }
     public Guid? ManagerId { get; set; }
+    public bool RequiresLocationValidation { get; set; }
     public bool IsActive { get; set; }
 
     public void Mapping(Profile profile)

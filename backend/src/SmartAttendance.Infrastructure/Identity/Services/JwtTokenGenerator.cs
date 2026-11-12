@@ -19,26 +19,34 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _configuration = configuration;
     }
 
-    public string GenerateAccessToken(ApplicationUser user, IList<string> roles, IList<string> permissions)
+    public string GenerateAccessToken(ApplicationUser user, IList<string> roles, IList<string> permissions, Guid? companyId = null)
     {
         var jwtSettings = _configuration.GetSection("JwtSettings");
         var secret = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret not found.");
         var issuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("JWT Issuer not found.");
         var audience = jwtSettings["Audience"] ?? throw new InvalidOperationException("JWT Audience not found.");
-        var expirationMinutes = int.Parse(jwtSettings["ExpirationMinutes"] ?? "60");
+        var expirationMinutes = int.Parse(jwtSettings["ExpiryInMinutes"] ?? "60");
+
+        // 👇 DEBUG - احذفها بعد التشخيص
+        Console.WriteLine($"[JWT GEN DEBUG] Secret used: '{secret}'");
+        Console.WriteLine($"[JWT GEN DEBUG] Secret length: {secret.Length}");
+        Console.WriteLine($"[JWT GEN DEBUG] Issuer: '{issuer}'");
+        Console.WriteLine($"[JWT GEN DEBUG] Audience: '{audience}'");
 
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.DomainUserId.ToString()), // ← Domain User ID (Mapped to NameIdentifier by default)
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.DomainUserId.ToString()), // ← Domain User ID (FK in Notifications)
+            new Claim("IdentityUserId", user.Id.ToString()),                     // ← ASP.NET Identity user ID
             new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
             new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
         };
 
-        if (user.CompanyId.HasValue)
+        var actualCompanyId = companyId ?? user.CompanyId;
+        if (actualCompanyId.HasValue)
         {
-            claims.Add(new Claim("CompanyId", user.CompanyId.Value.ToString()));
+            claims.Add(new Claim("CompanyId", actualCompanyId.Value.ToString()));
         }
 
         foreach (var role in roles)

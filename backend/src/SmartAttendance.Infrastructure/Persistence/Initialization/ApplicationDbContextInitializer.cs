@@ -22,19 +22,22 @@ public class ApplicationDbContextInitializer : IApplicationDbContextInitializer
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly Microsoft.Extensions.Configuration.IConfiguration _configuration;
+    private readonly SmartAttendance.Application.Common.Interfaces.ISystemExecutionContext _systemExecutionContext;
 
     public ApplicationDbContextInitializer(
         ILogger<ApplicationDbContextInitializer> logger,
         ApplicationDbContext context,
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
-        Microsoft.Extensions.Configuration.IConfiguration configuration)
+        Microsoft.Extensions.Configuration.IConfiguration configuration,
+        SmartAttendance.Application.Common.Interfaces.ISystemExecutionContext systemExecutionContext)
     {
         _logger = logger;
         _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
         _configuration = configuration;
+        _systemExecutionContext = systemExecutionContext;
     }
 
     public async Task InitializeAsync()
@@ -69,6 +72,9 @@ public class ApplicationDbContextInitializer : IApplicationDbContextInitializer
     private async Task TrySeedAsync()
     {
         _logger.LogInformation("Started database seeding process.");
+
+        // Bypass tenant filters during seeding
+        using var systemScope = _systemExecutionContext.BeginSystemOperation();
 
         var executionStrategy = _context.Database.CreateExecutionStrategy();
 

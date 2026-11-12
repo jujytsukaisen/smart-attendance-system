@@ -51,14 +51,12 @@ public class AuthenticationService : IAuthenticationService
 
         await _userManager.ResetAccessFailedCountAsync(user);
 
-        var roles = await _userManager.GetRolesAsync(user);
+        var rolesList = (await _userManager.GetRolesAsync(user)).ToList();
         
-        // Load claims to extract permissions
         var userClaims = await _userManager.GetClaimsAsync(user);
         var permissions = userClaims.Where(c => c.Type == "Permission").Select(c => c.Value).ToList();
 
-        // Also add role claims
-        foreach (var role in roles)
+        foreach (var role in rolesList)
         {
             var roleEntity = await _roleManager.FindByNameAsync(role);
             if (roleEntity != null)
@@ -67,10 +65,24 @@ public class AuthenticationService : IAuthenticationService
                 permissions.AddRange(roleClaims.Where(rc => rc.Type == "Permission").Select(rc => rc.Value));
             }
         }
-        
+        var domainUser = await _dbContext.Users
+            .IgnoreQueryFilters()
+            .Include(u => u.Roles)
+                .ThenInclude(r => r.Permissions)
+            .Where(u => !u.IsDeleted)
+            .FirstOrDefaultAsync(u => u.Id == user.DomainUserId);
+
+        if (domainUser != null)
+        {
+            foreach (var r in domainUser.Roles)
+            {
+                permissions.AddRange(r.Permissions.Select(p => p.Code));
+            }
+        }
+
         permissions = permissions.Distinct().ToList();
 
-        var token = _jwtTokenGenerator.GenerateAccessToken(user, roles, permissions);
+        var token = _jwtTokenGenerator.GenerateAccessToken(user, rolesList, permissions, domainUser?.CompanyId);
         var refreshToken = _jwtTokenGenerator.GenerateRefreshToken(user.Id);
 
         _dbContext.RefreshTokens.Add(refreshToken);
@@ -134,11 +146,11 @@ public class AuthenticationService : IAuthenticationService
 
         refreshToken.RevokedAt = DateTime.UtcNow;
 
-        var roles = await _userManager.GetRolesAsync(refreshToken.User);
+        var rolesList = (await _userManager.GetRolesAsync(refreshToken.User)).ToList();
         var claims = await _userManager.GetClaimsAsync(refreshToken.User);
         var permissions = claims.Where(c => c.Type == "Permission").Select(c => c.Value).ToList();
 
-        foreach (var role in roles)
+        foreach (var role in rolesList)
         {
             var roleEntity = await _roleManager.FindByNameAsync(role);
             if (roleEntity != null)
@@ -147,10 +159,24 @@ public class AuthenticationService : IAuthenticationService
                 permissions.AddRange(roleClaims.Where(rc => rc.Type == "Permission").Select(rc => rc.Value));
             }
         }
-        
+        var domainUser = await _dbContext.Users
+            .IgnoreQueryFilters()
+            .Include(u => u.Roles)
+                .ThenInclude(r => r.Permissions)
+            .Where(u => !u.IsDeleted)
+            .FirstOrDefaultAsync(u => u.Id == refreshToken.User.DomainUserId);
+
+        if (domainUser != null)
+        {
+            foreach (var r in domainUser.Roles)
+            {
+                permissions.AddRange(r.Permissions.Select(p => p.Code));
+            }
+        }
+
         permissions = permissions.Distinct().ToList();
 
-        var newJwtToken = _jwtTokenGenerator.GenerateAccessToken(refreshToken.User, roles, permissions);
+        var newJwtToken = _jwtTokenGenerator.GenerateAccessToken(refreshToken.User, rolesList, permissions, domainUser?.CompanyId);
         var newRefreshToken = _jwtTokenGenerator.GenerateRefreshToken(refreshToken.UserId);
 
         refreshToken.ReplacedByToken = newRefreshToken.Token;

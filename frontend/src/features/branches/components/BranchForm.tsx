@@ -29,6 +29,7 @@ interface BranchFormProps {
 }
 
 export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps) => {
+  console.log("BranchForm initialData:", initialData);
   const form = useForm<CreateBranchCommand>({
     resolver: zodResolver(updateBranchSchema) as any,
     defaultValues: initialData || {
@@ -42,10 +43,10 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
       addressZipCode: '',
       phoneNumber: '',
       email: '',
-      latitude: 0,
-      longitude: 0,
-      allowedRadiusMeters: 50,
-      timeZone: 'UTC',
+      latitude: undefined,
+      longitude: undefined,
+      allowedRadiusMeters: undefined,
+      timeZone: '',
       isHeadOffice: false,
     },
   });
@@ -55,6 +56,17 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
     pageSize: 100, // Fetch up to 100 companies for the dropdown
     isActive: true,
   });
+
+  const companyItems = (companiesData?.items || []).map((c) => ({
+    value: c.id,
+    label: c.name,
+  }));
+
+  const timeZoneItems = [
+    { value: "UTC", label: "UTC (Universal Coordinated Time)" },
+    { value: "America/New_York", label: "EST (Eastern Standard Time)" },
+    { value: "Europe/London", label: "GMT (Greenwich Mean Time)" },
+  ];
 
   return (
     <Form {...form}>
@@ -66,18 +78,27 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
             render={({ field }) => (
               <FormItem className="col-span-1 md:col-span-2">
                 <FormLabel>Company</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoadingCompanies}>
+                <Select 
+                  items={companyItems}
+                  onValueChange={field.onChange} 
+                  value={field.value} 
+                  disabled={isLoadingCompanies}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder={isLoadingCompanies ? "Loading companies..." : "Select a company"} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {companiesData?.items.map((company) => (
-                      <SelectItem key={company.id} value={company.id}>
-                        {company.name}
-                      </SelectItem>
-                    ))}
+                    {(!companiesData?.items || companiesData.items.length === 0) ? (
+                      <SelectItem value="none" disabled>No active companies available</SelectItem>
+                    ) : (
+                      companiesData.items.map((company) => (
+                        <SelectItem key={company.id} value={company.id}>
+                          {company.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -141,8 +162,22 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
             />
           </div>
 
-          <div className="col-span-1 md:col-span-2 border-t pt-4 mt-2">
+          <div className="col-span-1 md:col-span-2 border-t pt-4 mt-2 flex items-center justify-between">
             <h3 className="text-lg font-medium mb-4">Location Settings</h3>
+            <Button 
+              type="button" 
+              variant="outline" 
+              size="sm"
+              className="mb-4"
+              onClick={() => {
+                form.setValue('latitude', null as any, { shouldDirty: true, shouldValidate: true });
+                form.setValue('longitude', null as any, { shouldDirty: true, shouldValidate: true });
+                form.setValue('allowedRadiusMeters', null as any, { shouldDirty: true, shouldValidate: true });
+                form.setValue('timeZone', '', { shouldDirty: true, shouldValidate: true });
+              }}
+            >
+              Clear Location
+            </Button>
           </div>
 
           <FormField
@@ -152,7 +187,7 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
               <FormItem>
                 <FormLabel>Latitude</FormLabel>
                 <FormControl>
-                  <Input type="number" step="any" placeholder="40.7128" {...field} />
+                  <Input type="number" step="any" placeholder="Optional" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : parseFloat(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -165,7 +200,7 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
               <FormItem>
                 <FormLabel>Longitude</FormLabel>
                 <FormControl>
-                  <Input type="number" step="any" placeholder="-74.0060" {...field} />
+                  <Input type="number" step="any" placeholder="Optional" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : parseFloat(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -179,7 +214,7 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
               <FormItem>
                 <FormLabel>Allowed Radius (Meters)</FormLabel>
                 <FormControl>
-                  <Input type="number" min="1" placeholder="50" {...field} />
+                  <Input type="number" min="1" placeholder="Optional" {...field} value={field.value ?? ''} onChange={e => field.onChange(e.target.value === '' ? null : parseInt(e.target.value))} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -191,10 +226,10 @@ export const BranchForm = ({ initialData, onSubmit, isLoading }: BranchFormProps
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Time Zone</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select items={timeZoneItems} onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a timezone" />
+                      <SelectValue placeholder="Select a timezone (Optional)" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>

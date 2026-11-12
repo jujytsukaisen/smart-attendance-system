@@ -1,0 +1,133 @@
+2026-08-27 00:27:04.997 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-08-27 00:27:05.858 +03:00 [INF] Started database seeding process.
+2026-08-27 00:27:06.947 +03:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-08-27 00:27:07.227 +03:00 [INF] Database seeding completed successfully.
+2026-08-27 00:27:07.233 +03:00 [INF] Starting Web Host
+2026-08-27 00:27:07.302 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-08-27 00:32:19.648 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:19.648 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:19.653 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-08-27 00:32:19.767 +03:00 [INF] HTTP OPTIONS /api/v1/Notifications/unread-count responded 204 in 118 ms
+2026-08-27 00:32:19.767 +03:00 [INF] HTTP OPTIONS /api/v1/Notifications responded 204 in 118 ms
+2026-08-27 00:32:19.805 +03:00 [INF] Authorization Header: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGNiN2FjOC0xOTNmLTQyZWYtM2I0ZC0wOGRlZTk2N2NlMjgiLCJqdGkiOiJmNDcxZTk3ZS04MDk4LTRhNDctYjU4YS05M2RlM2JiYjQ0ZjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQwY2I3YWM4LTE5M2YtNDJlZi0zYjRkLTA4ZGVlOTY3Y2UyOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHNtYXJ0YXR0ZW5kYW5jZS5sb2NhbCIsIkNvbXBhbnlJZCI6ImVjNGNhMTM1LTIyNTMtNDkzMy04ZDVkLWFjZDU1MWZhMDI3NSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJQZXJtaXNzaW9uIjpbIkRlcGFydG1lbnRzLlVwZGF0ZSIsIlVzZXJzLlZpZXciLCJVc2Vycy5VcGRhdGUiLCJMZWF2ZXMuRGVsZXRlIiwiQXVkaXRMb2dzLlZpZXciLCJQZXJtaXNzaW9ucy5VcGRhdGUiLCJOb3RpZmljYXRpb25zLlZpZXciLCJTZXR0aW5ncy5EZWxldGUiLCJDb21wYW5pZXMuVmlldyIsIk5vdGlmaWNhdGlvbnMuVXBkYXRlIiwiQnJhbmNoZXMuQ3JlYXRlIiwiSG9saWRheXMuVmlldyIsIlBlcm1pc3Npb25zLkNyZWF0ZSIsIkF1ZGl0TG9ncy5VcGRhdGUiLCJTaGlmdHMuQ3JlYXRlIiwiQXR0ZW5kYW5jZVBvbGljaWVzLkRlbGV0ZSIsIkxlYXZlcy5DcmVhdGUiLCJMZWF2ZXMuRXhwb3J0IiwiQXR0ZW5kYW5jZVBvbGljaWVzLkNyZWF0ZSIsIkhvbGlkYXlzLkRlbGV0ZSIsIkhvbGlkYXlzLkNyZWF0ZSIsIkxlYXZlcy5BcHByb3ZlIiwiQ29tcGFuaWVzLlVwZGF0ZSIsIk5vdGlmaWNhdGlvbnMuQ3JlYXRlIiwiUmVwb3J0cy5WaWV3IiwiQXR0ZW5kYW5jZS5SZWplY3QiLCJBdHRlbmRhbmNlLkNyZWF0ZSIsIkVtcGxveWVlcy5WaWV3IiwiTGVhdmVzLlVwZGF0ZSIsIkVtcGxveWVlcy5VcGRhdGUiLCJBdHRlbmRhbmNlLlVwZGF0ZSIsIlJlcG9ydHMuVXBkYXRlIiwiUmVwb3J0cy5FeHBvcnQiLCJXb3JrU2NoZWR1bGVzLkNyZWF0ZSIsIlJvbGVzLlVwZGF0ZSIsIkVtcGxveWVlcy5EZWxldGUiLCJVc2Vycy5DcmVhdGUiLCJDb21wYW5pZXMuRGVsZXRlIiwiV29ya1NjaGVkdWxlcy5WaWV3IiwiUmVwb3J0cy5EZWxldGUiLCJTZXR0aW5ncy5NYW5hZ2UiLCJCcmVha3MuVmlldyIsIkRlcGFydG1lbnRzLkRlbGV0ZSIsIkF0dGVuZGFuY2UuRXhwb3J0IiwiSG9saWRheXMuVXBkYXRlIiwiUmVwb3J0cy5DcmVhdGUiLCJSb2xlcy5EZWxldGUiLCJMZWF2ZXMuUmVqZWN0IiwiRGVwYXJ0bWVudHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuVmlldyIsIlNoaWZ0cy5WaWV3IiwiQnJhbmNoZXMuRGVsZXRlIiwiQXR0ZW5kYW5jZS5EZWxldGUiLCJBdWRpdExvZ3MuRXhwb3J0IiwiQXVkaXRMb2dzLkNyZWF0ZSIsIkF0dGVuZGFuY2VQb2xpY2llcy5WaWV3IiwiQ29tcGFuaWVzLk1hbmFnZSIsIk5vdGlmaWNhdGlvbnMuRGVsZXRlIiwiQXR0ZW5kYW5jZS5WaWV3IiwiQ29tcGFuaWVzLkNyZWF0ZSIsIkJyYW5jaGVzLlVwZGF0ZSIsIlNoaWZ0cy5VcGRhdGUiLCJCcmFuY2hlcy5WaWV3IiwiTGVhdmVzLlZpZXciLCJCcmVha3MuQ3JlYXRlIiwiU2V0dGluZ3MuVXBkYXRlIiwiQnJlYWtzLkRlbGV0ZSIsIlJvbGVzLkNyZWF0ZSIsIlNldHRpbmdzLkNyZWF0ZSIsIkF0dGVuZGFuY2UuQXBwcm92ZSIsIkVtcGxveWVlcy5DcmVhdGUiLCJXb3JrU2NoZWR1bGVzLlVwZGF0ZSIsIkRlcGFydG1lbnRzLlZpZXciLCJTZXR0aW5ncy5WaWV3IiwiQXR0ZW5kYW5jZVBvbGljaWVzLlVwZGF0ZSIsIkF1ZGl0TG9ncy5EZWxldGUiLCJVc2Vycy5EZWxldGUiLCJTaGlmdHMuRGVsZXRlIiwiQnJlYWtzLlVwZGF0ZSIsIlJvbGVzLlZpZXciLCJQZXJtaXNzaW9ucy5EZWxldGUiLCJXb3JrU2NoZWR1bGVzLkRlbGV0ZSIsIkZhY2VQcm9maWxlcy5EZWxldGUiLCJGYWNlUHJvZmlsZXMuQ3JlYXRlIiwiRmFjZVByb2ZpbGVzLlVwZGF0ZSIsIkZhY2VQcm9maWxlcy5WaWV3Il0sImV4cCI6MTc4NjQ2MDU4MiwiaXNzIjoiU21hcnRBdHRlbmRhbmNlIiwiYXVkIjoiU21hcnRBdHRlbmRhbmNlQ2xpZW50In0.6p4w7ARPIm1aXlDn-hfurOiY6XEVMUM8Prpoy-GbrG4
+2026-08-27 00:32:19.806 +03:00 [INF] Authorization Header: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGNiN2FjOC0xOTNmLTQyZWYtM2I0ZC0wOGRlZTk2N2NlMjgiLCJqdGkiOiJmNDcxZTk3ZS04MDk4LTRhNDctYjU4YS05M2RlM2JiYjQ0ZjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQwY2I3YWM4LTE5M2YtNDJlZi0zYjRkLTA4ZGVlOTY3Y2UyOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHNtYXJ0YXR0ZW5kYW5jZS5sb2NhbCIsIkNvbXBhbnlJZCI6ImVjNGNhMTM1LTIyNTMtNDkzMy04ZDVkLWFjZDU1MWZhMDI3NSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlN1cGVyQWRtaW4iLCJQZXJtaXNzaW9uIjpbIkRlcGFydG1lbnRzLlVwZGF0ZSIsIlVzZXJzLlZpZXciLCJVc2Vycy5VcGRhdGUiLCJMZWF2ZXMuRGVsZXRlIiwiQXVkaXRMb2dzLlZpZXciLCJQZXJtaXNzaW9ucy5VcGRhdGUiLCJOb3RpZmljYXRpb25zLlZpZXciLCJTZXR0aW5ncy5EZWxldGUiLCJDb21wYW5pZXMuVmlldyIsIk5vdGlmaWNhdGlvbnMuVXBkYXRlIiwiQnJhbmNoZXMuQ3JlYXRlIiwiSG9saWRheXMuVmlldyIsIlBlcm1pc3Npb25zLkNyZWF0ZSIsIkF1ZGl0TG9ncy5VcGRhdGUiLCJTaGlmdHMuQ3JlYXRlIiwiQXR0ZW5kYW5jZVBvbGljaWVzLkRlbGV0ZSIsIkxlYXZlcy5DcmVhdGUiLCJMZWF2ZXMuRXhwb3J0IiwiQXR0ZW5kYW5jZVBvbGljaWVzLkNyZWF0ZSIsIkhvbGlkYXlzLkRlbGV0ZSIsIkhvbGlkYXlzLkNyZWF0ZSIsIkxlYXZlcy5BcHByb3ZlIiwiQ29tcGFuaWVzLlVwZGF0ZSIsIk5vdGlmaWNhdGlvbnMuQ3JlYXRlIiwiUmVwb3J0cy5WaWV3IiwiQXR0ZW5kYW5jZS5SZWplY3QiLCJBdHRlbmRhbmNlLkNyZWF0ZSIsIkVtcGxveWVlcy5WaWV3IiwiTGVhdmVzLlVwZGF0ZSIsIkVtcGxveWVlcy5VcGRhdGUiLCJBdHRlbmRhbmNlLlVwZGF0ZSIsIlJlcG9ydHMuVXBkYXRlIiwiUmVwb3J0cy5FeHBvcnQiLCJXb3JrU2NoZWR1bGVzLkNyZWF0ZSIsIlJvbGVzLlVwZGF0ZSIsIkVtcGxveWVlcy5EZWxldGUiLCJVc2Vycy5DcmVhdGUiLCJDb21wYW5pZXMuRGVsZXRlIiwiV29ya1NjaGVkdWxlcy5WaWV3IiwiUmVwb3J0cy5EZWxldGUiLCJTZXR0aW5ncy5NYW5hZ2UiLCJCcmVha3MuVmlldyIsIkRlcGFydG1lbnRzLkRlbGV0ZSIsIkF0dGVuZGFuY2UuRXhwb3J0IiwiSG9saWRheXMuVXBkYXRlIiwiUmVwb3J0cy5DcmVhdGUiLCJSb2xlcy5EZWxldGUiLCJMZWF2ZXMuUmVqZWN0IiwiRGVwYXJ0bWVudHMuQ3JlYXRlIiwiUGVybWlzc2lvbnMuVmlldyIsIlNoaWZ0cy5WaWV3IiwiQnJhbmNoZXMuRGVsZXRlIiwiQXR0ZW5kYW5jZS5EZWxldGUiLCJBdWRpdExvZ3MuRXhwb3J0IiwiQXVkaXRMb2dzLkNyZWF0ZSIsIkF0dGVuZGFuY2VQb2xpY2llcy5WaWV3IiwiQ29tcGFuaWVzLk1hbmFnZSIsIk5vdGlmaWNhdGlvbnMuRGVsZXRlIiwiQXR0ZW5kYW5jZS5WaWV3IiwiQ29tcGFuaWVzLkNyZWF0ZSIsIkJyYW5jaGVzLlVwZGF0ZSIsIlNoaWZ0cy5VcGRhdGUiLCJCcmFuY2hlcy5WaWV3IiwiTGVhdmVzLlZpZXciLCJCcmVha3MuQ3JlYXRlIiwiU2V0dGluZ3MuVXBkYXRlIiwiQnJlYWtzLkRlbGV0ZSIsIlJvbGVzLkNyZWF0ZSIsIlNldHRpbmdzLkNyZWF0ZSIsIkF0dGVuZGFuY2UuQXBwcm92ZSIsIkVtcGxveWVlcy5DcmVhdGUiLCJXb3JrU2NoZWR1bGVzLlVwZGF0ZSIsIkRlcGFydG1lbnRzLlZpZXciLCJTZXR0aW5ncy5WaWV3IiwiQXR0ZW5kYW5jZVBvbGljaWVzLlVwZGF0ZSIsIkF1ZGl0TG9ncy5EZWxldGUiLCJVc2Vycy5EZWxldGUiLCJTaGlmdHMuRGVsZXRlIiwiQnJlYWtzLlVwZGF0ZSIsIlJvbGVzLlZpZXciLCJQZXJtaXNzaW9ucy5EZWxldGUiLCJXb3JrU2NoZWR1bGVzLkRlbGV0ZSIsIkZhY2VQcm9maWxlcy5EZWxldGUiLCJGYWNlUHJvZmlsZXMuQ3JlYXRlIiwiRmFjZVByb2ZpbGVzLlVwZGF0ZSIsIkZhY2VQcm9maWxlcy5WaWV3Il0sImV4cCI6MTc4NjQ2MDU4MiwiaXNzIjoiU21hcnRBdHRlbmRhbmNlIiwiYXVkIjoiU21hcnRBdHRlbmRhbmNlQ2xpZW50In0.6p4w7ARPIm1aXlDn-hfurOiY6XEVMUM8Prpoy-GbrG4
+2026-08-27 00:32:19.985 +03:00 [INF] HTTP GET /api/v1/Notifications responded 401 in 180 ms
+2026-08-27 00:32:19.985 +03:00 [INF] HTTP GET /api/v1/Notifications/unread-count responded 401 in 179 ms
+2026-08-27 00:32:20.001 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:20.002 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/refresh-token responded 204 in 1 ms
+2026-08-27 00:32:20.003 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:20.007 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/refresh-token responded 204 in 3 ms
+2026-08-27 00:32:20.007 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:20.010 +03:00 [INF] Authorization Header: 
+2026-08-27 00:32:20.115 +03:00 [INF] SmartAttendance Request: RefreshTokenCommand   {"Token":"","RefreshToken":"s3mrzIC/UYdk1/Ye+A4X34jFyuvYlrvqOm3q72LSKSk=","$type":"RefreshTokenCommand"}
+2026-08-27 00:32:20.115 +03:00 [INF] SmartAttendance Request: RefreshTokenCommand   {"Token":"","RefreshToken":"s3mrzIC/UYdk1/Ye+A4X34jFyuvYlrvqOm3q72LSKSk=","$type":"RefreshTokenCommand"}
+2026-08-27 00:32:20.157 +03:00 [ERR] SmartAttendance Request: Unhandled Exception for Request RefreshTokenCommand {"Token":"","RefreshToken":"s3mrzIC/UYdk1/Ye+A4X34jFyuvYlrvqOm3q72LSKSk=","$type":"RefreshTokenCommand"}
+FluentValidation.ValidationException: Validation failed: 
+ -- Token: 'Token' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+2026-08-27 00:32:20.157 +03:00 [ERR] SmartAttendance Request: Unhandled Exception for Request RefreshTokenCommand {"Token":"","RefreshToken":"s3mrzIC/UYdk1/Ye+A4X34jFyuvYlrvqOm3q72LSKSk=","$type":"RefreshTokenCommand"}
+FluentValidation.ValidationException: Validation failed: 
+ -- Token: 'Token' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+2026-08-27 00:32:20.167 +03:00 [INF] HTTP POST /api/v1/Auth/refresh-token responded 200 in 159 ms
+2026-08-27 00:32:20.170 +03:00 [INF] HTTP POST /api/v1/Auth/refresh-token responded 200 in 159 ms
+2026-08-27 00:32:20.171 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Token: 'Token' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.AuthController.RefreshToken(RefreshTokenCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\AuthController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-08-27 00:32:20.173 +03:00 [WRN] Validation error.
+FluentValidation.ValidationException: Validation failed: 
+ -- Token: 'Token' must not be empty. Severity: Error
+   at SmartAttendance.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\ValidationBehavior.cs:line 36
+   at SmartAttendance.Application.Common.Behaviors.AuthorizationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\AuthorizationBehavior.cs:line 29
+   at SmartAttendance.Application.Common.Behaviors.PerformanceBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\PerformanceBehavior.cs:line 33
+   at SmartAttendance.Application.Common.Behaviors.LoggingBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\LoggingBehavior.cs:line 40
+   at SmartAttendance.Application.Common.Behaviors.UnhandledExceptionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.Application\Common\Behaviors\UnhandledExceptionBehavior.cs:line 23
+   at SmartAttendance.API.Controllers.v1.AuthController.RefreshToken(RefreshTokenCommand command) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Controllers\v1\AuthController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at SmartAttendance.API.Middlewares.ResponseWrapperMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\ResponseWrapperMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.TenantResolutionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\TenantResolutionMiddleware.cs:line 33
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Microsoft.AspNetCore.ResponseCompression.ResponseCompressionMiddleware.InvokeCore(HttpContext context)
+   at SmartAttendance.API.Middlewares.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\RequestLoggingMiddleware.cs:line 33
+   at SmartAttendance.API.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\Middlewares\GlobalExceptionMiddleware.cs:line 27
+2026-08-27 00:33:36.827 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-08-27 00:33:37.428 +03:00 [INF] Started database seeding process.
+2026-08-27 00:33:38.376 +03:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-08-27 00:33:38.631 +03:00 [INF] Database seeding completed successfully.
+2026-08-27 00:33:38.634 +03:00 [INF] Starting Web Host
+2026-08-27 00:33:38.680 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-08-27 00:34:12.091 +03:00 [INF] Authorization Header: 
+2026-08-27 00:34:12.099 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-08-27 00:34:12.280 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 187 ms
+2026-08-27 00:34:13.336 +03:00 [INF] Authorization Header: 
+2026-08-27 00:34:13.379 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 42 ms
+2026-08-27 00:34:44.761 +03:00 [INF] Authorization Header: 
+2026-08-27 00:34:44.764 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 3 ms
+2026-08-27 00:34:45.796 +03:00 [INF] Authorization Header: 
+2026-08-27 00:34:45.809 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 13 ms
+2026-08-27 00:40:34.457 +03:00 [INF] Authorization Header: 
+2026-08-27 00:40:34.469 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 12 ms
+2026-08-27 00:40:35.510 +03:00 [INF] Authorization Header: 
+2026-08-27 00:40:35.521 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 11 ms
+2026-08-27 00:41:46.643 +03:00 [INF] Authorization Header: 
+2026-08-27 00:41:46.736 +03:00 [INF] SmartAttendance Request: LoginCommand   {"Email":"admin@smartattendance.local","Password":"Admin@123456","$type":"LoginCommand"}
+2026-08-27 00:41:46.749 +03:00 [INF] Beginning Transaction for LoginCommand
+2026-08-27 00:41:47.157 +03:00 [INF] Committed Transaction for LoginCommand
+2026-08-27 00:41:47.185 +03:00 [INF] HTTP POST /api/v1/Auth/login responded 200 in 542 ms
+2026-08-27 00:44:40.593 +03:00 [INF] Authorization Header: 
+2026-08-27 00:44:40.605 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 11 ms
+2026-08-27 00:44:41.648 +03:00 [INF] Authorization Header: 
+2026-08-27 00:44:41.659 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 11 ms
+2026-08-27 00:45:03.318 +03:00 [INF] Authorization Header: 
+2026-08-27 00:45:03.330 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 11 ms
+2026-08-27 00:45:04.385 +03:00 [INF] Authorization Header: 
+2026-08-27 00:45:04.474 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 88 ms
+2026-08-27 00:45:08.394 +03:00 [INF] Authorization Header: 
+2026-08-27 00:45:08.396 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 2 ms
+2026-08-27 00:45:09.419 +03:00 [INF] Authorization Header: 
+2026-08-27 00:45:09.423 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 3 ms

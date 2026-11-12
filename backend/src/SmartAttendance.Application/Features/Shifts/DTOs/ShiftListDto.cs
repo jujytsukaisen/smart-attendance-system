@@ -2,6 +2,7 @@ using System;
 
 using SmartAttendance.Application.Common.Mappings;
 using SmartAttendance.Domain.Entities;
+using SmartAttendance.Domain.Enums;
 namespace SmartAttendance.Application.Features.Shifts.DTOs;
 
 public class ShiftListDto : IMapFrom<Shift>
@@ -11,7 +12,7 @@ public class ShiftListDto : IMapFrom<Shift>
     public string Code { get; set; } = string.Empty;
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
-    public int ShiftType { get; set; }
+    public ShiftType ShiftType { get; set; }
     public bool IsActive { get; set; }
     public Guid WorkScheduleId { get; set; }
 }

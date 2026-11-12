@@ -14,6 +14,7 @@ public class UpdateDepartmentCommand : IRequest<Result>
     public Guid DepartmentId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public bool RequiresLocationValidation { get; set; } = true;
 }
 
 public class UpdateDepartmentCommandValidator : AbstractValidator<UpdateDepartmentCommand>
@@ -48,6 +49,7 @@ public class UpdateDepartmentCommandHandler : IRequestHandler<UpdateDepartmentCo
 
         department.Rename(request.Name);
         department.ChangeDescription(request.Description);
+        department.SetLocationValidationRequirement(request.RequiresLocationValidation);
 
         return Result.Success();
     }

@@ -10,10 +10,18 @@ export const ATTENDANCE_KEYS = {
   detail: (id: string) => [...ATTENDANCE_KEYS.details(), id] as const,
 };
 
-export const useAttendances = (filter: AttendanceFilter) => {
+export const useAttendances = (filter: AttendanceFilter, enabled: boolean = true) => {
   return useQuery({
     queryKey: ATTENDANCE_KEYS.list(filter),
     queryFn: () => attendanceApi.getAttendances(filter),
+    enabled,
+  });
+};
+export const useMyAttendances = (filter: AttendanceFilter, enabled: boolean = true) => {
+  return useQuery({
+    queryKey: [...ATTENDANCE_KEYS.lists(), 'my', filter],
+    queryFn: () => attendanceApi.getMyAttendances(filter),
+    enabled,
   });
 };
 

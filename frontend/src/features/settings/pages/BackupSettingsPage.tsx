@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -19,14 +18,8 @@ export function BackupSettingsPage() {
 
   const form = useForm<BackupSettingsDto>({
     resolver: zodResolver(backupSettingsSchema),
-    defaultValues: data,
+    values: data || {} as any,
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: BackupSettingsDto) => {
     await updateMutation.mutateAsync(values);

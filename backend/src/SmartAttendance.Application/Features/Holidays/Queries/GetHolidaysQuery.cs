@@ -10,6 +10,7 @@ using SmartAttendance.Application.Common.Interfaces;
 using SmartAttendance.Application.Common.Mappings;
 using SmartAttendance.Application.Common.Models;
 using SmartAttendance.Domain.Entities;
+using SmartAttendance.Domain.Enums;
 
 namespace SmartAttendance.Application.Features.Holidays.Queries;
 
@@ -17,7 +18,10 @@ public class HolidayListDto : IMapFrom<Holiday>
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public DateTime HolidayDate { get; set; }
+    public string? Description { get; set; }
+    public HolidayType HolidayType { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public bool IsRecurring { get; set; }
     public bool IsActive { get; set; }
 

@@ -10,12 +10,15 @@ import {
 } from '@/shared/components/ui/select';
 import { Search } from 'lucide-react';
 import { AttendanceStatus, type AttendanceFilter } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface AttendanceFiltersProps {
   onFilterChange: (filters: Partial<AttendanceFilter>) => void;
+  isEmployeeView?: boolean;
 }
 
-export function AttendanceFilters({ onFilterChange }: AttendanceFiltersProps) {
+export function AttendanceFilters({ onFilterChange, isEmployeeView }: AttendanceFiltersProps) {
+  const { t, isRtl } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = () => {
@@ -24,16 +27,18 @@ export function AttendanceFilters({ onFilterChange }: AttendanceFiltersProps) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 mb-6">
-      <div className="flex-1 relative">
-        <Input
-          placeholder="Search attendances..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          className="pl-10"
-        />
-        <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-      </div>
+      {!isEmployeeView && (
+        <div className="flex-1 relative">
+          <Input
+            placeholder={t('attendance.searchPlaceholder')}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            className={isRtl ? 'pr-10 pl-3' : 'pl-10 pr-3'}
+          />
+          <Search className={`absolute ${isRtl ? 'right-3' : 'left-3'} top-2.5 h-5 w-5 text-muted-foreground`} />
+        </div>
+      )}
       <div className="w-full sm:w-48">
         <Select
           onValueChange={(value: string | null) => {
@@ -46,19 +51,23 @@ export function AttendanceFilters({ onFilterChange }: AttendanceFiltersProps) {
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder="All Statuses" />
+            <SelectValue placeholder={t('attendance.allStatuses')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value={AttendanceStatus.Present.toString()}>Present</SelectItem>
-            <SelectItem value={AttendanceStatus.Pending.toString()}>Pending</SelectItem>
-            <SelectItem value={AttendanceStatus.Absent.toString()}>Absent</SelectItem>
-            <SelectItem value={AttendanceStatus.Late.toString()}>Late</SelectItem>
-            <SelectItem value={AttendanceStatus.EarlyLeave.toString()}>Early Leave</SelectItem>
+            <SelectItem value="all">{t('attendance.allStatuses')}</SelectItem>
+            <SelectItem value={AttendanceStatus.Present.toString()}>{t('attendance.present')}</SelectItem>
+            <SelectItem value={AttendanceStatus.Pending.toString()}>{t('attendance.pending')}</SelectItem>
+            <SelectItem value={AttendanceStatus.Absent.toString()}>{t('attendance.absent')}</SelectItem>
+            <SelectItem value={AttendanceStatus.Late.toString()}>{t('attendance.late')}</SelectItem>
+            <SelectItem value={AttendanceStatus.EarlyLeave.toString()}>{t('attendance.earlyLeave')}</SelectItem>
+            <SelectItem value={AttendanceStatus.PresentDuringLeave.toString()}>{t('attendance.presentDuringLeave') || 'Present (On Leave)'}</SelectItem>
+            <SelectItem value={AttendanceStatus.LateDuringLeave.toString()}>{t('attendance.lateDuringLeave') || 'Late (On Leave)'}</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <Button onClick={handleSearch}>Search</Button>
+      {!isEmployeeView && (
+        <Button onClick={handleSearch}>{t('common.search')}</Button>
+      )}
     </div>
   );
 }

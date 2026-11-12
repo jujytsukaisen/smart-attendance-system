@@ -254,6 +254,14 @@ public class Employee : BaseTenantEntity
         ManagerId = null;
     }
 
+    public void AssignUser(Guid userId)
+    {
+        if (userId == Guid.Empty)
+            throw new InvalidEmployeeException("User ID cannot be empty.");
+
+        UserId = userId;
+    }
+
     public void AssignAttendancePolicy(Guid attendancePolicyId)
     {
         if (attendancePolicyId == Guid.Empty)

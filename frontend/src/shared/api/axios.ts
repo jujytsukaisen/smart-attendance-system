@@ -3,7 +3,7 @@ import type { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import { useAuthStore } from '@/features/auth/store';
 
 // Replace with your actual backend URL or use environment variables
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -74,9 +74,9 @@ apiClient.interceptors.response.use(
       window.location.href = '/unauthorized';
     }
 
-    // Handle 400 and 422 FluentValidation errors
-    if (error.response?.status === 400 || error.response?.status === 422) {
-      const data = error.response.data;
+    // Extract error details from API response
+    const data = error.response?.data;
+    if (data) {
       if (data?.extensions?.errors && Array.isArray(data.extensions.errors)) {
         error.message = data.extensions.errors.join('\n');
       } else if (data?.errors && typeof data.errors === 'object') {
@@ -87,11 +87,13 @@ apiClient.interceptors.response.use(
         }
       } else if (data?.detail) {
         error.message = data.detail;
+      } else if (data?.message) {
+        error.message = data.message;
       } else if (data?.title) {
         error.message = data.title;
       }
     } else if (error.response?.status === 500) {
-       error.message = 'An unexpected internal server error occurred.';
+      error.message = 'An unexpected internal server error occurred.';
     }
 
     return Promise.reject(error);

@@ -51,7 +51,7 @@ public class CompaniesController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:Companies.Restore")]
+    [Authorize(Policy = "Permission:Companies.Update")]
     public async Task<IActionResult> RestoreCompany(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreCompanyCommand { CompanyId = id }));

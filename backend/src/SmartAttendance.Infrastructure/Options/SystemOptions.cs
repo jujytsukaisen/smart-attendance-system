@@ -35,6 +35,11 @@ public class StorageOptions
 
 public class FaceRecognitionOptions
 {
+    // ⚠️ عتبة المسافة الإقليدية بين بصمتين (face-api.js): كل ما قلّت القيمة زادت الدقة
+    // القيمة الشائعة والموصى بها: 0.6
+    public double RecognitionThreshold { get; set; } = 0.6;
+
+    [Obsolete("استُبدلت بـ RecognitionThreshold لدعم مقارنة البصمات المحلية")]
     public double ConfidenceThreshold { get; set; } = 0.85;
     public string ModelPath { get; set; } = string.Empty;
 }

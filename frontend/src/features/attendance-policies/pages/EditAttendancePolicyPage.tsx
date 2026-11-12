@@ -9,13 +9,14 @@ import type { AttendancePolicyFormValues } from '../schemas';
 export function EditAttendancePolicyPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
+
   const { data: policy, isLoading } = useAttendancePolicy(id!);
   const updateMutation = useUpdateAttendancePolicy();
 
   const handleSubmit = (values: AttendancePolicyFormValues) => {
+    // ⚠️ الباك إند يتوقع null (وليس نص فارغ) لحقل الوقت عندما لا يكون محدّدًا
     updateMutation.mutate(
-      { ...values, id: id! },
+      { ...values, id: id!, autoCheckoutTime: values.autoCheckoutTime || undefined },
       {
         onSuccess: () => {
           toast.success('Attendance policy updated successfully');

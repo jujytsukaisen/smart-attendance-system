@@ -40,7 +40,7 @@ export function ConnectionStatusBadge({ status }: { status: ConnectionStatus }) 
 }
 
 export function DeviceTypeBadge({ type }: { type: DeviceType }) {
-  const typeMap: Record<number, string> = {
+  const typeMap: Record<string, string> = {
     [DeviceType.WallMounted]: 'Wall Mounted',
     [DeviceType.Mobile]: 'Mobile',
     [DeviceType.Desktop]: 'Desktop',

@@ -8,13 +8,16 @@ public class FaceProfile : BaseTenantEntity
 {
     public Guid EmployeeId { get; private set; }
     public string? FaceProfileId { get; private set; }
+
+    // ⚠️ حقل جديد: بصمة الوجه (128 رقم عشري) مخزّنة كـ JSON، تُستخرج من face-api.js في المتصفح
+    public string? FaceEncoding { get; private set; }
+
     public RegistrationStatus RegistrationStatus { get; private set; }
     public DateTimeOffset? RegisteredAt { get; private set; }
     public DateTimeOffset? LastUpdatedAt { get; private set; }
     public DateTimeOffset? LastVerificationAt { get; private set; }
     public bool IsActive { get; private set; }
 
-    // Private constructor for EF Core materialization (persistence agnostic)
 #pragma warning disable CS8618
     private FaceProfile() { }
 #pragma warning restore CS8618
@@ -24,7 +27,7 @@ public class FaceProfile : BaseTenantEntity
         CompanyId = companyId;
         EmployeeId = employeeId;
         RegistrationStatus = RegistrationStatus.Pending;
-        IsActive = false; // Intentionally inactive until registration is complete
+        IsActive = false;
     }
 
     public static FaceProfile Create(Guid companyId, Guid employeeId)
@@ -40,7 +43,7 @@ public class FaceProfile : BaseTenantEntity
     public void Register(string faceProfileId)
     {
         if (string.IsNullOrWhiteSpace(faceProfileId))
-            throw new InvalidFaceProfileException("Face profile ID from the external AI service is required.");
+            throw new InvalidFaceProfileException("Face profile ID is required.");
 
         if (RegistrationStatus == RegistrationStatus.Registered)
             throw new InvalidFaceProfileException("Face profile is already registered.");
@@ -49,9 +52,18 @@ public class FaceProfile : BaseTenantEntity
         RegistrationStatus = RegistrationStatus.Registered;
         RegisteredAt = DateTimeOffset.UtcNow;
         LastUpdatedAt = DateTimeOffset.UtcNow;
-        
-        // Auto-activate upon successful registration
+
         Activate();
+    }
+
+    // ⚠️ جديد: تخزين بصمة الوجه (JSON array من 128 رقم فلوت)
+    public void SetEncoding(string encodingJson)
+    {
+        if (string.IsNullOrWhiteSpace(encodingJson))
+            throw new InvalidFaceProfileException("Face encoding cannot be empty.");
+
+        FaceEncoding = encodingJson;
+        LastUpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public void UpdateProfile(string faceProfileId)
@@ -80,10 +92,10 @@ public class FaceProfile : BaseTenantEntity
     public void Activate()
     {
         if (IsActive) return;
-        
+
         if (RegistrationStatus != RegistrationStatus.Registered)
             throw new InvalidFaceProfileException("Cannot activate an unregistered face profile.");
-            
+
         IsActive = true;
     }
 

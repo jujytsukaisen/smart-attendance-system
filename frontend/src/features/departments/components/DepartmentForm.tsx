@@ -65,6 +65,20 @@ export const DepartmentForm = ({ initialData, onSubmit, isLoading }: DepartmentF
 
   const filteredBranches = branchesData?.items.filter(b => b.companyId === selectedCompanyId) || [];
 
+  const companyItems = (companiesData?.items || []).map((c) => ({
+    value: c.id,
+    label: c.name,
+  }));
+
+  const branchItems = filteredBranches.map((b) => ({
+    value: b.id,
+    label: b.name,
+  }));
+
+  const displayCompanyName = isEditMode
+    ? initialData.companyName || companiesData?.items.find(c => c.id === initialData.companyId)?.name || initialData.companyId
+    : '';
+
   // When company changes, reset branch
   useEffect(() => {
     if (!isEditMode && selectedCompanyId) {
@@ -89,11 +103,12 @@ export const DepartmentForm = ({ initialData, onSubmit, isLoading }: DepartmentF
                   <FormItem>
                     <FormLabel>Company</FormLabel>
                     <Select 
+                      items={companyItems}
                       onValueChange={(val) => {
                         field.onChange(val);
                         setSelectedCompanyId(val);
                       }} 
-                      defaultValue={field.value} 
+                      value={field.value} 
                       disabled={isLoadingCompanies}
                     >
                       <FormControl>
@@ -121,6 +136,7 @@ export const DepartmentForm = ({ initialData, onSubmit, isLoading }: DepartmentF
                   <FormItem>
                     <FormLabel>Branch</FormLabel>
                     <Select 
+                      items={branchItems}
                       onValueChange={field.onChange} 
                       value={field.value} 
                       disabled={!selectedCompanyId || isLoadingBranches}
@@ -150,7 +166,7 @@ export const DepartmentForm = ({ initialData, onSubmit, isLoading }: DepartmentF
               <FormItem>
                 <FormLabel>Company</FormLabel>
                 <FormControl>
-                  <Input value={initialData.companyId} disabled />
+                  <Input value={displayCompanyName} disabled />
                 </FormControl>
                 <p className="text-xs text-muted-foreground mt-1">Company cannot be changed after creation.</p>
               </FormItem>

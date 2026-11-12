@@ -25,12 +25,21 @@ export const checkOutSchema = z.object({
 });
 
 export const manualAttendanceSchema = z.object({
-  employeeId: z.string().uuid('Employee ID is required'),
-  attendancePolicyId: z.string().uuid('Policy ID is required'),
-  shiftId: z.string().uuid('Shift ID is required'),
-  attendanceDeviceId: z.string().uuid('Device ID is required'),
+  employeeId: z.string().min(1, 'Please select an employee'),
+  attendancePolicyId: z.string(),
+  shiftId: z.string(),
+  attendanceDeviceId: z.string(),
   checkInTime: z.string().min(1, 'Check-in time is required'),
+  checkOutTime: z.string().optional(),
   checkInMethod: z.nativeEnum(CheckInMethod),
+}).refine((data) => {
+  if (data.checkInTime && data.checkOutTime && data.checkOutTime.trim() !== '') {
+    return new Date(data.checkOutTime) > new Date(data.checkInTime);
+  }
+  return true;
+}, {
+  message: 'Check-out time must be after check-in time',
+  path: ['checkOutTime'],
 });
 
 export type CheckInFormValues = z.infer<typeof checkInSchema>;

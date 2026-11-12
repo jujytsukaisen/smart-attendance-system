@@ -19,6 +19,7 @@ import {
 } from '@/shared/components/ui/select';
 import { updateCompanySchema } from '../schemas/companySchema';
 import type { CreateCompanyCommand, UpdateCompanyCommand } from '../types';
+import { toLocalDateString } from '@/shared/utils';
 
 interface CompanyFormProps {
   initialData?: UpdateCompanyCommand;
@@ -42,7 +43,7 @@ export const CompanyForm = ({ initialData, onSubmit, isLoading }: CompanyFormPro
       addressCountry: '',
       addressZipCode: '',
       website: '',
-      foundedDate: new Date().toISOString().split('T')[0],
+      foundedDate: toLocalDateString(),
       timeZone: 'UTC',
       currency: 'USD',
     },

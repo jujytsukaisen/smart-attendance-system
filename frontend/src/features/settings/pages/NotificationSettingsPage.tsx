@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -17,14 +16,8 @@ export function NotificationSettingsPage() {
 
   const form = useForm<NotificationSettingsDto>({
     resolver: zodResolver(notificationSettingsSchema),
-    defaultValues: data,
+    values: data || {} as any,
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: NotificationSettingsDto) => {
     await updateMutation.mutateAsync(values);

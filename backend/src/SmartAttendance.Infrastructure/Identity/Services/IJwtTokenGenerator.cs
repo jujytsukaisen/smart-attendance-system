@@ -7,6 +7,6 @@ namespace SmartAttendance.Infrastructure.Identity.Services;
 
 public interface IJwtTokenGenerator
 {
-    string GenerateAccessToken(ApplicationUser user, IList<string> roles, IList<string> permissions);
+    string GenerateAccessToken(ApplicationUser user, IList<string> roles, IList<string> permissions, Guid? companyId = null);
     RefreshToken GenerateRefreshToken(Guid userId);
 }

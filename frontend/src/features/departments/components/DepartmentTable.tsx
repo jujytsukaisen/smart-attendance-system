@@ -21,6 +21,7 @@ import { DepartmentStatusBadge } from './DepartmentStatusBadge';
 import { ActionDialog } from './ActionDialog';
 import { useDeleteDepartment, useRestoreDepartment, useActivateDepartment, useDeactivateDepartment } from '../hooks';
 import type { DepartmentListDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface DepartmentTableProps {
   departments: DepartmentListDto[];
@@ -28,6 +29,7 @@ interface DepartmentTableProps {
 }
 
 export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedDepartment, setSelectedDepartment] = useState<DepartmentListDto | null>(null);
   const [dialogAction, setDialogAction] = useState<'delete' | 'restore' | 'activate' | 'deactivate' | null>(null);
@@ -59,33 +61,33 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
     switch (dialogAction) {
       case 'delete':
         return {
-          title: 'Delete Department',
-          description: `Are you sure you want to delete ${selectedDepartment?.name}? This action can be undone later by restoring it.`,
-          confirmText: 'Delete',
+          title: t('departments.deleteTitle'),
+          description: t('departments.deleteDesc'),
+          confirmText: t('common.delete'),
           variant: 'danger' as const,
           isLoading: deleteMutation.isPending,
         };
       case 'restore':
         return {
-          title: 'Restore Department',
-          description: `Are you sure you want to restore ${selectedDepartment?.name}?`,
-          confirmText: 'Restore',
+          title: t('departments.restoreTitle'),
+          description: t('departments.restoreDesc'),
+          confirmText: t('employees.restore'),
           variant: 'default' as const,
           isLoading: restoreMutation.isPending,
         };
       case 'activate':
         return {
-          title: 'Activate Department',
-          description: `Are you sure you want to activate ${selectedDepartment?.name}?`,
-          confirmText: 'Activate',
+          title: t('departments.activateTitle'),
+          description: t('departments.activateDesc'),
+          confirmText: t('employees.activate'),
           variant: 'default' as const,
           isLoading: activateMutation.isPending,
         };
       case 'deactivate':
         return {
-          title: 'Deactivate Department',
-          description: `Are you sure you want to deactivate ${selectedDepartment?.name}? Users won't be able to interact with it.`,
-          confirmText: 'Deactivate',
+          title: t('departments.deactivateTitle'),
+          description: t('departments.deactivateDesc'),
+          confirmText: t('employees.deactivate'),
           variant: 'danger' as const,
           isLoading: deactivateMutation.isPending,
         };
@@ -102,17 +104,19 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Code</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Branch</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[80px]">Actions</TableHead>
+              <TableHead>{t('departments.code')}</TableHead>
+              <TableHead>{t('departments.name')}</TableHead>
+              <TableHead>{t('departments.company')}</TableHead>
+              <TableHead>{t('departments.branch')}</TableHead>
+              <TableHead>{t('departments.status')}</TableHead>
+              <TableHead className="w-[80px] text-center">{t('departments.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {[1, 2, 3, 4, 5].map((i) => (
               <TableRow key={i}>
                 <TableCell><div className="h-4 w-16 bg-muted animate-pulse rounded" /></TableCell>
+                <TableCell><div className="h-4 w-32 bg-muted animate-pulse rounded" /></TableCell>
                 <TableCell><div className="h-4 w-32 bg-muted animate-pulse rounded" /></TableCell>
                 <TableCell><div className="h-4 w-32 bg-muted animate-pulse rounded" /></TableCell>
                 <TableCell><div className="h-5 w-16 bg-muted animate-pulse rounded-full" /></TableCell>
@@ -129,9 +133,9 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center border rounded-md bg-muted/20">
         <Building className="h-10 w-10 text-muted-foreground mb-4" />
-        <h3 className="text-lg font-medium">No departments found</h3>
+        <h3 className="text-lg font-medium">{t('departments.noDepartmentsFound')}</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Get started by creating a new department.
+          {t('departments.noDepartmentsHint')}
         </p>
       </div>
     );
@@ -143,11 +147,12 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Code</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Branch</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[80px]">Actions</TableHead>
+              <TableHead>{t('departments.code')}</TableHead>
+              <TableHead>{t('departments.name')}</TableHead>
+              <TableHead>{t('departments.company')}</TableHead>
+              <TableHead>{t('departments.branch')}</TableHead>
+              <TableHead>{t('departments.status')}</TableHead>
+              <TableHead className="w-[80px] text-center">{t('departments.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -155,29 +160,30 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
               <TableRow key={department.id} className="cursor-pointer" onClick={() => navigate(`/departments/${department.id}`)}>
                 <TableCell className="font-medium">{department.code}</TableCell>
                 <TableCell>{department.name}</TableCell>
+                <TableCell>{department.companyName || '-'}</TableCell>
                 <TableCell>{department.branchName}</TableCell>
                 <TableCell onClick={(e) => e.stopPropagation()}>
                   <DepartmentStatusBadge isActive={department.isActive} />
                 </TableCell>
-                <TableCell onClick={(e) => e.stopPropagation()}>
+                <TableCell onClick={(e) => e.stopPropagation()} className="text-center">
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground outline-none ml-auto">
-                      <span className="sr-only">Open menu</span>
+                    <DropdownMenuTrigger className="h-8 w-8 p-0 inline-flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground outline-none">
+                      <span className="sr-only">{t('common.actions')}</span>
                       <MoreHorizontal className="h-4 w-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{t('departments.actions')}</DropdownMenuLabel>
                       <DropdownMenuItem onClick={() => navigate(`/departments/${department.id}/edit`)}>
-                        <Edit className="mr-2 h-4 w-4" /> Edit
+                        <Edit className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('common.edit')}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       {department.isActive ? (
                         <DropdownMenuItem onClick={() => { setSelectedDepartment(department); setDialogAction('deactivate'); }}>
-                          <PowerOff className="mr-2 h-4 w-4" /> Deactivate
+                          <PowerOff className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('employees.deactivate')}
                         </DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem onClick={() => { setSelectedDepartment(department); setDialogAction('activate'); }}>
-                          <Activity className="mr-2 h-4 w-4" /> Activate
+                          <Activity className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('employees.activate')}
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuSeparator />
@@ -185,7 +191,7 @@ export const DepartmentTable = ({ departments, isLoading }: DepartmentTableProps
                         onClick={() => { setSelectedDepartment(department); setDialogAction('delete'); }}
                         className="text-destructive focus:text-destructive"
                       >
-                        <Trash className="mr-2 h-4 w-4" /> Delete
+                        <Trash className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('common.delete')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

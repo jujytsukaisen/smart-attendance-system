@@ -3,15 +3,22 @@ import { useAuthStore } from '../store';
 
 interface ProtectedRouteProps {
   allowedRoles?: string[];
+  requireAdmin?: boolean;
 }
 
-export const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({ allowedRoles, requireAdmin }: ProtectedRouteProps) => {
   const { isAuthenticated, user } = useAuthStore();
   const location = useLocation();
 
   if (!isAuthenticated) {
-    // Redirect to login page but save the location they were trying to go to
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
+  }
+
+  if (requireAdmin && user) {
+    const isAdmin = user.roles?.includes('Admin');
+    if (!isAdmin) {
+      return <Navigate to="/dashboard" replace />;
+    }
   }
 
   if (allowedRoles && user) {

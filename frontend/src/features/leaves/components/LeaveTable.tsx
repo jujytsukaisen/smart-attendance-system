@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
+import { arSA } from 'date-fns/locale';
 import { Eye, Edit2, Trash2, Check, X, Slash } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/components/ui/button';
@@ -12,15 +13,18 @@ import {
   useCancelLeave 
 } from '../hooks';
 import type { LeaveListDto } from '../types';
-import { LeaveStatus, LeaveType } from '../types';
+import { LeaveType } from '../types';
 import { toast } from 'sonner';
+import { useTranslation } from '@/shared/i18n';
 
 interface LeaveTableProps {
   data: LeaveListDto[];
+  isEmployeeView?: boolean;
 }
 
-export function LeaveTable({ data }: LeaveTableProps) {
+export function LeaveTable({ data, isEmployeeView }: LeaveTableProps) {
   const navigate = useNavigate();
+  const { t, isRtl } = useTranslation();
   const deleteMutation = useDeleteLeave();
   const approveMutation = useApproveLeave();
   const rejectMutation = useRejectLeave();
@@ -35,11 +39,11 @@ export function LeaveTable({ data }: LeaveTableProps) {
     if (!deleteId) return;
     deleteMutation.mutate(deleteId, {
       onSuccess: () => {
-        toast.success('Leave request deleted successfully');
+        toast.success(isRtl ? 'تم حذف طلب الإجازة بنجاح' : 'Leave request deleted successfully');
         setDeleteId(null);
       },
       onError: () => {
-        toast.error('Failed to delete leave request');
+        toast.error(isRtl ? 'فشل حذف طلب الإجازة' : 'Failed to delete leave request');
         setDeleteId(null);
       },
     });
@@ -49,11 +53,11 @@ export function LeaveTable({ data }: LeaveTableProps) {
     if (!approveId) return;
     approveMutation.mutate({ leaveId: approveId, comment: '' }, {
       onSuccess: () => {
-        toast.success('Leave request approved');
+        toast.success(isRtl ? 'تم قبول طلب الإجازة بنجاح' : 'Leave request approved');
         setApproveId(null);
       },
       onError: () => {
-        toast.error('Failed to approve leave request');
+        toast.error(isRtl ? 'فشل قبول طلب الإجازة' : 'Failed to approve leave request');
         setApproveId(null);
       },
     });
@@ -63,11 +67,11 @@ export function LeaveTable({ data }: LeaveTableProps) {
     if (!rejectId) return;
     rejectMutation.mutate({ leaveId: rejectId, reason: 'Rejected by manager' }, {
       onSuccess: () => {
-        toast.success('Leave request rejected');
+        toast.success(isRtl ? 'تم رفض طلب الإجازة' : 'Leave request rejected');
         setRejectId(null);
       },
       onError: () => {
-        toast.error('Failed to reject leave request');
+        toast.error(isRtl ? 'فشل رفض طلب الإجازة' : 'Failed to reject leave request');
         setRejectId(null);
       },
     });
@@ -77,96 +81,177 @@ export function LeaveTable({ data }: LeaveTableProps) {
     if (!cancelId) return;
     cancelMutation.mutate({ leaveId: cancelId, reason: 'Cancelled by user' }, {
       onSuccess: () => {
-        toast.success('Leave request cancelled');
+        toast.success(isRtl ? 'تم إلغاء طلب الإجازة' : 'Leave request cancelled');
         setCancelId(null);
       },
       onError: () => {
-        toast.error('Failed to cancel leave request');
+        toast.error(isRtl ? 'فشل إلغاء طلب الإجازة' : 'Failed to cancel leave request');
         setCancelId(null);
       },
     });
   };
 
+  const isPendingStatus = (status: string | number) => {
+    const s = String(status || '').trim().toLowerCase();
+    return s === 'pending' || s === '1' || s === '';
+  };
+
+  const isApprovedStatus = (status: string | number) => {
+    const s = String(status || '').trim().toLowerCase();
+    return s === 'approved' || s === '2';
+  };
+
   const getLeaveTypeText = (type: string | number) => {
     switch (Number(type)) {
-      case LeaveType.Annual: return 'Annual';
-      case LeaveType.Sick: return 'Sick';
-      case LeaveType.Maternity: return 'Maternity';
-      case LeaveType.Paternity: return 'Paternity';
-      case LeaveType.Unpaid: return 'Unpaid';
-      case LeaveType.Other: return 'Other';
+      case LeaveType.Annual: return t('leaves.annual');
+      case LeaveType.Sick: return t('leaves.sick');
+      case LeaveType.Maternity: return t('leaves.maternity');
+      case LeaveType.Paternity: return t('leaves.paternity');
+      case LeaveType.Unpaid: return t('leaves.unpaid');
+      case LeaveType.Other: return t('leaves.other');
       default: return type;
+    }
+  };
+
+  const formatDateValue = (d: string) => {
+    try {
+      return format(new Date(d), 'MMM dd, yyyy', isRtl ? { locale: arSA } : undefined);
+    } catch {
+      return d;
     }
   };
 
   return (
     <>
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-card text-card-foreground shadow-sm border border-border overflow-x-auto sm:rounded-lg">
+        <table className="min-w-full divide-y divide-border">
+          <thead className="bg-muted/50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Type
+              {!isEmployeeView && (
+                <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  {t('attendance.employee')}
+                </th>
+              )}
+              <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('leaves.leaveType')}
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Duration
+              <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('leaves.duration')}
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
+              <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('common.status')}
               </th>
-              <th scope="col" className="relative px-6 py-3">
-                <span className="sr-only">Actions</span>
+              <th scope="col" className="px-6 py-3 text-end text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                {t('common.actions')}
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((leave) => (
-              <tr key={leave.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{getLeaveTypeText(leave.leaveType)}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {format(new Date(leave.startDate), 'MMM dd, yyyy')} - {format(new Date(leave.endDate), 'MMM dd, yyyy')}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <LeaveStatusBadge status={leave.status} />
-                </td>
-                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <div className="flex justify-end gap-2">
-                    {Number(leave.status) === LeaveStatus.Pending && (
-                      <>
-                        <Button variant="ghost" size="icon" onClick={() => setApproveId(leave.id)} title="Approve">
-                          <Check className="h-4 w-4 text-green-600" />
+          <tbody className="divide-y divide-border">
+            {data.map((leave) => {
+              const pending = isPendingStatus(leave.status);
+              const approved = isApprovedStatus(leave.status);
+
+              return (
+                <tr key={leave.id} className="hover:bg-muted/30 transition-colors">
+                  {!isEmployeeView && (
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-foreground">
+                        {leave.employeeName || (isRtl ? 'موظف غير معروف' : '—')}
+                      </div>
+                      {leave.employeeNumber && (
+                        <div className="text-xs font-mono text-muted-foreground">
+                          {leave.employeeNumber}
+                        </div>
+                      )}
+                    </td>
+                  )}
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-foreground">{getLeaveTypeText(leave.leaveType)}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-muted-foreground">
+                      {formatDateValue(leave.startDate)} - {formatDateValue(leave.endDate)}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <LeaveStatusBadge status={leave.status} />
+                  </td>
+                  <td className="relative whitespace-nowrap py-4 px-6 text-end text-sm font-medium">
+                    <div className="flex justify-end items-center gap-1.5">
+                      {pending && (
+                        <>
+                          {!isEmployeeView && (
+                            <>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25 gap-1 px-2.5 h-8 font-medium shadow-sm"
+                                onClick={() => setApproveId(leave.id)} 
+                                title={t('leaves.approve')}
+                              >
+                                <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                                <span>{t('leaves.approve')}</span>
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30 hover:bg-rose-500/25 gap-1 px-2.5 h-8 font-medium shadow-sm"
+                                onClick={() => setRejectId(leave.id)} 
+                                title={t('leaves.reject')}
+                              >
+                                <X className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                                <span>{t('leaves.reject')}</span>
+                              </Button>
+                            </>
+                          )}
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-8 w-8"
+                            onClick={() => navigate(`/leaves/${leave.id}/edit`)} 
+                            title={t('common.edit')}
+                          >
+                            <Edit2 className="h-4 w-4 text-muted-foreground" />
+                          </Button>
+                        </>
+                      )}
+                      {approved && !isEmployeeView && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/25 h-8 gap-1 px-2 text-xs"
+                          onClick={() => setCancelId(leave.id)} 
+                          title={t('leaves.cancel')}
+                        >
+                          <Slash className="h-3.5 w-3.5" />
+                          <span>{t('leaves.cancel')}</span>
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => setRejectId(leave.id)} title="Reject">
-                          <X className="h-4 w-4 text-red-600" />
-                        </Button>
-                        <Button variant="ghost" size="icon" onClick={() => navigate(`/leaves/${leave.id}/edit`)} title="Edit">
-                          <Edit2 className="h-4 w-4 text-gray-500" />
-                        </Button>
-                      </>
-                    )}
-                    {Number(leave.status) === LeaveStatus.Approved && (
-                      <Button variant="ghost" size="icon" onClick={() => setCancelId(leave.id)} title="Cancel">
-                        <Slash className="h-4 w-4 text-gray-500" />
+                      )}
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                        onClick={() => navigate(`/leaves/${leave.id}`)}
+                        title={t('common.details')}
+                      >
+                        <Eye className="h-4 w-4" />
                       </Button>
-                    )}
-                    <Button variant="ghost" size="icon" onClick={() => navigate(`/leaves/${leave.id}`)}>
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={() => setDeleteId(leave.id)}
-                    >
-                      <Trash2 className="h-4 w-4 text-red-500" />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                      {pending && (
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                          onClick={() => setDeleteId(leave.id)}
+                          title={t('common.delete')}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -175,9 +260,9 @@ export function LeaveTable({ data }: LeaveTableProps) {
         isOpen={!!deleteId}
         onClose={() => setDeleteId(null)}
         onConfirm={handleDelete}
-        title="Delete Leave Request"
-        description="Are you sure you want to delete this leave request? This action cannot be undone."
-        confirmText="Delete"
+        title={isRtl ? 'حذف طلب الإجازة' : 'Delete Leave Request'}
+        description={isRtl ? 'هل أنت متأكد من رغبتك في حذف طلب الإجازة هذا؟ لا يمكن التراجع عن هذا الإجراء.' : 'Are you sure you want to delete this leave request? This action cannot be undone.'}
+        confirmText={t('common.delete')}
         variant="destructive"
         isLoading={deleteMutation.isPending}
       />
@@ -186,9 +271,9 @@ export function LeaveTable({ data }: LeaveTableProps) {
         isOpen={!!approveId}
         onClose={() => setApproveId(null)}
         onConfirm={handleApprove}
-        title="Approve Leave Request"
-        description="Are you sure you want to approve this leave request?"
-        confirmText="Approve"
+        title={isRtl ? 'قبول طلب الإجازة' : 'Approve Leave Request'}
+        description={isRtl ? 'هل أنت متأكد من رغبتك في قبول واعتماد هذا الطلب؟' : 'Are you sure you want to approve this leave request?'}
+        confirmText={isRtl ? 'تأكيد القبول' : 'Approve'}
         variant="default"
         isLoading={approveMutation.isPending}
       />
@@ -197,9 +282,9 @@ export function LeaveTable({ data }: LeaveTableProps) {
         isOpen={!!rejectId}
         onClose={() => setRejectId(null)}
         onConfirm={handleReject}
-        title="Reject Leave Request"
-        description="Are you sure you want to reject this leave request?"
-        confirmText="Reject"
+        title={isRtl ? 'رفض طلب الإجازة' : 'Reject Leave Request'}
+        description={isRtl ? 'هل أنت متأكد من رغبتك في رفض طلب الإجازة هذا؟' : 'Are you sure you want to reject this leave request?'}
+        confirmText={isRtl ? 'تأكيد الرفض' : 'Reject'}
         variant="destructive"
         isLoading={rejectMutation.isPending}
       />
@@ -208,9 +293,9 @@ export function LeaveTable({ data }: LeaveTableProps) {
         isOpen={!!cancelId}
         onClose={() => setCancelId(null)}
         onConfirm={handleCancel}
-        title="Cancel Leave Request"
-        description="Are you sure you want to cancel this approved leave?"
-        confirmText="Confirm Cancel"
+        title={isRtl ? 'إلغاء طلب الإجازة' : 'Cancel Leave Request'}
+        description={isRtl ? 'هل أنت متأكد من رغبتك في إلغاء هذه الإجازة المقبولة؟' : 'Are you sure you want to cancel this approved leave?'}
+        confirmText={isRtl ? 'تأكيد الإلغاء' : 'Confirm Cancel'}
         variant="destructive"
         isLoading={cancelMutation.isPending}
       />

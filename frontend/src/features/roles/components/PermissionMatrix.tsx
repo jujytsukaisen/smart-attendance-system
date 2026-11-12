@@ -24,21 +24,21 @@ export function PermissionMatrix({ allPermissions, selectedPermissions, onChange
     setModules(grouped);
   }, [allPermissions]);
 
-  const handleToggle = (permissionSystemName: string, checked: boolean) => {
+  const handleToggle = (permissionId: string, checked: boolean) => {
     if (checked) {
-      onChange([...selectedPermissions, permissionSystemName]);
+      onChange([...selectedPermissions, permissionId]);
     } else {
-      onChange(selectedPermissions.filter(p => p !== permissionSystemName));
+      onChange(selectedPermissions.filter(p => p !== permissionId));
     }
   };
 
   const handleToggleModule = (module: string, checked: boolean) => {
-    const modulePermissions = modules[module].map(p => p.systemName);
+    const modulePermissionIds = modules[module].map(p => p.id);
     if (checked) {
-      const newSelections = new Set([...selectedPermissions, ...modulePermissions]);
+      const newSelections = new Set([...selectedPermissions, ...modulePermissionIds]);
       onChange(Array.from(newSelections));
     } else {
-      onChange(selectedPermissions.filter(p => !modulePermissions.includes(p)));
+      onChange(selectedPermissions.filter(p => !modulePermissionIds.includes(p)));
     }
   };
 
@@ -50,8 +50,8 @@ export function PermissionMatrix({ allPermissions, selectedPermissions, onChange
       </div>
 
       {Object.entries(modules).map(([moduleName, permissions]) => {
-        const allSelected = permissions.every(p => selectedPermissions.includes(p.systemName));
-        const someSelected = permissions.some(p => selectedPermissions.includes(p.systemName)) && !allSelected;
+        const allSelected = permissions.every(p => selectedPermissions.includes(p.id));
+        const someSelected = permissions.some(p => selectedPermissions.includes(p.id)) && !allSelected;
 
         return (
           <div key={moduleName} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
@@ -70,8 +70,8 @@ export function PermissionMatrix({ allPermissions, selectedPermissions, onChange
                 <div key={p.id} className="flex items-start space-x-3">
                   <Checkbox 
                     id={`perm-${p.id}`}
-                    checked={selectedPermissions.includes(p.systemName)}
-                    onCheckedChange={(checked) => handleToggle(p.systemName, checked === true)}
+                    checked={selectedPermissions.includes(p.id)}
+                    onCheckedChange={(checked) => handleToggle(p.id, checked === true)}
                     disabled={isLoading}
                   />
                   <div className="grid gap-1.5 leading-none">

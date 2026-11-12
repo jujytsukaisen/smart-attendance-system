@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -19,14 +18,16 @@ export function SecuritySettingsPage() {
 
   const form = useForm<SecuritySettingsDto>({
     resolver: zodResolver(securitySettingsSchema),
-    defaultValues: data,
+    values: data || {
+      passwordPolicy: 'Strong',
+      sessionTimeoutMinutes: 60,
+      jwtLifetimeMinutes: 60,
+      refreshTokenLifetimeDays: 7,
+      twoFactorAuthEnabled: false,
+      maxLoginAttempts: 5,
+      lockoutDurationMinutes: 15,
+    },
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: SecuritySettingsDto) => {
     await updateMutation.mutateAsync(values);
@@ -41,13 +42,11 @@ export function SecuritySettingsPage() {
         <p className="text-destructive">
           {error instanceof Error && !error.message.toLowerCase().includes('internal server error') && !error.message.includes('status code')
             ? error.message
-            : "Failed to load"}
+            : 'Failed to load'}
         </p>
       </div>
     );
   }
-
-
 
   return (
     <div className="space-y-6">

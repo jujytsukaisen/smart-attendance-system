@@ -36,19 +36,47 @@ public class ResponseWrapperMiddleware
             var readToEnd = await new StreamReader(memoryStream).ReadToEndAsync();
             memoryStream.Seek(0, SeekOrigin.Begin);
 
-            // Don't wrap already formatted problem details or 204 No Content
-            if (context.Response.ContentType?.Contains("problem+json") == true || context.Response.StatusCode == StatusCodes.Status204NoContent)
+            // Don't wrap already formatted problem details, 204 No Content, or File/Binary downloads
+            var contentType = context.Response.ContentType?.ToLowerInvariant() ?? "";
+            var isFileOrNonJson = context.Response.Headers.ContainsKey("Content-Disposition") ||
+                                  contentType.StartsWith("text/csv") ||
+                                  contentType.StartsWith("application/vnd.ms-excel") ||
+                                  contentType.StartsWith("application/pdf") ||
+                                  contentType.StartsWith("text/html") ||
+                                  contentType.StartsWith("application/octet-stream") ||
+                                  contentType.StartsWith("image/") ||
+                                  contentType.StartsWith("video/") ||
+                                  contentType.StartsWith("audio/");
+
+            if (contentType.Contains("problem+json") ||
+                context.Response.StatusCode == StatusCodes.Status204NoContent ||
+                isFileOrNonJson)
             {
                 await memoryStream.CopyToAsync(originalBodyStream);
                 return;
             }
 
-            var wrappedResponse = new
-            {
-                data = string.IsNullOrWhiteSpace(readToEnd) ? null : JsonSerializer.Deserialize<object>(readToEnd),
-                statusCode = context.Response.StatusCode,
-                isSuccess = context.Response.StatusCode >= 200 && context.Response.StatusCode < 300
-            };
+           object? responseData = null;
+
+if (!string.IsNullOrWhiteSpace(readToEnd))
+{
+    try
+    {
+        responseData = JsonSerializer.Deserialize<object>(readToEnd);
+    }
+    catch
+    {
+        responseData = readToEnd;
+    }
+}
+
+var wrappedResponse = new
+{
+    data = responseData,
+    statusCode = context.Response.StatusCode,
+    isSuccess = context.Response.StatusCode >= 200 &&
+                context.Response.StatusCode < 300
+};
 
             var json = JsonSerializer.Serialize(wrappedResponse, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 

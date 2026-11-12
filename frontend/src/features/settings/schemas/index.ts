@@ -53,6 +53,7 @@ export const emailSettingsSchema = z.object({
   smtpPort: z.number().min(1, 'SMTP Port is required'),
   enableSsl: z.boolean(),
   username: z.string().min(1, 'Username is required'),
+  password: z.string().min(1, 'Password is required'),
   senderName: z.string().min(1, 'Sender Name is required'),
   senderEmail: z.string().email('Invalid email address'),
 });

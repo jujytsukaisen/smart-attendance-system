@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -18,14 +17,8 @@ export function DeviceSettingsPage() {
 
   const form = useForm<DeviceSettingsDto>({
     resolver: zodResolver(deviceSettingsSchema),
-    defaultValues: data,
+    values: data || {} as any,
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: DeviceSettingsDto) => {
     await updateMutation.mutateAsync(values);

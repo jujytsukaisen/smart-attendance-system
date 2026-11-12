@@ -16,11 +16,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
-import { MoreHorizontal, Edit, Trash, Activity, PowerOff, Users } from 'lucide-react';
+import { MoreHorizontal, Edit, Trash, Activity, PowerOff, Users, ScanFace } from 'lucide-react';
 import { EmployeeStatusBadge } from './EmployeeStatusBadge';
 import { ActionDialog } from './ActionDialog';
 import { useDeleteEmployee, useRestoreEmployee, useActivateEmployee, useDeactivateEmployee } from '../hooks';
 import type { EmployeeListDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface EmployeeTableProps {
   employees: EmployeeListDto[];
@@ -29,6 +30,7 @@ interface EmployeeTableProps {
 
 export const EmployeeTable = ({ employees, isLoading }: EmployeeTableProps) => {
   const navigate = useNavigate();
+  const { t, isRtl } = useTranslation();
   const [selectedEmployee, setSelectedEmployee] = useState<EmployeeListDto | null>(null);
   const [dialogAction, setDialogAction] = useState<'delete' | 'restore' | 'activate' | 'deactivate' | null>(null);
 
@@ -59,33 +61,41 @@ export const EmployeeTable = ({ employees, isLoading }: EmployeeTableProps) => {
     switch (dialogAction) {
       case 'delete':
         return {
-          title: 'Delete Employee',
-          description: `Are you sure you want to delete ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}? This action can be undone later by restoring.`,
-          confirmText: 'Delete',
+          title: t('employees.deleteEmployee'),
+          description: isRtl
+            ? `هل أنت متأكد من رغبتك في حذف الموظف ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}؟ يمكن التراجع عن هذا الإجراء لاحقاً.`
+            : `Are you sure you want to delete ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}? This action can be undone later by restoring.`,
+          confirmText: t('common.delete'),
           variant: 'danger' as const,
           isLoading: deleteMutation.isPending,
         };
       case 'restore':
         return {
-          title: 'Restore Employee',
-          description: `Are you sure you want to restore ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}?`,
-          confirmText: 'Restore',
+          title: t('employees.restoreEmployee'),
+          description: isRtl
+            ? `هل أنت متأكد من رغبتك في استعادة الموظف ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}؟`
+            : `Are you sure you want to restore ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}?`,
+          confirmText: t('employees.restore'),
           variant: 'default' as const,
           isLoading: restoreMutation.isPending,
         };
       case 'activate':
         return {
-          title: 'Activate Employee',
-          description: `Are you sure you want to activate ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}?`,
-          confirmText: 'Activate',
+          title: t('employees.activateEmployee'),
+          description: isRtl
+            ? `هل أنت متأكد من رغبتك في تفعيل الموظف ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}؟`
+            : `Are you sure you want to activate ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}?`,
+          confirmText: t('employees.activate'),
           variant: 'default' as const,
           isLoading: activateMutation.isPending,
         };
       case 'deactivate':
         return {
-          title: 'Deactivate Employee',
-          description: `Are you sure you want to deactivate ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}? They won't be able to log in.`,
-          confirmText: 'Deactivate',
+          title: t('employees.deactivateEmployee'),
+          description: isRtl
+            ? `هل أنت متأكد من رغبتك في تعطيل الموظف ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}؟ لن يتمكن من تسجيل الدخول.`
+            : `Are you sure you want to deactivate ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}? They won't be able to log in.`,
+          confirmText: t('employees.deactivate'),
           variant: 'danger' as const,
           isLoading: deactivateMutation.isPending,
         };
@@ -98,16 +108,16 @@ export const EmployeeTable = ({ employees, isLoading }: EmployeeTableProps) => {
 
   if (isLoading) {
     return (
-      <div className="rounded-md border">
+      <div className="rounded-md border border-border bg-card">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead>Emp No.</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Job Title</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[80px]">Actions</TableHead>
+              <TableHead className="text-start">{t('employees.empNo')}</TableHead>
+              <TableHead className="text-start">{t('employees.name')}</TableHead>
+              <TableHead className="text-start">{t('employees.email')}</TableHead>
+              <TableHead className="text-start">{t('employees.jobTitle')}</TableHead>
+              <TableHead className="text-start">{t('employees.status')}</TableHead>
+              <TableHead className="w-[80px] text-end">{t('common.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -129,11 +139,11 @@ export const EmployeeTable = ({ employees, isLoading }: EmployeeTableProps) => {
 
   if (!employees.length) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center border rounded-md bg-muted/20">
+      <div className="flex flex-col items-center justify-center p-8 text-center border border-border rounded-md bg-card text-card-foreground">
         <Users className="h-10 w-10 text-muted-foreground mb-4" />
-        <h3 className="text-lg font-medium">No employees found</h3>
+        <h3 className="text-lg font-medium">{t('employees.noEmployeesFound')}</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Get started by adding a new employee.
+          {t('employees.noEmployeesHint')}
         </p>
       </div>
     );
@@ -141,55 +151,58 @@ export const EmployeeTable = ({ employees, isLoading }: EmployeeTableProps) => {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="rounded-md border border-border bg-card text-card-foreground overflow-x-auto shadow-sm">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead>Emp No.</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Job Title</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[80px]">Actions</TableHead>
+              <TableHead className="text-start">{t('employees.empNo')}</TableHead>
+              <TableHead className="text-start">{t('employees.name')}</TableHead>
+              <TableHead className="text-start">{t('employees.email')}</TableHead>
+              <TableHead className="text-start">{t('employees.jobTitle')}</TableHead>
+              <TableHead className="text-start">{t('employees.status')}</TableHead>
+              <TableHead className="w-[80px] text-end">{t('common.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {employees.map((employee) => (
-              <TableRow key={employee.id} className="cursor-pointer" onClick={() => navigate(`/employees/${employee.id}`)}>
-                <TableCell className="font-medium">{employee.employeeNumber}</TableCell>
-                <TableCell>{employee.firstName} {employee.lastName}</TableCell>
-                <TableCell>{employee.email}</TableCell>
-                <TableCell>{employee.jobTitle}</TableCell>
+              <TableRow key={employee.id} className="cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => navigate(`/employees/${employee.id}`)}>
+                <TableCell className="font-medium font-mono text-foreground">{employee.employeeNumber}</TableCell>
+                <TableCell className="font-medium text-foreground">{employee.firstName} {employee.lastName}</TableCell>
+                <TableCell className="text-muted-foreground font-mono text-xs">{employee.email}</TableCell>
+                <TableCell className="text-muted-foreground">{employee.jobTitle || '—'}</TableCell>
                 <TableCell onClick={(e) => e.stopPropagation()}>
                   <EmployeeStatusBadge status={employee.employeeStatus} />
                 </TableCell>
-                <TableCell onClick={(e) => e.stopPropagation()}>
+                <TableCell onClick={(e) => e.stopPropagation()} className="text-end">
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground outline-none ml-auto">
-                      <span className="sr-only">Open menu</span>
+                    <DropdownMenuTrigger className="h-8 w-8 p-0 inline-flex items-center justify-center rounded-md hover:bg-muted text-muted-foreground hover:text-foreground outline-none">
+                      <span className="sr-only">{t('common.actions')}</span>
                       <MoreHorizontal className="h-4 w-4" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem onClick={() => navigate(`/employees/${employee.id}/edit`)}>
-                        <Edit className="mr-2 h-4 w-4" /> Edit
+                    <DropdownMenuContent align={isRtl ? 'start' : 'end'}>
+                      <DropdownMenuLabel>{t('common.actions')}</DropdownMenuLabel>
+                      <DropdownMenuItem onClick={() => navigate(`/employees/${employee.id}`)} className="gap-2 cursor-pointer">
+                        <ScanFace className="h-4 w-4 text-primary" /> <span>{isRtl ? 'بصمة الوجه' : 'Face Biometrics'}</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => navigate(`/employees/${employee.id}/edit`)} className="gap-2 cursor-pointer">
+                        <Edit className="h-4 w-4" /> <span>{t('common.edit')}</span>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      {employee.employeeStatus === 0 ? (
-                        <DropdownMenuItem onClick={() => { setSelectedEmployee(employee); setDialogAction('deactivate'); }}>
-                          <PowerOff className="mr-2 h-4 w-4" /> Deactivate
+                      {employee.employeeStatus === 'Active' ? (
+                        <DropdownMenuItem onClick={() => { setSelectedEmployee(employee); setDialogAction('deactivate'); }} className="gap-2 cursor-pointer">
+                          <PowerOff className="h-4 w-4" /> <span>{t('employees.deactivate')}</span>
                         </DropdownMenuItem>
                       ) : (
-                        <DropdownMenuItem onClick={() => { setSelectedEmployee(employee); setDialogAction('activate'); }}>
-                          <Activity className="mr-2 h-4 w-4" /> Activate
+                        <DropdownMenuItem onClick={() => { setSelectedEmployee(employee); setDialogAction('activate'); }} className="gap-2 cursor-pointer">
+                          <Activity className="h-4 w-4" /> <span>{t('employees.activate')}</span>
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         onClick={() => { setSelectedEmployee(employee); setDialogAction('delete'); }}
-                        className="text-destructive focus:text-destructive"
+                        className="text-destructive focus:text-destructive gap-2 cursor-pointer"
                       >
-                        <Trash className="mr-2 h-4 w-4" /> Delete
+                        <Trash className="h-4 w-4" /> <span>{t('common.delete')}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

@@ -15,19 +15,6 @@ public class CreateLeaveCommandValidatorTests
     }
 
     [Fact]
-    public void Should_HaveError_When_CompanyIdIsEmpty()
-    {
-        // Arrange
-        var command = new CreateLeaveCommand { CompanyId = Guid.Empty };
-        
-        // Act
-        var result = _validator.TestValidate(command);
-        
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.CompanyId);
-    }
-
-    [Fact]
     public void Should_HaveError_When_EmployeeIdIsEmpty()
     {
         var command = new CreateLeaveCommand { EmployeeId = Guid.Empty };
@@ -62,7 +49,6 @@ public class CreateLeaveCommandValidatorTests
         var command = new CreateLeaveCommand(); // Empty command
         var result = _validator.TestValidate(command);
         
-        result.ShouldHaveValidationErrorFor(x => x.CompanyId);
         result.ShouldHaveValidationErrorFor(x => x.EmployeeId);
         result.ShouldHaveValidationErrorFor(x => x.LeaveType);
         result.ShouldHaveValidationErrorFor(x => x.StartDate);

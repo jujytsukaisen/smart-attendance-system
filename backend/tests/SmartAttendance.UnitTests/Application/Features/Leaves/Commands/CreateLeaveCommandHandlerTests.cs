@@ -16,6 +16,7 @@ public class CreateLeaveCommandHandlerTests
 {
     private readonly Mock<IApplicationDbContext> _contextMock;
     private readonly Mock<INotificationService> _notificationServiceMock;
+    private readonly Mock<ICurrentUserService> _currentUserServiceMock;
     private readonly Mock<DbSet<Leave>> _leavesDbSetMock;
     private readonly CreateLeaveCommandHandler _handler;
 
@@ -23,12 +24,13 @@ public class CreateLeaveCommandHandlerTests
     {
         _contextMock = new Mock<IApplicationDbContext>();
         _notificationServiceMock = new Mock<INotificationService>();
+        _currentUserServiceMock = new Mock<ICurrentUserService>();
         _notificationServiceMock.Setup(x => x.SendNotificationAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(SmartAttendance.Application.Common.Models.Result.Success());
         _leavesDbSetMock = new Mock<DbSet<Leave>>();
 
         _contextMock.Setup(c => c.Leaves).Returns(_leavesDbSetMock.Object);
 
-        _handler = new CreateLeaveCommandHandler(_contextMock.Object, _notificationServiceMock.Object);
+        _handler = new CreateLeaveCommandHandler(_contextMock.Object, _notificationServiceMock.Object, _currentUserServiceMock.Object);
     }
 
     [Fact]

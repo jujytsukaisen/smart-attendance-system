@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 import { attendancePolicySchema, type AttendancePolicyFormValues } from '../schemas';
+import { useCompanies } from '@/features/companies/hooks';
 import {
   AttendanceMode,
   RoundTimeRule,
@@ -39,9 +40,9 @@ const defaultValues: Partial<AttendancePolicyFormValues> = {
   name: '',
   code: '',
   description: '',
-  
+
   attendanceMode: AttendanceMode.Office,
-  
+
   requireFaceRecognition: false,
   requireGPS: false,
   requireApprovedDevice: false,
@@ -55,19 +56,19 @@ const defaultValues: Partial<AttendancePolicyFormValues> = {
   allowManualAttendance: false,
   requireManagerApproval: false,
   maximumDistanceMeters: 0,
-  
+
   lateToleranceMinutes: 0,
   earlyLeaveToleranceMinutes: 0,
   gracePeriodMinutes: 0,
   overtimeThresholdMinutes: 0,
   minimumOvertimeMinutes: 0,
   maximumOvertimeMinutes: 0,
-  
+
   autoCheckoutEnabled: false,
   autoCheckoutTime: '',
-  
+
   multipleShiftsSupport: false,
-  
+
   roundTimeRule: RoundTimeRule.None,
   missingPunchPolicy: MissingPunchPolicy.Reject,
   weekendPolicy: WeekendPolicy.Regular,
@@ -84,6 +85,8 @@ export function AttendancePolicyForm({
     resolver: zodResolver(attendancePolicySchema),
     defaultValues: { ...defaultValues, ...initialValues } as AttendancePolicyFormValues,
   });
+
+  const { data: companiesData, isLoading: isLoadingCompanies } = useCompanies({ pageNumber: 1, pageSize: 100, isActive: true });
 
   return (
     <Form {...form}>
@@ -111,7 +114,7 @@ export function AttendancePolicyForm({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="code"
@@ -131,10 +134,23 @@ export function AttendancePolicyForm({
                   name="companyId"
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-4">
-                      <FormLabel>Company ID *</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
+                      <FormLabel>Company *</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isLoadingCompanies}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={isLoadingCompanies ? 'Loading...' : 'Select Company'} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {companiesData?.items.map((c) => (
+                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -174,8 +190,8 @@ export function AttendancePolicyForm({
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-3">
                       <FormLabel>Attendance Mode</FormLabel>
-                      <Select 
-                        onValueChange={(val) => field.onChange(parseInt(val || '0'))} 
+                      <Select
+                        onValueChange={(val) => field.onChange(parseInt(val || '0'))}
                         value={field.value?.toString() || ''}
                       >
                         <FormControl>
@@ -195,7 +211,7 @@ export function AttendancePolicyForm({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="allowedRadiusMeters"
@@ -209,7 +225,7 @@ export function AttendancePolicyForm({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="maximumDistanceMeters"
@@ -336,8 +352,8 @@ export function AttendancePolicyForm({
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-3">
                       <FormLabel>Round Time Rule</FormLabel>
-                      <Select 
-                        onValueChange={(val) => field.onChange(parseInt(val || '0'))} 
+                      <Select
+                        onValueChange={(val) => field.onChange(parseInt(val || '0'))}
                         value={field.value?.toString() || ''}
                       >
                         <FormControl>
@@ -356,15 +372,15 @@ export function AttendancePolicyForm({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="missingPunchPolicy"
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-3">
                       <FormLabel>Missing Punch Policy</FormLabel>
-                      <Select 
-                        onValueChange={(val) => field.onChange(parseInt(val || '0'))} 
+                      <Select
+                        onValueChange={(val) => field.onChange(parseInt(val || '0'))}
                         value={field.value?.toString() || ''}
                       >
                         <FormControl>
@@ -390,8 +406,8 @@ export function AttendancePolicyForm({
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-3">
                       <FormLabel>Weekend Policy</FormLabel>
-                      <Select 
-                        onValueChange={(val) => field.onChange(parseInt(val || '0'))} 
+                      <Select
+                        onValueChange={(val) => field.onChange(parseInt(val || '0'))}
                         value={field.value?.toString() || ''}
                       >
                         <FormControl>
@@ -409,15 +425,15 @@ export function AttendancePolicyForm({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="holidayPolicy"
                   render={({ field }) => (
                     <FormItem className="col-span-6 sm:col-span-3">
                       <FormLabel>Holiday Policy</FormLabel>
-                      <Select 
-                        onValueChange={(val) => field.onChange(parseInt(val || '0'))} 
+                      <Select
+                        onValueChange={(val) => field.onChange(parseInt(val || '0'))}
                         value={field.value?.toString() || ''}
                       >
                         <FormControl>

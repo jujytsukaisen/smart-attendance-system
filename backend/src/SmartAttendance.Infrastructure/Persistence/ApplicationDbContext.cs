@@ -16,13 +16,16 @@ namespace SmartAttendance.Infrastructure.Persistence;
 public class ApplicationDbContext : global::Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext<ApplicationUser, ApplicationRole, Guid, ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IApplicationDbContext, IUnitOfWork
 {
     private readonly ICurrentUserService _currentUserService;
+    private readonly ISystemExecutionContext _systemExecutionContext;
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
-        ICurrentUserService currentUserService)
+        ICurrentUserService currentUserService,
+        ISystemExecutionContext systemExecutionContext)
         : base(options)
     {
         _currentUserService = currentUserService;
+        _systemExecutionContext = systemExecutionContext;
     }
 
     // ──────────────────────────────────────────────
@@ -43,10 +46,12 @@ public class ApplicationDbContext : global::Microsoft.AspNetCore.Identity.Entity
     public DbSet<AttendancePolicy> AttendancePolicies => Set<AttendancePolicy>();
     public DbSet<AttendanceDevice> AttendanceDevices => Set<AttendanceDevice>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
+    public DbSet<AttendanceEvent> AttendanceEvents => Set<AttendanceEvent>();
     public DbSet<Leave> Leaves => Set<Leave>();
     public DbSet<Holiday> Holidays => Set<Holiday>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<AppSetting> AppSettings => Set<AppSetting>();
 
     // ──────────────────────────────────────────────
     // IUnitOfWork implementation
@@ -101,6 +106,7 @@ public class ApplicationDbContext : global::Microsoft.AspNetCore.Identity.Entity
 
     public Guid CurrentTenantId => Guid.TryParse(_currentUserService.TenantId, out var tenantId) ? tenantId : Guid.Empty;
     public bool IsSuperAdmin => _currentUserService.Roles.Contains("SuperAdmin");
+    public bool IsSystemOperation => _systemExecutionContext.IsSystemOperation;
 
     private void ApplyGlobalFilters(ModelBuilder modelBuilder)
     {
@@ -143,7 +149,7 @@ public class ApplicationDbContext : global::Microsoft.AspNetCore.Identity.Entity
 
     private void ApplyTenantFilterGeneric<T>(ModelBuilder modelBuilder) where T : BaseTenantEntity
     {
-        modelBuilder.Entity<T>().HasQueryFilter(e => !e.IsDeleted && (IsSuperAdmin || e.CompanyId == CurrentTenantId));
+        modelBuilder.Entity<T>().HasQueryFilter(e => !e.IsDeleted && (IsSystemOperation || IsSuperAdmin || e.CompanyId == CurrentTenantId));
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

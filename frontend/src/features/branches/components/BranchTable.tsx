@@ -19,6 +19,7 @@ import { MoreHorizontal, Eye, Edit, Trash2, RotateCcw, Power, PowerOff } from 'l
 import { BranchStatusBadge } from './BranchStatusBadge';
 import { useNavigate } from 'react-router-dom';
 import type { BranchListDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface BranchTableProps {
   data: BranchListDto[];
@@ -35,6 +36,7 @@ export const BranchTable = ({
   onRestoreClick,
   onActivateToggle
 }: BranchTableProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -43,11 +45,11 @@ export const BranchTable = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Branch Name</TableHead>
-              <TableHead>Code</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>{t('branches.branchName')}</TableHead>
+              <TableHead>{t('branches.code')}</TableHead>
+              <TableHead>{t('branches.type')}</TableHead>
+              <TableHead>{t('branches.status')}</TableHead>
+              <TableHead className="w-[80px] text-center">{t('branches.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -57,7 +59,7 @@ export const BranchTable = ({
                 <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                 <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
                 <TableCell><Skeleton className="h-6 w-[80px] rounded-full" /></TableCell>
-                <TableCell className="text-right"><Skeleton className="h-8 w-8 rounded-md ml-auto" /></TableCell>
+                <TableCell className="text-center"><Skeleton className="h-8 w-8 rounded-md mx-auto" /></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -69,7 +71,7 @@ export const BranchTable = ({
   if (!data.length) {
     return (
       <div className="rounded-md border p-8 text-center text-muted-foreground">
-        No branches found. Try adjusting your filters.
+        {t('branches.noBranchesFound')}
       </div>
     );
   }
@@ -79,11 +81,11 @@ export const BranchTable = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Branch Name</TableHead>
-            <TableHead>Code</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>{t('branches.branchName')}</TableHead>
+            <TableHead>{t('branches.code')}</TableHead>
+            <TableHead>{t('branches.type')}</TableHead>
+            <TableHead>{t('branches.status')}</TableHead>
+            <TableHead className="w-[80px] text-center">{t('branches.actions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -95,45 +97,49 @@ export const BranchTable = ({
               <TableCell>{branch.code}</TableCell>
               <TableCell>
                 {branch.isHeadOffice ? (
-                  <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-md">Head Office</span>
+                  <span className="text-xs font-semibold text-blue-600 bg-blue-100 dark:bg-blue-950 dark:text-blue-400 px-2 py-1 rounded-md">
+                    {t('branches.headOffice')}
+                  </span>
                 ) : (
-                  <span className="text-xs text-muted-foreground">Standard</span>
+                  <span className="text-xs text-muted-foreground">
+                    {t('branches.standard')}
+                  </span>
                 )}
               </TableCell>
               <TableCell>
                 <BranchStatusBadge isActive={branch.isActive} />
               </TableCell>
-              <TableCell className="text-right">
+              <TableCell className="text-center">
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground outline-none ml-auto">
-                    <span className="sr-only">Open menu</span>
+                  <DropdownMenuTrigger className="h-8 w-8 p-0 inline-flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground outline-none">
+                    <span className="sr-only">{t('common.actions')}</span>
                     <MoreHorizontal className="h-4 w-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuLabel>{t('branches.actions')}</DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => navigate(`/branches/${branch.id}`)}>
-                      <Eye className="mr-2 h-4 w-4" /> View Details
+                      <Eye className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('common.details')}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate(`/branches/${branch.id}/edit`)}>
-                      <Edit className="mr-2 h-4 w-4" /> Edit
+                      <Edit className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('common.edit')}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => onActivateToggle(branch)}>
                       {branch.isActive ? (
-                        <><PowerOff className="mr-2 h-4 w-4" /> Deactivate</>
+                        <><PowerOff className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('employees.deactivate')}</>
                       ) : (
-                        <><Power className="mr-2 h-4 w-4" /> Activate</>
+                        <><Power className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('employees.activate')}</>
                       )}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => onRestoreClick(branch.id)}>
-                      <RotateCcw className="mr-2 h-4 w-4" /> Restore
+                      <RotateCcw className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('employees.restore')}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       onClick={() => onDeleteClick(branch.id)}
                       className="text-destructive focus:text-destructive"
                     >
-                      <Trash2 className="mr-2 h-4 w-4" /> Delete
+                      <Trash2 className="h-4 w-4 ltr:mr-2 rtl:ml-2" /> {t('common.delete')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

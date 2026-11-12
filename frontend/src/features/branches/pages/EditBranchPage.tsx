@@ -78,13 +78,12 @@ export const EditBranchPage = () => {
     );
   }
 
-  // address is a string like "street, city, state, country, zip", we need to split it if we didn't receive distinct fields.
-  // Actually, backend only returns `address` as a single string in BranchDto.
-  // Let's parse it assuming "street, city, state, country, zipcode" or leave it blank if complex.
-  // Wait, if backend BranchDto only sends `address` as string, our form needs distinct fields.
-  // Let's try splitting by commas.
-  const addressParts = (branch.address || '').split(',').map(s => s.trim());
-  const [street = '', city = '', state = '', country = '', zip = ''] = addressParts;
+  // We now receive individual address fields from the backend
+  const street = branch.addressStreet || '';
+  const city = branch.addressCity || '';
+  const state = branch.addressState || '';
+  const country = branch.addressCountry || '';
+  const zip = branch.addressZipCode || '';
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">

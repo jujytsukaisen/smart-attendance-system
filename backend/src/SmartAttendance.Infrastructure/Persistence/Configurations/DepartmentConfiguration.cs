@@ -36,6 +36,10 @@ public sealed class DepartmentConfiguration : IEntityTypeConfiguration<Departmen
             .IsRequired()
             .HasDefaultValue(true);
 
+        builder.Property(d => d.RequiresLocationValidation)
+            .IsRequired()
+            .HasDefaultValue(true);
+
         // Auditing
         builder.Property(d => d.CompanyId).IsRequired();
         builder.Property(d => d.CreatedAt).IsRequired();

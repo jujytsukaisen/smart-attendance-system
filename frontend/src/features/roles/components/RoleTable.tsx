@@ -29,8 +29,9 @@ export function RoleTable({ data }: RoleTableProps) {
         toast.success('Role activated successfully');
         setActivateId(null);
       },
-      onError: () => {
-        toast.error('Failed to activate role');
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.detail || error.response?.data?.title || 'Failed to activate role';
+        toast.error(errorMessage);
         setActivateId(null);
       },
     });
@@ -43,8 +44,9 @@ export function RoleTable({ data }: RoleTableProps) {
         toast.success('Role deactivated successfully');
         setDeactivateId(null);
       },
-      onError: () => {
-        toast.error('Failed to deactivate role');
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.detail || error.response?.data?.title || 'Failed to deactivate role';
+        toast.error(errorMessage);
         setDeactivateId(null);
       },
     });
@@ -57,8 +59,9 @@ export function RoleTable({ data }: RoleTableProps) {
         toast.success('Role deleted successfully');
         setDeleteId(null);
       },
-      onError: () => {
-        toast.error('Failed to delete role');
+      onError: (error: any) => {
+        const errorMessage = error.response?.data?.detail || error.response?.data?.title || 'Failed to delete role';
+        toast.error(errorMessage);
         setDeleteId(null);
       },
     });
@@ -66,17 +69,17 @@ export function RoleTable({ data }: RoleTableProps) {
 
   return (
     <>
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-card text-card-foreground shadow border overflow-hidden sm:rounded-lg">
+        <table className="min-w-full divide-y divide-border">
+          <thead className="bg-muted/50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Name
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Description
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Status
               </th>
               <th scope="col" className="relative px-6 py-3">
@@ -84,14 +87,14 @@ export function RoleTable({ data }: RoleTableProps) {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-card divide-y divide-border">
             {data.map((role) => (
-              <tr key={role.id} className="hover:bg-gray-50">
+              <tr key={role.id} className="hover:bg-muted transition-colors">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{role.name}</div>
+                  <div className="text-sm font-medium text-foreground">{role.name}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500 truncate max-w-xs">{role.description}</div>
+                  <div className="text-sm text-muted-foreground truncate max-w-xs">{role.description}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {role.isActive ? (
@@ -112,7 +115,7 @@ export function RoleTable({ data }: RoleTableProps) {
                       </Button>
                     )}
                     <Button variant="ghost" size="icon" onClick={() => navigate(`/roles/${role.id}/edit`)}>
-                      <Edit2 className="h-4 w-4 text-gray-500" />
+                      <Edit2 className="h-4 w-4 text-muted-foreground" />
                     </Button>
                     <Button variant="ghost" size="icon" onClick={() => navigate(`/roles/${role.id}`)}>
                       <Eye className="h-4 w-4" />

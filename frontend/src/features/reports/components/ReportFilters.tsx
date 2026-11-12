@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 import type { ReportFilterDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface ReportFiltersProps {
   onFilterChange: (filter: ReportFilterDto) => void;
@@ -16,6 +17,7 @@ interface ReportFiltersProps {
 }
 
 export function ReportFilters({ onFilterChange, showSearch = true }: ReportFiltersProps) {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<ReportFilterDto>({});
 
   const handleChange = (key: keyof ReportFilterDto, value: string | undefined) => {
@@ -28,26 +30,26 @@ export function ReportFilters({ onFilterChange, showSearch = true }: ReportFilte
     <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-6">
       {showSearch && (
         <div className="relative flex-1 min-w-[200px]">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-4 w-4 text-gray-400" />
+          <div className="absolute inset-y-0 ltr:left-0 rtl:right-0 ltr:pl-3 rtl:pr-3 flex items-center pointer-events-none">
+            <Search className="h-4 w-4 text-muted-foreground" />
           </div>
           <Input
             type="text"
-            placeholder="Search employee..."
-            className="pl-9 w-full"
+            placeholder={t('reports.searchPlaceholder')}
+            className="ltr:pl-9 rtl:pr-9 w-full"
             value={filter.searchTerm || ''}
             onChange={(e) => handleChange('searchTerm', e.target.value || undefined)}
           />
         </div>
       )}
       
-      <div className="w-full sm:w-40">
+      <div className="w-full sm:w-44">
         <Select onValueChange={(val: any) => handleChange('departmentId', val === 'all' ? undefined : String(val))}>
           <SelectTrigger>
-            <SelectValue placeholder="Department" />
+            <SelectValue placeholder={t('reports.allDepartments')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Departments</SelectItem>
+            <SelectItem value="all">{t('reports.allDepartments')}</SelectItem>
             <SelectItem value="d1">Engineering</SelectItem>
             <SelectItem value="d2">Sales</SelectItem>
             <SelectItem value="d3">HR</SelectItem>
@@ -60,7 +62,7 @@ export function ReportFilters({ onFilterChange, showSearch = true }: ReportFilte
           type="date" 
           value={filter.startDate || ''}
           onChange={(e) => handleChange('startDate', e.target.value || undefined)}
-          placeholder="Start Date"
+          placeholder={t('reports.startDate')}
         />
       </div>
 
@@ -69,7 +71,7 @@ export function ReportFilters({ onFilterChange, showSearch = true }: ReportFilte
           type="date" 
           value={filter.endDate || ''}
           onChange={(e) => handleChange('endDate', e.target.value || undefined)}
-          placeholder="End Date"
+          placeholder={t('reports.endDate')}
         />
       </div>
     </div>

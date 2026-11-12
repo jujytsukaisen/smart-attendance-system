@@ -129,6 +129,13 @@ public sealed class AttendanceConfiguration : IEntityTypeConfiguration<Attendanc
             .WithMany()
             .HasForeignKey(a => a.ShiftId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // AttendanceEvents are configured in AttendanceEventConfiguration
+        // with Cascade delete from Attendance.
+        builder.HasMany(a => a.Events)
+            .WithOne(e => e.Attendance)
+            .HasForeignKey(e => e.AttendanceId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
 

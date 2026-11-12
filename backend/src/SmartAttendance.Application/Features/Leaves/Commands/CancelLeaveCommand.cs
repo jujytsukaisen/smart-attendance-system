@@ -20,7 +20,7 @@ public class CancelLeaveCommandValidator : AbstractValidator<CancelLeaveCommand>
     public CancelLeaveCommandValidator()
     {
         RuleFor(x => x.LeaveId).NotEmpty();
-        RuleFor(x => x.Reason).NotEmpty().MaximumLength(500);
+        RuleFor(x => x.Reason).MaximumLength(500);
     }
 }
 
@@ -45,6 +45,31 @@ public class CancelLeaveCommandHandler : IRequestHandler<CancelLeaveCommand, Res
         leave.Cancel(Guid.Empty, request.Reason);
         
         _context.Leaves.Update(leave);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == leave.EmployeeId, cancellationToken);
+        if (employee != null && employee.UserId.HasValue)
+        {
+            var notification = SmartAttendance.Domain.Entities.Notification.Create(
+                leave.CompanyId,
+                employee.UserId.Value,
+                "Leave Cancelled",
+                "Your leave has been cancelled.",
+                SmartAttendance.Domain.Enums.NotificationType.System,
+                SmartAttendance.Domain.Enums.NotificationPriority.Medium);
+
+            await _context.Notifications.AddAsync(notification, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        try
+        {
+            await _notificationService.SendNotificationAsync(leave.EmployeeId.ToString(), "Leave Cancelled", "Your leave has been cancelled.");
+        }
+        catch
+        {
+            // Ignore notification failure
+        }
 
         return Result.Success();
     }

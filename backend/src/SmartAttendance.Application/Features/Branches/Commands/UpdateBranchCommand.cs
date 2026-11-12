@@ -18,11 +18,12 @@ public class UpdateBranchCommand : IRequest<Result>
     public string AddressState { get; set; } = string.Empty;
     public string AddressCountry { get; set; } = string.Empty;
     public string AddressZipCode { get; set; } = string.Empty;
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public double? AllowedRadiusMeters { get; set; }
     public string PhoneNumber { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string TimeZone { get; set; } = "UTC";
+    public string? TimeZone { get; set; }
 }
 
 public class UpdateBranchCommandValidator : AbstractValidator<UpdateBranchCommand>
@@ -37,11 +38,11 @@ public class UpdateBranchCommandValidator : AbstractValidator<UpdateBranchComman
         RuleFor(x => x.AddressState).NotEmpty().MaximumLength(50);
         RuleFor(x => x.AddressCountry).NotEmpty().MaximumLength(50);
         RuleFor(x => x.AddressZipCode).NotEmpty().MaximumLength(20);
-        RuleFor(x => x.Latitude).InclusiveBetween(-90, 90);
-        RuleFor(x => x.Longitude).InclusiveBetween(-180, 180);
+        RuleFor(x => x.Latitude).InclusiveBetween(-90, 90).When(x => x.Latitude.HasValue);
+        RuleFor(x => x.Longitude).InclusiveBetween(-180, 180).When(x => x.Longitude.HasValue);
+        RuleFor(x => x.AllowedRadiusMeters).GreaterThan(0).When(x => x.AllowedRadiusMeters.HasValue);
         RuleFor(x => x.PhoneNumber).MaximumLength(20);
         RuleFor(x => x.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x.Email));
-        RuleFor(x => x.TimeZone).NotEmpty();
     }
 }
 
@@ -67,6 +68,7 @@ public class UpdateBranchCommandHandler : IRequestHandler<UpdateBranchCommand, R
             request.AddressStreet, request.AddressCity, request.AddressState, request.AddressCountry, request.AddressZipCode);
 
         branch.ChangeLocation(address, request.Latitude, request.Longitude);
+        branch.ChangeRadius(request.AllowedRadiusMeters);
 
         var email = new SmartAttendance.Domain.ValueObjects.Email(request.Email);
         var phone = new SmartAttendance.Domain.ValueObjects.PhoneNumber(request.PhoneNumber);

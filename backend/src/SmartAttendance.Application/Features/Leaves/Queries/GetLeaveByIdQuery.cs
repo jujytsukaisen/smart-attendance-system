@@ -17,6 +17,8 @@ public class LeaveDetailsDto : IMapFrom<Leave>
     public Guid Id { get; set; }
     public Guid CompanyId { get; set; }
     public Guid EmployeeId { get; set; }
+    public string? EmployeeName { get; set; }
+    public string? EmployeeNumber { get; set; }
     public Guid? ApproverId { get; set; }
     public string LeaveType { get; set; } = string.Empty;
     public DateTime StartDate { get; set; }
@@ -27,7 +29,11 @@ public class LeaveDetailsDto : IMapFrom<Leave>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Leave, LeaveDetailsDto>();
+        profile.CreateMap<Leave, LeaveDetailsDto>()
+            .ForMember(d => d.Status, opt => opt.MapFrom(s => s.LeaveStatus.ToString()))
+            .ForMember(d => d.LeaveType, opt => opt.MapFrom(s => s.LeaveType.ToString()))
+            .ForMember(d => d.EmployeeName, opt => opt.MapFrom(s => s.Employee != null ? $"{s.Employee.FirstName} {s.Employee.LastName}" : string.Empty))
+            .ForMember(d => d.EmployeeNumber, opt => opt.MapFrom(s => s.Employee != null ? s.Employee.EmployeeNumber : string.Empty));
     }
 }
 
@@ -58,6 +64,7 @@ public class GetLeaveByIdQueryHandler : IRequestHandler<GetLeaveByIdQuery, Resul
     public async Task<Result<LeaveDetailsDto>> Handle(GetLeaveByIdQuery request, CancellationToken cancellationToken)
     {
         var leave = await _context.Leaves
+            .Include(x => x.Employee)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.LeaveId, cancellationToken);
             

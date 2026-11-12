@@ -51,7 +51,7 @@ public class DepartmentsController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:Departments.Restore")]
+    [Authorize(Policy = "Permission:Departments.Update")]
     public async Task<IActionResult> RestoreDepartment(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreDepartmentCommand { DepartmentId = id }));

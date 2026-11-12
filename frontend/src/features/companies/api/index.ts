@@ -1,4 +1,5 @@
 import { apiClient } from '@/shared/api/axios';
+import type { ApiEnvelope } from '@/shared/types';
 import type { PagedResult } from '@/shared/types';
 import type {
   CompanyListDto,
@@ -9,20 +10,20 @@ import type {
 } from '../types';
 
 export const getCompanies = async (query: GetCompaniesQuery): Promise<PagedResult<CompanyListDto>> => {
-  const { data } = await apiClient.get<PagedResult<CompanyListDto>>('/v1/Companies', {
+  const { data } = await apiClient.get<ApiEnvelope<PagedResult<CompanyListDto>>>('/v1/Companies', {
     params: query,
   });
-  return data;
+  return data.data;
 };
 
 export const getCompanyById = async (id: string): Promise<CompanyDetailsDto> => {
-  const { data } = await apiClient.get<CompanyDetailsDto>(`/v1/Companies/${id}`);
-  return data;
+  const { data } = await apiClient.get<ApiEnvelope<CompanyDetailsDto>>(`/v1/Companies/${id}`);
+  return data.data;
 };
 
 export const createCompany = async (command: CreateCompanyCommand): Promise<string> => {
-  const { data } = await apiClient.post<string>('/v1/Companies', command);
-  return data;
+  const { data } = await apiClient.post<ApiEnvelope<string>>('/v1/Companies', command);
+  return data.data;
 };
 
 export const updateCompany = async (command: UpdateCompanyCommand): Promise<void> => {

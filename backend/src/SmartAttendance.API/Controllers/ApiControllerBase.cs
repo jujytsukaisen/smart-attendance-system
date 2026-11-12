@@ -38,7 +38,7 @@ public abstract class ApiControllerBase : ControllerBase
         return ProblemDetailsForFailure(result);
     }
 
-    private IActionResult ProblemDetailsForFailure(Result result)
+    protected IActionResult ProblemDetailsForFailure(Result result)
     {
         // Simple mapping based on error signatures or custom logic can go here.
         // E.g., if Errors contains "NotFound", return 404.

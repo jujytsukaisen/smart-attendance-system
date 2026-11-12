@@ -7,5 +7,7 @@ public enum AttendanceStatus
     Absent,
     Late,
     EarlyLeave,
+    PresentDuringLeave,
+    LateDuringLeave,
     Invalid
 }

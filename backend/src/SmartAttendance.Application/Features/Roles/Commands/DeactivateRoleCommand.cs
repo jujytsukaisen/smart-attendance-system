@@ -38,6 +38,7 @@ public class DeactivateRoleCommandHandler : IRequestHandler<DeactivateRoleComman
         
         role.Deactivate();
         _context.Roles.Update(role);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

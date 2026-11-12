@@ -41,42 +41,42 @@ export function DeviceFilters({ onFilterChange }: DeviceFiltersProps) {
         />
       </div>
       <div className="w-full sm:w-40">
-        <Select onValueChange={(val) => onFilterChange({ deviceType: val === 'all' ? undefined : Number(val) as DeviceType })}>
+        <Select onValueChange={(val) => onFilterChange({ deviceType: val === 'all' ? undefined : val as DeviceType })}>
           <SelectTrigger>
             <SelectValue placeholder="Device Type" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
-            <SelectItem value={DeviceType.WallMounted.toString()}>Wall Mounted</SelectItem>
-            <SelectItem value={DeviceType.Mobile.toString()}>Mobile</SelectItem>
-            <SelectItem value={DeviceType.Desktop.toString()}>Desktop</SelectItem>
-            <SelectItem value={DeviceType.Kiosk.toString()}>Kiosk</SelectItem>
+            <SelectItem value={DeviceType.WallMounted}>Wall Mounted</SelectItem>
+            <SelectItem value={DeviceType.Mobile}>Mobile</SelectItem>
+            <SelectItem value={DeviceType.Desktop}>Desktop</SelectItem>
+            <SelectItem value={DeviceType.Kiosk}>Kiosk</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="w-full sm:w-40">
-        <Select onValueChange={(val) => onFilterChange({ deviceStatus: val === 'all' ? undefined : Number(val) as DeviceStatus })}>
+        <Select onValueChange={(val) => onFilterChange({ deviceStatus: val === 'all' ? undefined : val as DeviceStatus })}>
           <SelectTrigger>
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value={DeviceStatus.Approved.toString()}>Approved</SelectItem>
-            <SelectItem value={DeviceStatus.PendingApproval.toString()}>Pending</SelectItem>
-            <SelectItem value={DeviceStatus.Maintenance.toString()}>Maintenance</SelectItem>
-            <SelectItem value={DeviceStatus.Retired.toString()}>Retired</SelectItem>
+            <SelectItem value={DeviceStatus.Approved}>Approved</SelectItem>
+            <SelectItem value={DeviceStatus.PendingApproval}>Pending</SelectItem>
+            <SelectItem value={DeviceStatus.Maintenance}>Maintenance</SelectItem>
+            <SelectItem value={DeviceStatus.Retired}>Retired</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="w-full sm:w-40">
-        <Select onValueChange={(val) => onFilterChange({ connectionStatus: val === 'all' ? undefined : Number(val) as ConnectionStatus })}>
+        <Select onValueChange={(val) => onFilterChange({ connectionStatus: val === 'all' ? undefined : val as ConnectionStatus })}>
           <SelectTrigger>
             <SelectValue placeholder="Connection" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Connections</SelectItem>
-            <SelectItem value={ConnectionStatus.Online.toString()}>Online</SelectItem>
-            <SelectItem value={ConnectionStatus.Offline.toString()}>Offline</SelectItem>
+            <SelectItem value={ConnectionStatus.Online}>Online</SelectItem>
+            <SelectItem value={ConnectionStatus.Offline}>Offline</SelectItem>
           </SelectContent>
         </Select>
       </div>

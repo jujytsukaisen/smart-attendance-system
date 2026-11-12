@@ -47,6 +47,8 @@ builder.Services.AddControllers(options =>
 {
     // Enum as strings
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.Converters.Add(new SmartAttendance.API.Converters.UtcDateTimeJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new SmartAttendance.API.Converters.NullableUtcDateTimeJsonConverter());
     // Ignore null values
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     // CamelCase JSON is the default in ASP.NET Core
@@ -140,6 +142,7 @@ builder.Services.AddHealthChecks()
 // 10. Swagger Configuration
 // ──────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -151,12 +154,12 @@ builder.Services.AddSwaggerGen(c =>
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
+        Description = "JWT Authorization header using the Bearer scheme.",
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Example: \"Bearer {token}\""
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -173,29 +176,25 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
-});
 
+    c.CustomSchemaIds(type => type.FullName?.Replace('+', '.') ?? type.Name);
+});
 // ──────────────────────────────────────────────
 // BUILD APPLICATION
 // ──────────────────────────────────────────────
 var app = builder.Build();
 
 // ──────────────────────────────────────────────
-// MIDDLEWARE PIPELINE
+// Swagger
 // ──────────────────────────────────────────────
-
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseMiddleware<RequestLoggingMiddleware>();
-app.UseMiddleware<SecurityHeadersMiddleware>();
-app.UseMiddleware<TenantResolutionMiddleware>();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Attendance API v1");
+        c.RoutePrefix = string.Empty;
     });
 }
 else
@@ -203,40 +202,90 @@ else
     app.UseHsts();
 }
 
-// Ensure the Response Wrapper runs after exception handling but before the main logic
-app.UseMiddleware<ResponseWrapperMiddleware>();
+// ──────────────────────────────────────────────
+// Global Exception Handling
+// ──────────────────────────────────────────────
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
+// ──────────────────────────────────────────────
+// Logging & Correlation
+// ──────────────────────────────────────────────
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
+
+// ──────────────────────────────────────────────
+// Security Headers
+// ──────────────────────────────────────────────
+app.UseMiddleware<SecurityHeadersMiddleware>();
+
+// ──────────────────────────────────────────────
+// HTTPS
+// ──────────────────────────────────────────────
 app.UseHttpsRedirection();
 
+// ──────────────────────────────────────────────
+// Static Files
+// ──────────────────────────────────────────────
+app.UseStaticFiles();
+
+// ──────────────────────────────────────────────
+// Response Compression & Output Cache
+// ──────────────────────────────────────────────
 app.UseResponseCompression();
 app.UseOutputCache();
-app.UseRateLimiter();
+
+// ──────────────────────────────────────────────
+// Routing
+// ──────────────────────────────────────────────
+// ──────────────────────────────────────────────
+app.UseRouting();
+
+// ──────────────────────────────────────────────
+// CORS
+// ──────────────────────────────────────────────
 app.UseCors("AllowFrontend");
 
-// Serve static files like uploaded images
-app.UseStaticFiles(); 
+// ──────────────────────────────────────────────
+// Rate Limiter
+// ──────────────────────────────────────────────
+app.UseRateLimiter();
 
+// ──────────────────────────────────────────────
+// Authentication & Authorization
+// ──────────────────────────────────────────────
 app.UseAuthentication();
 app.UseAuthorization();
 
 // ──────────────────────────────────────────────
-// HEALTH CHECKS
+// Tenant Resolution
+// ──────────────────────────────────────────────
+app.UseMiddleware<TenantResolutionMiddleware>();
+
+// ──────────────────────────────────────────────
+// Response Wrapper
+// ──────────────────────────────────────────────
+app.UseMiddleware<ResponseWrapperMiddleware>();
+
+// ──────────────────────────────────────────────
+// Health Checks
 // ──────────────────────────────────────────────
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     Predicate = _ => true
 });
+
 app.MapHealthChecks("/health/live", new HealthCheckOptions
 {
     Predicate = check => check.Name == "Application"
 });
+
 app.MapHealthChecks("/health/ready", new HealthCheckOptions
 {
     Predicate = check => check.Name == "SQL Server"
 });
 
 // ──────────────────────────────────────────────
-// ROUTING
+// Controllers
 // ──────────────────────────────────────────────
 app.MapControllers();
 

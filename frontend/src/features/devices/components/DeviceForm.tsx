@@ -20,6 +20,7 @@ import {
 } from '@/shared/components/ui/select';
 import { deviceSchema, type DeviceFormValues } from '../schemas';
 import { DeviceType, CommunicationProtocol } from '../types';
+import { useBranches } from '@/features/branches/hooks';
 
 interface DeviceFormProps {
   initialValues?: Partial<DeviceFormValues>;
@@ -54,6 +55,28 @@ const defaultValues: DeviceFormValues = {
 };
 
 export function DeviceForm({ initialValues, onSubmit, isLoading }: DeviceFormProps) {
+  const { data: branchesData } = useBranches({ pageNumber: 1, pageSize: 100 });
+  const branches = branchesData?.items || [];
+
+  const branchItems = branches.map((b) => ({
+    value: b.id,
+    label: b.name,
+  }));
+
+  const deviceTypeItems = [
+    { value: DeviceType.WallMounted, label: "Wall Mounted" },
+    { value: DeviceType.Mobile, label: "Mobile" },
+    { value: DeviceType.Desktop, label: "Desktop" },
+    { value: DeviceType.Kiosk, label: "Kiosk" },
+  ];
+
+  const protocolItems = [
+    { value: CommunicationProtocol.HTTP, label: "HTTP" },
+    { value: CommunicationProtocol.HTTPS, label: "HTTPS" },
+    { value: CommunicationProtocol.TCP, label: "TCP" },
+    { value: CommunicationProtocol.UDP, label: "UDP" },
+  ];
+
   const form = useForm<DeviceFormValues>({
     resolver: zodResolver(deviceSchema) as any,
     defaultValues: { ...defaultValues, ...initialValues },
@@ -78,13 +101,31 @@ export function DeviceForm({ initialValues, onSubmit, isLoading }: DeviceFormPro
             <FormField control={form.control} name="deviceType" render={({ field }) => (
               <FormItem>
                 <FormLabel>Device Type</FormLabel>
-                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
+                <Select items={deviceTypeItems} onValueChange={field.onChange} value={field.value}>
                   <FormControl><SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger></FormControl>
                   <SelectContent>
-                    <SelectItem value={DeviceType.WallMounted.toString()}>Wall Mounted</SelectItem>
-                    <SelectItem value={DeviceType.Mobile.toString()}>Mobile</SelectItem>
-                    <SelectItem value={DeviceType.Desktop.toString()}>Desktop</SelectItem>
-                    <SelectItem value={DeviceType.Kiosk.toString()}>Kiosk</SelectItem>
+                    <SelectItem value={DeviceType.WallMounted}>Wall Mounted</SelectItem>
+                    <SelectItem value={DeviceType.Mobile}>Mobile</SelectItem>
+                    <SelectItem value={DeviceType.Desktop}>Desktop</SelectItem>
+                    <SelectItem value={DeviceType.Kiosk}>Kiosk</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="branchId" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Branch</FormLabel>
+                <Select items={branchItems} onValueChange={field.onChange} value={field.value || undefined}>
+                  <FormControl><SelectTrigger><SelectValue placeholder="Select branch" /></SelectTrigger></FormControl>
+                  <SelectContent>
+                    {branches.length === 0 ? (
+                      <SelectItem value="none" disabled>No branches available</SelectItem>
+                    ) : (
+                      branches.map(b => (
+                        <SelectItem key={b.id} value={b.id}>{b.name}</SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -106,13 +147,13 @@ export function DeviceForm({ initialValues, onSubmit, isLoading }: DeviceFormPro
             <FormField control={form.control} name="communicationProtocol" render={({ field }) => (
               <FormItem>
                 <FormLabel>Protocol</FormLabel>
-                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
+                <Select items={protocolItems} onValueChange={field.onChange} value={field.value}>
                   <FormControl><SelectTrigger><SelectValue placeholder="Select protocol" /></SelectTrigger></FormControl>
                   <SelectContent>
-                    <SelectItem value={CommunicationProtocol.HTTP.toString()}>HTTP</SelectItem>
-                    <SelectItem value={CommunicationProtocol.HTTPS.toString()}>HTTPS</SelectItem>
-                    <SelectItem value={CommunicationProtocol.TCP.toString()}>TCP</SelectItem>
-                    <SelectItem value={CommunicationProtocol.UDP.toString()}>UDP</SelectItem>
+                    <SelectItem value={CommunicationProtocol.HTTP}>HTTP</SelectItem>
+                    <SelectItem value={CommunicationProtocol.HTTPS}>HTTPS</SelectItem>
+                    <SelectItem value={CommunicationProtocol.TCP}>TCP</SelectItem>
+                    <SelectItem value={CommunicationProtocol.UDP}>UDP</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

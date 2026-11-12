@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SmartAttendance.Domain.Enums;
 using SmartAttendance.Domain.Exceptions;
 
@@ -37,6 +39,7 @@ public class Attendance : BaseTenantEntity
     public int EarlyLeaveMinutes { get; private set; }
     public int OvertimeMinutes { get; private set; }
     public int BreakMinutes { get; private set; }
+    public int ExcessBreakMinutes { get; private set; }
 
     // Verification
     public FaceVerificationStatus FaceVerificationStatus { get; private set; }
@@ -49,6 +52,12 @@ public class Attendance : BaseTenantEntity
     public AttendanceDevice AttendanceDevice { get; private set; } = null!;
     public AttendancePolicy AttendancePolicy { get; private set; } = null!;
     public Shift Shift { get; private set; } = null!;
+
+    /// <summary>
+    /// Ordered collection of every scan event for this daily attendance record.
+    /// The sequence drives the state machine: CheckIn → BreakStart ⇄ BreakEnd → CheckOut.
+    /// </summary>
+    public IReadOnlyCollection<AttendanceEvent> Events { get; private set; } = new List<AttendanceEvent>();
 
     // Private constructor for EF Core materialization (persistence agnostic)
 #pragma warning disable CS8618
@@ -101,7 +110,9 @@ public class Attendance : BaseTenantEntity
         double? checkInLongitude = null,
         string? checkInIPAddress = null,
         string? checkInDeviceInfo = null,
-        string? checkInPhotoReference = null)
+        string? checkInPhotoReference = null,
+        bool isPresentDuringLeave = false,
+        bool isLate = false)
     {
         if (companyId == Guid.Empty)
             throw new InvalidAttendanceException("Company ID is required.");
@@ -126,7 +137,12 @@ public class Attendance : BaseTenantEntity
             checkInLongitude,
             checkInIPAddress,
             checkInDeviceInfo,
-            checkInPhotoReference);
+            checkInPhotoReference)
+        {
+            AttendanceStatus = isPresentDuringLeave 
+                ? (isLate ? AttendanceStatus.LateDuringLeave : AttendanceStatus.PresentDuringLeave) 
+                : (isLate ? AttendanceStatus.Late : AttendanceStatus.Pending)
+        };
     }
 
     public void RecordCheckOut(
@@ -184,7 +200,7 @@ public class Attendance : BaseTenantEntity
         DeviceVerificationStatus = isVerified ? DeviceVerificationStatus.Verified : DeviceVerificationStatus.Failed;
     }
 
-    public void CalculateWorkingHours(int lateMinutes, int earlyLeaveMinutes, int breakMinutes, int overtimeMinutes)
+    public void CalculateWorkingHours(int lateMinutes, int earlyLeaveMinutes, int breakMinutes, int overtimeMinutes, bool isPresentDuringLeave = false, int maxBreakDurationMinutes = 60)
     {
         if (!CheckOutTime.HasValue)
             throw new InvalidAttendanceException("Cannot calculate working hours without a check-out time.");
@@ -203,8 +219,11 @@ public class Attendance : BaseTenantEntity
         EarlyLeaveMinutes = earlyLeaveMinutes;
         BreakMinutes = breakMinutes;
         OvertimeMinutes = overtimeMinutes;
+        ExcessBreakMinutes = Math.Max(0, breakMinutes - maxBreakDurationMinutes);
 
-        if (lateMinutes > 0)
+        if (isPresentDuringLeave)
+            AttendanceStatus = lateMinutes > 0 ? AttendanceStatus.LateDuringLeave : AttendanceStatus.PresentDuringLeave;
+        else if (lateMinutes > 0)
             AttendanceStatus = AttendanceStatus.Late;
         else if (earlyLeaveMinutes > 0)
             AttendanceStatus = AttendanceStatus.EarlyLeave;
@@ -215,5 +234,103 @@ public class Attendance : BaseTenantEntity
     public void Restore()
     {
         IsDeleted = false;
+    }
+
+    /// <summary>
+    /// Records the final check-out as part of the multi-scan workflow.
+    /// Unlike <see cref="RecordCheckOut"/>, this variant is called by the state-machine handler
+    /// and does NOT recalculate working hours (that is done separately via <see cref="UpdateSummaryFromEvents"/>).
+    /// </summary>
+    /// <param name="checkOutTime">UTC time of the check-out scan.</param>
+    /// <param name="checkOutMethod">The method used for the check-out scan.</param>
+    /// <param name="checkOutLatitude">Optional GPS latitude.</param>
+    /// <param name="checkOutLongitude">Optional GPS longitude.</param>
+    /// <param name="checkOutIPAddress">Optional IP address.</param>
+    /// <param name="checkOutDeviceInfo">Optional device information string.</param>
+    /// <param name="checkOutPhotoReference">Optional photo reference key.</param>
+    /// <exception cref="InvalidAttendanceException">Thrown if already checked out.</exception>
+    public void RecordCheckOutFromEvent(
+        DateTime checkOutTime,
+        CheckInMethod checkOutMethod,
+        double? checkOutLatitude = null,
+        double? checkOutLongitude = null,
+        string? checkOutIPAddress = null,
+        string? checkOutDeviceInfo = null,
+        string? checkOutPhotoReference = null)
+    {
+        if (CheckOutTime.HasValue)
+            throw new InvalidAttendanceException("Cannot check out twice on the same attendance record.");
+
+        if (checkOutTime < CheckInTime)
+            throw new InvalidAttendanceException("Check-out cannot occur before check-in.");
+
+        CheckOutTime         = checkOutTime;
+        CheckOutMethod       = checkOutMethod;
+        CheckOutLatitude     = checkOutLatitude;
+        CheckOutLongitude    = checkOutLongitude;
+        CheckOutIPAddress    = checkOutIPAddress;
+        CheckOutDeviceInfo   = checkOutDeviceInfo;
+        CheckOutPhotoReference = checkOutPhotoReference;
+    }
+
+    /// <summary>
+    /// Recalculates <see cref="BreakMinutes"/> and <see cref="WorkingMinutes"/> from the
+    /// ordered events collection. Call this after a <c>CheckOut</c> event.
+    /// </summary>
+    /// <param name="events">Optional list of events. If null, the <see cref="Events"/> navigation property is used.</param>
+    /// <param name="lateMinutes">Minutes the employee arrived late (policy-based, caller-supplied).</param>
+    /// <param name="earlyLeaveMinutes">Minutes the employee left early (policy-based, caller-supplied).</param>
+    /// <param name="overtimeMinutes">Overtime minutes (policy-based, caller-supplied).</param>
+    /// <exception cref="InvalidAttendanceException">Thrown when check-out time is not set.</exception>
+    public void UpdateSummaryFromEvents(
+        IReadOnlyList<AttendanceEvent>? events = null,
+        int lateMinutes = 0,
+        int earlyLeaveMinutes = 0,
+        int overtimeMinutes = 0,
+        bool isPresentDuringLeave = false,
+        int maxBreakDurationMinutes = 60)
+    {
+        if (!CheckOutTime.HasValue)
+            throw new InvalidAttendanceException("Cannot calculate working hours without a check-out time.");
+
+        // ── Calculate TotalBreakMinutes from paired BreakStart / BreakEnd events ──
+        var sourceEvents = events ?? Events;
+        var orderedEvents = sourceEvents.OrderBy(e => e.Timestamp).ToList();
+
+        int totalBreakMinutes = 0;
+        DateTime? breakStart = null;
+
+        foreach (var evt in orderedEvents)
+        {
+            if (evt.EventType == AttendanceEventType.BreakStart)
+            {
+                breakStart = evt.Timestamp;
+            }
+            else if (evt.EventType == AttendanceEventType.BreakEnd && breakStart.HasValue)
+            {
+                totalBreakMinutes += (int)(evt.Timestamp - breakStart.Value).TotalMinutes;
+                breakStart = null;
+            }
+        }
+
+        // ── Calculate WorkingMinutes = (CheckOut - CheckIn) - TotalBreakMinutes ──
+        var grossMinutes = (int)(CheckOutTime.Value - CheckInTime).TotalMinutes;
+        var workedMinutes = Math.Max(0, grossMinutes - totalBreakMinutes);
+
+        WorkingMinutes   = workedMinutes;
+        BreakMinutes     = totalBreakMinutes;
+        LateMinutes      = lateMinutes;
+        EarlyLeaveMinutes = earlyLeaveMinutes;
+        OvertimeMinutes  = overtimeMinutes;
+        ExcessBreakMinutes = Math.Max(0, totalBreakMinutes - maxBreakDurationMinutes);
+
+        if (isPresentDuringLeave)
+            AttendanceStatus = lateMinutes > 0 ? AttendanceStatus.LateDuringLeave : AttendanceStatus.PresentDuringLeave;
+        else if (lateMinutes > 0)
+            AttendanceStatus = AttendanceStatus.Late;
+        else if (earlyLeaveMinutes > 0)
+            AttendanceStatus = AttendanceStatus.EarlyLeave;
+        else
+            AttendanceStatus = AttendanceStatus.Present;
     }
 }

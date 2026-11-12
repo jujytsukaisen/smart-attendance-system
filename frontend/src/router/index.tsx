@@ -8,6 +8,11 @@ import { PublicRoute } from '@/features/auth/components/PublicRoute';
 // Lazy loading all pages to implement route-level code splitting
 const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage').then(m => ({ default: m.LoginPage })));
 const DashboardPage = lazy(() => import('@/features/dashboard').then(m => ({ default: m.DashboardPage })));
+const FaceCheckInPage = lazy(() => import('@/features/face-recognition').then(m => ({ default: m.FaceCheckInPage })));
+const FaceCheckOutPage = lazy(() => import('@/features/face-recognition').then(m => ({ default: m.FaceCheckOutPage })));
+const AutoKioskPage = lazy(() => import('@/features/face-recognition/pages/AutoKioskPage').then(m => ({ default: m.AutoKioskPage })));
+
+import { useAuthStore } from '@/features/auth/store';
 
 // Companies
 const CompaniesPage = lazy(() => import('@/features/companies').then(m => ({ default: m.CompaniesPage })));
@@ -26,6 +31,12 @@ const DepartmentsPage = lazy(() => import('@/features/departments/pages').then(m
 const CreateDepartmentPage = lazy(() => import('@/features/departments/pages').then(m => ({ default: m.CreateDepartmentPage })));
 const EditDepartmentPage = lazy(() => import('@/features/departments/pages').then(m => ({ default: m.EditDepartmentPage })));
 const DepartmentDetailsPage = lazy(() => import('@/features/departments/pages').then(m => ({ default: m.DepartmentDetailsPage })));
+
+// Shifts
+const ShiftsPage = lazy(() => import('@/features/shifts/pages').then(m => ({ default: m.ShiftsPage })));
+const CreateShiftPage = lazy(() => import('@/features/shifts/pages').then(m => ({ default: m.CreateShiftPage })));
+const EditShiftPage = lazy(() => import('@/features/shifts/pages').then(m => ({ default: m.EditShiftPage })));
+const ShiftDetailsPage = lazy(() => import('@/features/shifts/pages').then(m => ({ default: m.ShiftDetailsPage })));
 
 // Employees
 const EmployeesPage = lazy(() => import('@/features/employees/pages').then(m => ({ default: m.EmployeesPage })));
@@ -56,11 +67,7 @@ const CreateUserPage = lazy(() => import('@/features/users/pages').then(m => ({ 
 const EditUserPage = lazy(() => import('@/features/users/pages').then(m => ({ default: m.EditUserPage })));
 const UserDetailsPage = lazy(() => import('@/features/users/pages').then(m => ({ default: m.UserDetailsPage })));
 
-// Roles
-const RolesPage = lazy(() => import('@/features/roles/pages').then(m => ({ default: m.RolesPage })));
-const CreateRolePage = lazy(() => import('@/features/roles/pages').then(m => ({ default: m.CreateRolePage })));
-const EditRolePage = lazy(() => import('@/features/roles/pages').then(m => ({ default: m.EditRolePage })));
-const RoleDetailsPage = lazy(() => import('@/features/roles/pages').then(m => ({ default: m.RoleDetailsPage })));
+
 
 // Devices
 const DevicesPage = lazy(() => import('@/features/devices/pages').then(m => ({ default: m.DevicesPage })));
@@ -96,13 +103,40 @@ const BackupSettingsPage = lazy(() => import('@/features/settings/pages').then(m
 const FaceRecognitionSettingsPage = lazy(() => import('@/features/settings/pages').then(m => ({ default: m.FaceRecognitionSettingsPage })));
 
 // Pages placeholder
-const NotFound = () => <div>404 Not Found</div>;
-const Unauthorized = () => <div>403 Unauthorized</div>;
+const NotFound = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+    <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
+    <h2 className="text-2xl font-semibold mb-2 text-gray-800">Page Not Found</h2>
+    <p className="text-gray-500 mb-8">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Go to Dashboard</a>
+  </div>
+);
+
+const Unauthorized = () => {
+  const handleLogout = () => {
+    useAuthStore.getState().logout();
+    window.location.href = '/auth/login';
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <h1 className="text-6xl font-bold text-red-500 mb-4">403</h1>
+      <h2 className="text-2xl font-semibold mb-2 text-gray-800">Access Denied</h2>
+      <p className="text-gray-500 mb-8 text-center max-w-md">
+        You don't have permission to access this page. Please contact your system administrator to assign the necessary roles to your account.
+      </p>
+      <div className="flex gap-4">
+        <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Go to Dashboard</a>
+        <button onClick={handleLogout} className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">Log In as Different User</button>
+      </div>
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <ProtectedRoute />, // All MainLayout routes are protected
+    element: <ProtectedRoute />,
     children: [
       {
         path: '/',
@@ -112,97 +146,14 @@ export const router = createBrowserRouter([
             path: '/',
             element: <Navigate to="/dashboard" replace />,
           },
+          // ── مسارات مشتركة (Admin + Employee) ──────────────────────────────
           {
             path: 'dashboard',
             element: <DashboardPage />,
           },
           {
-            path: 'companies',
-            element: <CompaniesPage />,
-          },
-          {
-            path: 'companies/new',
-            element: <CreateCompanyPage />,
-          },
-          {
-            path: 'companies/:id',
-            element: <CompanyDetailsPage />,
-          },
-          {
-            path: 'companies/:id/edit',
-            element: <EditCompanyPage />,
-          },
-          {
-            path: 'branches',
-            element: <BranchesPage />,
-          },
-          {
-            path: 'branches/new',
-            element: <CreateBranchPage />,
-          },
-          {
-            path: 'branches/:id',
-            element: <BranchDetailsPage />,
-          },
-          {
-            path: 'branches/:id/edit',
-            element: <EditBranchPage />,
-          },
-          {
-            path: 'departments',
-            element: <DepartmentsPage />,
-          },
-          {
-            path: 'departments/new',
-            element: <CreateDepartmentPage />,
-          },
-          {
-            path: 'departments/:id',
-            element: <DepartmentDetailsPage />,
-          },
-          {
-            path: 'departments/:id/edit',
-            element: <EditDepartmentPage />,
-          },
-          {
-            path: 'employees',
-            element: <EmployeesPage />,
-          },
-          {
-            path: 'employees/create',
-            element: <CreateEmployeePage />,
-          },
-          {
-            path: 'employees/:id',
-            element: <EmployeeDetailsPage />,
-          },
-          {
-            path: 'employees/:id/edit',
-            element: <EditEmployeePage />,
-          },
-          {
-            path: 'attendance-policies',
-            element: <AttendancePoliciesPage />,
-          },
-          {
-            path: 'attendance-policies/create',
-            element: <CreateAttendancePolicyPage />,
-          },
-          {
-            path: 'attendance-policies/:id',
-            element: <AttendancePolicyDetailsPage />,
-          },
-          {
-            path: 'attendance-policies/:id/edit',
-            element: <EditAttendancePolicyPage />,
-          },
-          {
             path: 'attendance',
             element: <AttendancePage />,
-          },
-          {
-            path: 'attendance/manual',
-            element: <ManualAttendancePage />,
           },
           {
             path: 'attendance/:id',
@@ -225,74 +176,6 @@ export const router = createBrowserRouter([
             element: <EditLeavePage />,
           },
           {
-            path: 'users',
-            element: <UsersPage />,
-          },
-          {
-            path: 'users/new',
-            element: <CreateUserPage />,
-          },
-          {
-            path: 'users/:id',
-            element: <UserDetailsPage />,
-          },
-          {
-            path: 'users/:id/edit',
-            element: <EditUserPage />,
-          },
-          {
-            path: 'roles',
-            element: <RolesPage />,
-          },
-          {
-            path: 'roles/new',
-            element: <CreateRolePage />,
-          },
-          {
-            path: 'roles/:id',
-            element: <RoleDetailsPage />,
-          },
-          {
-            path: 'roles/:id/edit',
-            element: <EditRolePage />,
-          },
-          {
-            path: 'devices',
-            element: <DevicesPage />,
-          },
-          {
-            path: 'devices/new',
-            element: <CreateDevicePage />,
-          },
-          {
-            path: 'devices/:id',
-            element: <DeviceDetailsPage />,
-          },
-          {
-            path: 'devices/:id/edit',
-            element: <EditDevicePage />,
-          },
-          {
-            path: 'reports',
-            element: <ReportsDashboardPage />,
-          },
-          {
-            path: 'reports/attendance',
-            element: <AttendanceReportsPage />,
-          },
-          {
-            path: 'reports/employees',
-            element: <EmployeeReportsPage />,
-          },
-          {
-            path: 'reports/leaves',
-            element: <LeaveReportsPage />,
-          },
-          {
-            path: 'reports/analytics',
-            element: <AnalyticsPage />,
-          },
-          {
             path: 'notifications',
             element: <NotificationsPage />,
           },
@@ -300,57 +183,229 @@ export const router = createBrowserRouter([
             path: 'notifications/:id',
             element: <NotificationDetailsPage />,
           },
+
+          // ── مسارات إدارية (Admin فقط) ─────────────────────────────────────
           {
-            path: 'audit-logs',
-            element: <AuditLogsPage />,
-          },
-          {
-            path: 'audit-logs/:id',
-            element: <AuditLogDetailsPage />,
-          },
-          {
-            path: 'settings',
-            element: <SettingsLayout />,
+            element: <ProtectedRoute requireAdmin />,
             children: [
               {
-                path: '',
-                element: <Navigate to="general" replace />,
+                path: 'face-check-in',
+                element: <FaceCheckInPage />,
               },
               {
-                path: 'general',
-                element: <GeneralSettingsPage />,
+                path: 'face-check-out',
+                element: <FaceCheckOutPage />,
               },
               {
-                path: 'attendance',
-                element: <AttendanceSettingsPage />,
+                path: 'auto-kiosk',
+                element: <AutoKioskPage />,
               },
               {
-                path: 'security',
-                element: <SecuritySettingsPage />,
+                path: 'attendance/manual',
+                element: <ManualAttendancePage />,
               },
               {
-                path: 'notifications',
-                element: <NotificationSettingsPage />,
+                path: 'companies',
+                element: <CompaniesPage />,
               },
+              {
+                path: 'companies/new',
+                element: <CreateCompanyPage />,
+              },
+              {
+                path: 'companies/:id',
+                element: <CompanyDetailsPage />,
+              },
+              {
+                path: 'companies/:id/edit',
+                element: <EditCompanyPage />,
+              },
+              {
+                path: 'branches',
+                element: <BranchesPage />,
+              },
+              {
+                path: 'branches/new',
+                element: <CreateBranchPage />,
+              },
+              {
+                path: 'branches/:id',
+                element: <BranchDetailsPage />,
+              },
+              {
+                path: 'branches/:id/edit',
+                element: <EditBranchPage />,
+              },
+              {
+                path: 'departments',
+                element: <DepartmentsPage />,
+              },
+              {
+                path: 'departments/new',
+                element: <CreateDepartmentPage />,
+              },
+              {
+                path: 'departments/:id',
+                element: <DepartmentDetailsPage />,
+              },
+              {
+                path: 'departments/:id/edit',
+                element: <EditDepartmentPage />,
+              },
+              {
+                path: 'shifts',
+                element: <ShiftsPage />,
+              },
+              {
+                path: 'shifts/new',
+                element: <CreateShiftPage />,
+              },
+              {
+                path: 'shifts/:id',
+                element: <ShiftDetailsPage />,
+              },
+              {
+                path: 'shifts/:id/edit',
+                element: <EditShiftPage />,
+              },
+              {
+                path: 'employees',
+                element: <EmployeesPage />,
+              },
+              {
+                path: 'employees/create',
+                element: <CreateEmployeePage />,
+              },
+              {
+                path: 'employees/:id',
+                element: <EmployeeDetailsPage />,
+              },
+              {
+                path: 'employees/:id/edit',
+                element: <EditEmployeePage />,
+              },
+              {
+                path: 'attendance-policies',
+                element: <AttendancePoliciesPage />,
+              },
+              {
+                path: 'attendance-policies/create',
+                element: <CreateAttendancePolicyPage />,
+              },
+              {
+                path: 'attendance-policies/:id',
+                element: <AttendancePolicyDetailsPage />,
+              },
+              {
+                path: 'attendance-policies/:id/edit',
+                element: <EditAttendancePolicyPage />,
+              },
+              {
+                path: 'users',
+                element: <UsersPage />,
+              },
+              {
+                path: 'users/new',
+                element: <CreateUserPage />,
+              },
+              {
+                path: 'users/:id',
+                element: <UserDetailsPage />,
+              },
+              {
+                path: 'users/:id/edit',
+                element: <EditUserPage />,
+              },
+
               {
                 path: 'devices',
-                element: <DeviceSettingsPage />,
+                element: <DevicesPage />,
               },
               {
-                path: 'email',
-                element: <EmailSettingsPage />,
+                path: 'devices/new',
+                element: <CreateDevicePage />,
               },
               {
-                path: 'sms',
-                element: <SmsSettingsPage />,
+                path: 'devices/:id',
+                element: <DeviceDetailsPage />,
               },
               {
-                path: 'backup',
-                element: <BackupSettingsPage />,
+                path: 'devices/:id/edit',
+                element: <EditDevicePage />,
               },
               {
-                path: 'face-recognition',
-                element: <FaceRecognitionSettingsPage />,
+                path: 'reports',
+                element: <ReportsDashboardPage />,
+              },
+              {
+                path: 'reports/attendance',
+                element: <AttendanceReportsPage />,
+              },
+              {
+                path: 'reports/employees',
+                element: <EmployeeReportsPage />,
+              },
+              {
+                path: 'reports/leaves',
+                element: <LeaveReportsPage />,
+              },
+              {
+                path: 'reports/analytics',
+                element: <AnalyticsPage />,
+              },
+              {
+                path: 'audit-logs',
+                element: <AuditLogsPage />,
+              },
+              {
+                path: 'audit-logs/:id',
+                element: <AuditLogDetailsPage />,
+              },
+              {
+                path: 'settings',
+                element: <SettingsLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <Navigate to="general" replace />,
+                  },
+                  {
+                    path: 'general',
+                    element: <GeneralSettingsPage />,
+                  },
+                  {
+                    path: 'attendance',
+                    element: <AttendanceSettingsPage />,
+                  },
+                  {
+                    path: 'security',
+                    element: <SecuritySettingsPage />,
+                  },
+                  {
+                    path: 'notifications',
+                    element: <NotificationSettingsPage />,
+                  },
+                  {
+                    path: 'devices',
+                    element: <DeviceSettingsPage />,
+                  },
+                  {
+                    path: 'email',
+                    element: <EmailSettingsPage />,
+                  },
+                  {
+                    path: 'sms',
+                    element: <SmsSettingsPage />,
+                  },
+                  {
+                    path: 'backup',
+                    element: <BackupSettingsPage />,
+                  },
+                  {
+                    path: 'face-recognition',
+                    element: <FaceRecognitionSettingsPage />,
+                  },
+                ],
               },
             ],
           },

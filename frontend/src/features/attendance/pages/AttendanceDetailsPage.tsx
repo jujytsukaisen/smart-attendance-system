@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
-import { AttendanceDetailsCard } from '../components';
+import { AttendanceDetailsCard, AttendanceTimeline, EmployeeStatusBadge } from '../components';
 import { useAttendanceDetails } from '../hooks';
 
 export function AttendanceDetailsPage() {
@@ -29,19 +29,34 @@ export function AttendanceDetailsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/attendance')}>
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Attendance Details</h1>
-          <p className="mt-1 text-sm text-gray-500">
-            View complete check-in and check-out information.
-          </p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" onClick={() => navigate('/attendance')}>
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <div>
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-semibold text-gray-900">Attendance Details</h1>
+              {data.currentState && (
+                <EmployeeStatusBadge state={data.currentState} />
+              )}
+            </div>
+            <p className="mt-1 text-sm text-gray-500">
+              View complete daily timeline, breaks, check-in, and check-out information.
+            </p>
+          </div>
         </div>
       </div>
 
-      <AttendanceDetailsCard attendance={data} />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <AttendanceDetailsCard attendance={data} />
+        </div>
+        <div className="lg:col-span-1">
+          <AttendanceTimeline events={data.timeline ?? []} />
+        </div>
+      </div>
     </div>
   );
 }
+

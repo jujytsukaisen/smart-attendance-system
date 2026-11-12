@@ -48,20 +48,25 @@ public class GetNotificationByIdQueryHandler : IRequestHandler<GetNotificationBy
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
+    private readonly ICurrentUserService _currentUserService;
 
-    public GetNotificationByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetNotificationByIdQueryHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
     {
         _context = context;
         _mapper = mapper;
+        _currentUserService = currentUserService;
     }
 
     public async Task<Result<NotificationDetailsDto>> Handle(GetNotificationByIdQuery request, CancellationToken cancellationToken)
     {
+        Guid.TryParse(_currentUserService.UserId, out var currentUserId);
+
         var notification = await _context.Notifications
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.NotificationId, cancellationToken);
             
-        if (notification == null) return Result<NotificationDetailsDto>.Failure(new[] { "Notification not found." });
+        if (notification == null || notification.RecipientUserId != currentUserId)
+            return Result<NotificationDetailsDto>.Failure(new[] { "Notification not found." });
         
         var dto = _mapper.Map<NotificationDetailsDto>(notification);
         

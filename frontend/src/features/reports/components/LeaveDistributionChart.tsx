@@ -33,7 +33,12 @@ export function LeaveDistributionChart({ data, height = 300 }: LeaveDistribution
             ))}
           </Pie>
           <Tooltip 
-            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+            contentStyle={{ 
+              backgroundColor: 'hsl(var(--card))', 
+              borderColor: 'hsl(var(--border))', 
+              borderRadius: '8px', 
+              color: 'hsl(var(--card-foreground))' 
+            }}
           />
           <Legend verticalAlign="bottom" height={36} iconType="circle" />
         </PieChart>

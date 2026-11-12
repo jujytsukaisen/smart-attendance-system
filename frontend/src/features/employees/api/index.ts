@@ -1,11 +1,11 @@
 import { apiClient } from '@/shared/api/axios';
-import type { PagedResult } from '@/shared/types';
-import type { 
-  EmployeeListDto, 
-  EmployeeDetailsDto, 
-  CreateEmployeeCommand, 
+import type { PagedResult, ApiEnvelope } from '@/shared/types';
+import type {
+  EmployeeListDto,
+  EmployeeDetailsDto,
+  CreateEmployeeCommand,
   UpdateEmployeeCommand,
-  GetEmployeesQuery 
+  GetEmployeesQuery
 } from '../types';
 
 const BASE_URL = '/v1/Employees';
@@ -13,13 +13,13 @@ const BASE_URL = '/v1/Employees';
 export const employeesApi = {
   getEmployees: async (filter?: GetEmployeesQuery): Promise<PagedResult<EmployeeListDto>> => {
     const params = filter ? { ...filter } : undefined;
-    const response = await apiClient.get<PagedResult<EmployeeListDto>>(BASE_URL, { params });
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<PagedResult<EmployeeListDto>>>(BASE_URL, { params });
+    return response.data.data;
   },
 
   getEmployeeById: async (id: string): Promise<EmployeeDetailsDto> => {
-    const response = await apiClient.get<EmployeeDetailsDto>(`${BASE_URL}/${id}`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<EmployeeDetailsDto>>(`${BASE_URL}/${id}`);
+    return response.data.data;
   },
 
   createEmployee: async (data: CreateEmployeeCommand): Promise<string> => {
@@ -28,8 +28,7 @@ export const employeesApi = {
   },
 
   updateEmployee: async (data: UpdateEmployeeCommand): Promise<void> => {
-    const { employeeId, ...rest } = data;
-    await apiClient.put(`${BASE_URL}/${employeeId}`, rest);
+    await apiClient.put(`${BASE_URL}/${data.employeeId}`, data);
   },
 
   deleteEmployee: async (id: string): Promise<void> => {
@@ -41,10 +40,10 @@ export const employeesApi = {
   },
 
   activateEmployee: async (id: string): Promise<void> => {
-    await apiClient.put(`${BASE_URL}/${id}/activate`);
+    await apiClient.post(`${BASE_URL}/${id}/activate`);
   },
 
   deactivateEmployee: async (id: string): Promise<void> => {
-    await apiClient.put(`${BASE_URL}/${id}/deactivate`);
+    await apiClient.post(`${BASE_URL}/${id}/deactivate`);
   },
 };

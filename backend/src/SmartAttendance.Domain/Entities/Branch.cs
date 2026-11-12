@@ -16,10 +16,10 @@ public class Branch : BaseTenantEntity
     public Address Address { get; private set; }
     public PhoneNumber PhoneNumber { get; private set; }
     public Email Email { get; private set; }
-    public double Latitude { get; private set; }
-    public double Longitude { get; private set; }
-    public double RadiusInMeters { get; private set; }
-    public string TimeZone { get; private set; }
+    public double? Latitude { get; private set; }
+    public double? Longitude { get; private set; }
+    public double? RadiusInMeters { get; private set; }
+    public string? TimeZone { get; private set; }
     public bool IsHeadOffice { get; private set; }
     public bool IsActive { get; private set; }
 
@@ -41,10 +41,10 @@ public class Branch : BaseTenantEntity
         Address address,
         PhoneNumber phoneNumber,
         Email email,
-        double latitude,
-        double longitude,
-        double radiusInMeters,
-        string timeZone,
+        double? latitude,
+        double? longitude,
+        double? radiusInMeters,
+        string? timeZone,
         bool isHeadOffice)
     {
         CompanyId = companyId;
@@ -68,10 +68,10 @@ public class Branch : BaseTenantEntity
         Address address,
         PhoneNumber phoneNumber,
         Email email,
-        double latitude,
-        double longitude,
-        double radiusInMeters,
-        string timeZone,
+        double? latitude,
+        double? longitude,
+        double? radiusInMeters,
+        string? timeZone,
         bool isHeadOffice = false)
     {
         if (companyId == Guid.Empty)
@@ -86,14 +86,12 @@ public class Branch : BaseTenantEntity
             throw new InvalidBranchException("Phone number cannot be null.");
         if (email == null)
             throw new InvalidBranchException("Email cannot be null.");
-        if (latitude < -90 || latitude > 90)
+        if (latitude.HasValue && (latitude < -90 || latitude > 90))
             throw new InvalidBranchException("Latitude must be between -90 and 90.");
-        if (longitude < -180 || longitude > 180)
+        if (longitude.HasValue && (longitude < -180 || longitude > 180))
             throw new InvalidBranchException("Longitude must be between -180 and 180.");
-        if (radiusInMeters <= 0)
+        if (radiusInMeters.HasValue && radiusInMeters <= 0)
             throw new InvalidBranchException("Radius must be greater than zero.");
-        if (string.IsNullOrWhiteSpace(timeZone))
-            throw new InvalidBranchException("Time zone cannot be empty.");
 
         return new Branch(
             companyId,
@@ -136,27 +134,25 @@ public class Branch : BaseTenantEntity
         DeletedAt = DateTimeOffset.UtcNow;
     }
 
-    public void UpdateInformation(string name, string code, string timeZone)
+    public void UpdateInformation(string name, string code, string? timeZone)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new InvalidBranchException("Name cannot be empty.");
         if (string.IsNullOrWhiteSpace(code))
             throw new InvalidBranchException("Code cannot be empty.");
-        if (string.IsNullOrWhiteSpace(timeZone))
-            throw new InvalidBranchException("Time zone cannot be empty.");
 
         Name = name;
         Code = code;
         TimeZone = timeZone;
     }
 
-    public void ChangeLocation(Address address, double latitude, double longitude)
+    public void ChangeLocation(Address address, double? latitude, double? longitude)
     {
         if (address == null)
             throw new InvalidBranchException("Address cannot be null.");
-        if (latitude < -90 || latitude > 90)
+        if (latitude.HasValue && (latitude < -90 || latitude > 90))
             throw new InvalidBranchException("Latitude must be between -90 and 90.");
-        if (longitude < -180 || longitude > 180)
+        if (longitude.HasValue && (longitude < -180 || longitude > 180))
             throw new InvalidBranchException("Longitude must be between -180 and 180.");
 
         Address = address;
@@ -175,9 +171,9 @@ public class Branch : BaseTenantEntity
         Email = email;
     }
 
-    public void ChangeRadius(double radiusInMeters)
+    public void ChangeRadius(double? radiusInMeters)
     {
-        if (radiusInMeters <= 0)
+        if (radiusInMeters.HasValue && radiusInMeters <= 0)
             throw new InvalidBranchException("Radius must be greater than zero.");
 
         RadiusInMeters = radiusInMeters;

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { leavesApi } from '../api';
 import type { LeaveFilter } from '../types';
+import { notificationKeys } from '@/features/notifications/hooks';
 
 export const leaveKeys = {
   all: ['leaves'] as const,
@@ -10,10 +11,19 @@ export const leaveKeys = {
   detail: (id: string) => [...leaveKeys.details(), id] as const,
 };
 
-export const useLeaves = (filter: LeaveFilter) => {
+export const useLeaves = (filter: LeaveFilter, enabled: boolean = true) => {
   return useQuery({
     queryKey: leaveKeys.list(filter),
     queryFn: () => leavesApi.getLeaves(filter),
+    enabled,
+  });
+};
+
+export const useMyLeaves = (filter: LeaveFilter, enabled: boolean = true) => {
+  return useQuery({
+    queryKey: [...leaveKeys.lists(), 'my', filter],
+    queryFn: () => leavesApi.getMyLeaves(filter),
+    enabled,
   });
 };
 
@@ -32,6 +42,8 @@ export const useCreateLeave = () => {
     mutationFn: leavesApi.createLeave,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: leaveKeys.lists() });
+      // تحديث الإشعارات بعد إنشاء طلب الإجازة
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
     },
   });
 };
@@ -67,6 +79,8 @@ export const useApproveLeave = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: leaveKeys.lists() });
       queryClient.invalidateQueries({ queryKey: leaveKeys.detail(variables.leaveId) });
+      // تحديث الإشعارات بعد قبول الإجازة
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
     },
   });
 };
@@ -79,6 +93,8 @@ export const useRejectLeave = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: leaveKeys.lists() });
       queryClient.invalidateQueries({ queryKey: leaveKeys.detail(variables.leaveId) });
+      // تحديث الإشعارات بعد رفض الإجازة
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
     },
   });
 };

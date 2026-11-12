@@ -25,16 +25,21 @@ public class MarkAsReadCommandValidator : AbstractValidator<MarkAsReadCommand>
 public class MarkAsReadCommandHandler : IRequestHandler<MarkAsReadCommand, Result>
 {
     private readonly IApplicationDbContext _context;
+    private readonly ICurrentUserService _currentUserService;
 
-    public MarkAsReadCommandHandler(IApplicationDbContext context)
+    public MarkAsReadCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
     {
         _context = context;
+        _currentUserService = currentUserService;
     }
 
     public async Task<Result> Handle(MarkAsReadCommand request, CancellationToken cancellationToken)
     {
+        Guid.TryParse(_currentUserService.UserId, out var currentUserId);
+
         var notification = await _context.Notifications.FirstOrDefaultAsync(x => x.Id == request.NotificationId, cancellationToken);
-        if (notification == null) return Result.Failure(new[] { "Notification not found." });
+        if (notification == null || notification.RecipientUserId != currentUserId)
+            return Result.Failure(new[] { "Notification not found." });
         
         notification.MarkAsRead();
         _context.Notifications.Update(notification);

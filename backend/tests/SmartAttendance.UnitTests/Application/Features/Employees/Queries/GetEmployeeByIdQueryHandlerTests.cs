@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -57,7 +58,7 @@ public class GetEmployeeByIdQueryHandlerTests
         var command = new GetEmployeeByIdQuery { EmployeeId = employeeId };
         
         // Use FormatterServices to bypass constructor rules just for this Mock setup
-        var employee = (Employee)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(Employee));
+        var employee = (Employee)RuntimeHelpers.GetUninitializedObject(typeof(Employee));
         typeof(Employee).GetProperty("Id")!.SetValue(employee, employeeId);
         typeof(Employee).GetProperty("FirstName")!.SetValue(employee, "John");
         typeof(Employee).GetProperty("LastName")!.SetValue(employee, "Doe");
@@ -81,6 +82,6 @@ public class GetEmployeeByIdQueryHandlerTests
         // Assert
         result.Succeeded.Should().BeTrue();
         result.Data.Should().NotBeNull();
-        result.Data.FirstName.Should().Be("John");
+        result.Data!.FirstName.Should().Be("John");
     }
 }

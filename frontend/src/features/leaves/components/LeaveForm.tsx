@@ -21,15 +21,16 @@ import {
 import { useEmployees } from '@/features/employees/hooks';
 import { leaveSchema, type LeaveFormValues } from '../schemas';
 import { LeaveType } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface LeaveFormProps {
   initialValues?: Partial<LeaveFormValues>;
   onSubmit: (values: LeaveFormValues) => void;
   isLoading?: boolean;
+  isEmployeeView?: boolean;
 }
 
 const defaultValues: LeaveFormValues = {
-  companyId: '00000000-0000-0000-0000-000000000000', // Mock since no company auth module
   employeeId: '',
   leaveType: LeaveType.Annual.toString(),
   startDate: new Date().toISOString().slice(0, 10),
@@ -37,72 +38,117 @@ const defaultValues: LeaveFormValues = {
   reason: '',
 };
 
-export function LeaveForm({ initialValues, onSubmit, isLoading }: LeaveFormProps) {
-  const { data: employeesData } = useEmployees({ pageNumber: 1, pageSize: 100 });
+export function LeaveForm({ initialValues, onSubmit, isLoading, isEmployeeView = false }: LeaveFormProps) {
+  const { t, isRtl } = useTranslation();
+  const { data: employeesData, isLoading: isLoadingEmployees } = useEmployees({ pageNumber: 1, pageSize: 100 }, !isEmployeeView);
+
+  const LEAVE_TYPES = [
+    { value: LeaveType.Annual.toString(), label: t('leaves.annual') },
+    { value: LeaveType.Sick.toString(), label: t('leaves.sick') },
+    { value: LeaveType.Maternity.toString(), label: t('leaves.maternity') },
+    { value: LeaveType.Paternity.toString(), label: t('leaves.paternity') },
+    { value: LeaveType.Unpaid.toString(), label: t('leaves.unpaid') },
+    { value: LeaveType.Other.toString(), label: t('leaves.other') },
+  ];
 
   const form = useForm<LeaveFormValues>({
     resolver: zodResolver(leaveSchema),
     defaultValues: {
       ...defaultValues,
       ...initialValues,
-      // Make sure enums strings map correctly
       leaveType: initialValues?.leaveType?.toString() || defaultValues.leaveType,
     },
   });
 
+  const handleFormSubmit = (values: LeaveFormValues) => {
+    const selectedEmp = employeesData?.items.find(
+      (e) => e.id.toLowerCase() === values.employeeId?.toLowerCase()
+    );
+    
+    const payload = {
+      ...values,
+      companyId: selectedEmp?.companyId || values.companyId,
+    };
+    
+    if (!payload.employeeId) {
+      delete payload.employeeId;
+    }
+    
+    onSubmit(payload);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-lg shadow border border-gray-200">
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6 bg-card text-card-foreground p-6 rounded-lg shadow-sm border border-border">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="employeeId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Employee</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select an employee" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {employeesData?.items.map((emp) => (
-                      <SelectItem key={emp.id} value={emp.id}>
-                        {emp.firstName} {emp.lastName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {!isEmployeeView && (
+            <FormField
+              control={form.control}
+              name="employeeId"
+              render={({ field }) => {
+                const selectedEmp = employeesData?.items.find(
+                  (e) => e.id.toLowerCase() === field.value?.toLowerCase()
+                );
+
+                return (
+                  <FormItem>
+                    <FormLabel>{t('attendance.employee')}</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={isLoadingEmployees ? (isRtl ? 'جاري التحميل...' : 'Loading employees...') : (isRtl ? 'اختر الموظف' : 'Select an employee')}>
+                            {selectedEmp
+                              ? `${selectedEmp.firstName} ${selectedEmp.lastName} (${selectedEmp.employeeNumber})`
+                              : undefined}
+                          </SelectValue>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {employeesData?.items.map((emp) => (
+                          <SelectItem key={emp.id} value={emp.id}>
+                            {emp.firstName} {emp.lastName} ({emp.employeeNumber})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          )}
 
           <FormField
             control={form.control}
             name="leaveType"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Leave Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select leave type" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value={LeaveType.Annual.toString()}>Annual</SelectItem>
-                    <SelectItem value={LeaveType.Sick.toString()}>Sick</SelectItem>
-                    <SelectItem value={LeaveType.Maternity.toString()}>Maternity</SelectItem>
-                    <SelectItem value={LeaveType.Paternity.toString()}>Paternity</SelectItem>
-                    <SelectItem value={LeaveType.Unpaid.toString()}>Unpaid</SelectItem>
-                    <SelectItem value={LeaveType.Other.toString()}>Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const selectedType = LEAVE_TYPES.find(
+                (t) => t.value === String(field.value)
+              );
+
+              return (
+                <FormItem>
+                  <FormLabel>{t('leaves.leaveType')}</FormLabel>
+                  <Select onValueChange={field.onChange} value={String(field.value)}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={isRtl ? 'اختر نوع الإجازة' : 'Select leave type'}>
+                          {selectedType ? selectedType.label : field.value}
+                        </SelectValue>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {LEAVE_TYPES.map((t) => (
+                        <SelectItem key={t.value} value={t.value}>
+                          {t.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
 
           <FormField
@@ -110,7 +156,7 @@ export function LeaveForm({ initialValues, onSubmit, isLoading }: LeaveFormProps
             name="startDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t('leaves.startDate')}</FormLabel>
                 <FormControl>
                   <Input type="date" {...field} />
                 </FormControl>
@@ -124,7 +170,7 @@ export function LeaveForm({ initialValues, onSubmit, isLoading }: LeaveFormProps
             name="endDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>End Date</FormLabel>
+                <FormLabel>{t('leaves.endDate')}</FormLabel>
                 <FormControl>
                   <Input type="date" {...field} />
                 </FormControl>
@@ -139,10 +185,10 @@ export function LeaveForm({ initialValues, onSubmit, isLoading }: LeaveFormProps
           name="reason"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Reason</FormLabel>
+              <FormLabel>{t('leaves.reason')}</FormLabel>
               <FormControl>
                 <Textarea 
-                  placeholder="Please provide a reason for your leave request..." 
+                  placeholder={isRtl ? 'يرجى كتابة سبب طلب الإجازة بالتفصيل...' : 'Please provide a reason for your leave request...'} 
                   className="resize-none h-24"
                   {...field} 
                 />
@@ -154,7 +200,7 @@ export function LeaveForm({ initialValues, onSubmit, isLoading }: LeaveFormProps
 
         <div className="flex justify-end pt-4">
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Saving...' : 'Save Leave Request'}
+            {isLoading ? (isRtl ? 'جاري الحفظ...' : 'Saving...') : (isRtl ? 'حفظ طلب الإجازة' : 'Save Leave Request')}
           </Button>
         </div>
       </form>

@@ -21,9 +21,9 @@ public class FaceProfileDto : IMapFrom<FaceProfile>
 {
     public Guid Id { get; set; }
     public Guid EmployeeId { get; set; }
-    public string FaceId { get; set; } = string.Empty;
-    public string ReferenceImageUrl { get; set; } = string.Empty;
+    public SmartAttendance.Domain.Enums.RegistrationStatus RegistrationStatus { get; set; }
     public bool IsActive { get; set; }
+    public DateTimeOffset? RegisteredAt { get; set; }
 
     public void Mapping(Profile profile)
     {
@@ -63,4 +63,3 @@ public class GetFaceProfileByEmployeeQueryHandler : IRequestHandler<GetFaceProfi
         return Result<FaceProfileDto>.Success(dto);
     }
 }
-

@@ -1,7 +1,15 @@
 import { apiClient } from '@/shared/api/axios';
-import type { DashboardData } from '../types';
+import type { ApiEnvelope } from '@/features/auth/types';
+import type { DashboardStatisticsDto, MyDashboardDto } from '../types';
 
-export const fetchDashboardData = async (): Promise<DashboardData> => {
-  const response = await apiClient.get<DashboardData>('/v1/Dashboard');
-  return response.data;
+const BASE_URL = '/v1/Dashboard';
+
+export const getDashboardStatistics = async (): Promise<DashboardStatisticsDto> => {
+    const response = await apiClient.get<ApiEnvelope<DashboardStatisticsDto>>(BASE_URL);
+    return response.data.data;
+};
+
+export const getMyDashboard = async (): Promise<MyDashboardDto> => {
+    const response = await apiClient.get<ApiEnvelope<MyDashboardDto>>(`${BASE_URL}/my`);
+    return response.data.data;
 };

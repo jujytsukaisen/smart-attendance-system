@@ -29,9 +29,9 @@ public class AttendanceDeviceDetailsDto : IMapFrom<AttendanceDevice>
 
     // Location
     public Guid? BranchId { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public double AllowedRadiusMeters { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public double? AllowedRadiusMeters { get; set; }
 
     // Security
     public string? PublicKey { get; set; }

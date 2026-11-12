@@ -1,4 +1,5 @@
 import { apiClient } from '@/shared/api/axios';
+import type { ApiEnvelope } from '@/shared/types';
 import type { PagedResult } from '@/shared/types';
 import type {
   BranchListDto,
@@ -9,20 +10,20 @@ import type {
 } from '../types';
 
 export const getBranches = async (query: GetBranchesQuery): Promise<PagedResult<BranchListDto>> => {
-  const { data } = await apiClient.get<PagedResult<BranchListDto>>('/v1/Branches', {
+  const { data } = await apiClient.get<ApiEnvelope<PagedResult<BranchListDto>>>('/v1/Branches', {
     params: query,
   });
-  return data;
+  return data.data;
 };
 
 export const getBranchById = async (id: string): Promise<BranchDetailsDto> => {
-  const { data } = await apiClient.get<BranchDetailsDto>(`/v1/Branches/${id}`);
-  return data;
+  const { data } = await apiClient.get<ApiEnvelope<BranchDetailsDto>>(`/v1/Branches/${id}`);
+  return data.data;
 };
 
 export const createBranch = async (command: CreateBranchCommand): Promise<string> => {
-  const { data } = await apiClient.post<string>('/v1/Branches', command);
-  return data;
+  const { data } = await apiClient.post<ApiEnvelope<string>>('/v1/Branches', command);
+  return data.data;
 };
 
 export const updateBranch = async (command: UpdateBranchCommand): Promise<void> => {

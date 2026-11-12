@@ -9,7 +9,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Common.Interfaces;
 using SmartAttendance.Application.Common.Models;
-using SmartAttendance.Application.Features.Attendances.DTOs;
 
 namespace SmartAttendance.Application.Features.Attendances.Queries;
 

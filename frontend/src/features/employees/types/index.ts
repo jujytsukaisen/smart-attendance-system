@@ -1,8 +1,8 @@
 import type { PaginationRequest } from '@/shared/types';
 
-export type Gender = 0 | 1 | 2;
+export type Gender = 1 | 2 | 3 | 4 | 'Male' | 'Female' | 'Other' | 'PreferNotToSay';
 
-export type EmployeeStatus = 0 | 1 | 2 | 3;
+export type EmployeeStatus = 'Active' | 'Inactive' | 'OnLeave' | 'Terminated';
 
 export interface EmployeeDto {
   id: string;

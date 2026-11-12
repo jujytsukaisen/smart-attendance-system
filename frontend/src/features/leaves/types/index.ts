@@ -21,6 +21,8 @@ export type LeaveType = typeof LeaveType[keyof typeof LeaveType];
 export interface LeaveListDto {
   id: string;
   employeeId: string;
+  employeeName?: string;
+  employeeNumber?: string;
   leaveType: string;
   startDate: string;
   endDate: string;
@@ -31,6 +33,8 @@ export interface LeaveDetailsDto {
   id: string;
   companyId: string;
   employeeId: string;
+  employeeName?: string;
+  employeeNumber?: string;
   approverId?: string;
   leaveType: string;
   startDate: string;
@@ -41,7 +45,7 @@ export interface LeaveDetailsDto {
 }
 
 export interface CreateLeaveCommand {
-  companyId: string;
+  companyId?: string;
   employeeId: string;
   leaveType: string;
   startDate: string;

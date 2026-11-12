@@ -7,9 +7,11 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form';
+import { useTranslation } from '@/shared/i18n';
 
 export const LoginForm = () => {
-  const { mutate: login, isPending, isError } = useLogin();
+  const { mutate: login, isPending, isError, error } = useLogin();
+  const { t } = useTranslation();
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -25,11 +27,13 @@ export const LoginForm = () => {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full shadow-lg border">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center">SmartAttendance</CardTitle>
+        <CardTitle className="text-2xl text-center font-bold">
+          {t('common.appName')}
+        </CardTitle>
         <CardDescription className="text-center">
-          Enter your email and password to login to your account
+          {t('auth.loginSubtitle')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -40,9 +44,9 @@ export const LoginForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('auth.email')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="m@example.com" type="email" {...field} />
+                    <Input placeholder="admin@smartattendance.com" type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -53,9 +57,9 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('auth.password')}</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -63,20 +67,20 @@ export const LoginForm = () => {
             />
             
             {isError && (
-              <div className="text-sm font-medium text-destructive">
-                {'Failed to login. Please check your credentials.'}
+              <div className="text-sm font-medium text-destructive text-center p-2 rounded-md bg-destructive/10">
+                {t('common.error')}: {(error as any)?.response?.data?.detail || (error as any)?.response?.data?.title || t('auth.invalidCredentials', 'Invalid credentials')}
               </div>
             )}
 
-            <Button className="w-full" type="submit" disabled={isPending}>
-              {isPending ? 'Logging in...' : 'Login'}
+            <Button className="w-full font-semibold shadow-xs" type="submit" disabled={isPending}>
+              {isPending ? t('auth.loggingIn') : t('auth.submitLogin')}
             </Button>
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-center">
-        <p className="text-sm text-muted-foreground">
-          Contact your administrator if you forgot your password.
+      <CardFooter className="flex justify-center border-t p-4 text-center">
+        <p className="text-xs text-muted-foreground">
+          {t('common.appSubtitle')}
         </p>
       </CardFooter>
     </Card>

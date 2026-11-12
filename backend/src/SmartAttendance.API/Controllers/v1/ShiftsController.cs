@@ -63,7 +63,7 @@ public class ShiftsController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:Shifts.Restore")]
+    [Authorize(Policy = "Permission:Shifts.Update")]
     public async Task<IActionResult> RestoreShift(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreShiftCommand { ShiftId = id }));

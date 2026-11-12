@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,14 +19,16 @@ public class GetLeavesQueryHandlerTests
 {
     private readonly Mock<IApplicationDbContext> _contextMock;
     private readonly Mock<IMapper> _mapperMock;
+    private readonly Mock<ICurrentUserService> _currentUserServiceMock;
     private readonly GetLeavesQueryHandler _handler;
 
     public GetLeavesQueryHandlerTests()
     {
         _contextMock = new Mock<IApplicationDbContext>();
         _mapperMock = new Mock<IMapper>();
+        _currentUserServiceMock = new Mock<ICurrentUserService>();
 
-        _handler = new GetLeavesQueryHandler(_contextMock.Object, _mapperMock.Object);
+        _handler = new GetLeavesQueryHandler(_contextMock.Object, _mapperMock.Object, _currentUserServiceMock.Object);
     }
 
     [Fact]
@@ -56,9 +59,9 @@ public class GetLeavesQueryHandlerTests
     {
         // Arrange
         // Bypass constructor rules for mock data
-        var leave1 = (Leave)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(Leave));
-        var leave2 = (Leave)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(Leave));
-        var leave3 = (Leave)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(Leave));
+        var leave1 = (Leave)RuntimeHelpers.GetUninitializedObject(typeof(Leave));
+        var leave2 = (Leave)RuntimeHelpers.GetUninitializedObject(typeof(Leave));
+        var leave3 = (Leave)RuntimeHelpers.GetUninitializedObject(typeof(Leave));
 
         var leaves = new List<Leave> { leave1, leave2, leave3 };
         var mockDbSet = leaves.AsQueryable().BuildMockDbSet();

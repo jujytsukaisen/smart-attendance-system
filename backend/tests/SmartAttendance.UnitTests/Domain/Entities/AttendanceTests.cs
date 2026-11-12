@@ -77,5 +77,61 @@ public class AttendanceTests
         attendance.WorkingMinutes.Should().Be(405); // (17-9.25) = 7.75 hrs = 465 mins - 60 break = 405
         attendance.AttendanceStatus.Should().Be(AttendanceStatus.Late); // Based on domain placeholder
     }
+
+    [Fact]
+    public void UpdateSummaryFromEvents_ShouldCalculateBreakAndWorkingMinutes_Correctly()
+    {
+        // Arrange: CheckIn at 09:00, Break 12:00-12:30 (30m), Break 15:00-15:15 (15m), CheckOut at 17:00 (Total span 8h = 480m)
+        var baseDate = new DateTime(2026, 8, 5, 9, 0, 0, DateTimeKind.Utc);
+        var attendance = CreateTestAttendance(baseDate);
+        var checkOutTime = baseDate.AddHours(8); // 17:00
+
+        var events = new List<AttendanceEvent>
+        {
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, baseDate, AttendanceEventType.CheckIn),
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, baseDate.AddHours(3), AttendanceEventType.BreakStart), // 12:00
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, baseDate.AddHours(3.5), AttendanceEventType.BreakEnd), // 12:30 (30 min)
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, baseDate.AddHours(6), AttendanceEventType.BreakStart), // 15:00
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, baseDate.AddHours(6.25), AttendanceEventType.BreakEnd), // 15:15 (15 min)
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, checkOutTime, AttendanceEventType.CheckOut), // 17:00
+        };
+
+        // Act
+        attendance.RecordCheckOutFromEvent(checkOutTime, CheckInMethod.FaceRecognition);
+        attendance.UpdateSummaryFromEvents(events);
+
+        // Assert: total breaks = 45m, total working = 480 - 45 = 435m
+        attendance.BreakMinutes.Should().Be(45);
+        attendance.WorkingMinutes.Should().Be(435);
+    }
+
+    [Fact]
+    public void RecordCheckOutFromEvent_ShouldSetCheckOutTimeAndRecalculate()
+    {
+        // Arrange
+        var checkInTime = new DateTime(2026, 8, 5, 8, 0, 0, DateTimeKind.Utc);
+        var attendance = CreateTestAttendance(checkInTime);
+        var checkOutTime = checkInTime.AddHours(9); // 17:00
+
+        var events = new List<AttendanceEvent>
+        {
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, checkInTime, AttendanceEventType.CheckIn),
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, checkInTime.AddHours(4), AttendanceEventType.BreakStart), // 12:00
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, checkInTime.AddHours(5), AttendanceEventType.BreakEnd), // 13:00 (60 min)
+            AttendanceEvent.Create(attendance.CompanyId, attendance.Id, attendance.EmployeeId, checkOutTime, AttendanceEventType.CheckOut),
+        };
+
+        // Act
+        attendance.RecordCheckOutFromEvent(checkOutTime, CheckInMethod.FaceRecognition);
+        attendance.UpdateSummaryFromEvents(events);
+
+        // Assert
+        attendance.CheckOutTime.Should().Be(checkOutTime);
+        attendance.BreakMinutes.Should().Be(60);
+        attendance.WorkingMinutes.Should().Be(480); // 9h total (540m) - 60m break = 480m
+        attendance.AttendanceStatus.Should().Be(AttendanceStatus.Present);
+    }
 }
+
+
 

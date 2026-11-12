@@ -32,13 +32,13 @@ public class CreateAttendanceDeviceCommandValidator : AbstractValidator<CreateAt
             .MaximumLength(50).WithMessage("ApplicationVersion must not exceed 50 characters.");
 
         RuleFor(v => v.Latitude)
-            .InclusiveBetween(-90, 90).WithMessage("Latitude must be between -90 and 90 degrees.");
+            .InclusiveBetween(-90, 90).When(v => v.Latitude.HasValue).WithMessage("Latitude must be between -90 and 90 degrees.");
 
         RuleFor(v => v.Longitude)
-            .InclusiveBetween(-180, 180).WithMessage("Longitude must be between -180 and 180 degrees.");
+            .InclusiveBetween(-180, 180).When(v => v.Longitude.HasValue).WithMessage("Longitude must be between -180 and 180 degrees.");
 
         RuleFor(v => v.AllowedRadiusMeters)
-            .GreaterThanOrEqualTo(0).WithMessage("Radius cannot be negative.");
+            .GreaterThanOrEqualTo(0).When(v => v.AllowedRadiusMeters.HasValue).WithMessage("Radius cannot be negative.");
 
         RuleFor(v => v.PublicKey)
             .MaximumLength(4000).WithMessage("PublicKey must not exceed 4000 characters.");

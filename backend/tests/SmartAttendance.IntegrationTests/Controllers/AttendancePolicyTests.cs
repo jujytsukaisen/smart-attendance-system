@@ -175,14 +175,16 @@ public class AttendancePolicyTests : BaseIntegrationTest
         activateResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
         var policyActive = await (await client.GetAsync($"/api/v1/attendancepolicies/{policyId}")).ReadWrappedResponseAsync<AttendancePolicyDetailsDto>();
-        policyActive.IsActive.Should().BeTrue();
+        policyActive.Should().NotBeNull();
+        policyActive!.IsActive.Should().BeTrue();
 
         // Deactivate
         var deactivateResponse = await client.PostAsync($"/api/v1/attendancepolicies/{policyId}/deactivate", null);
         deactivateResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
         var policyDeactive = await (await client.GetAsync($"/api/v1/attendancepolicies/{policyId}")).ReadWrappedResponseAsync<AttendancePolicyDetailsDto>();
-        policyDeactive.IsActive.Should().BeFalse();
+        policyDeactive.Should().NotBeNull();
+        policyDeactive!.IsActive.Should().BeFalse();
     }
 
     [Fact]
@@ -244,7 +246,8 @@ public class AttendancePolicyTests : BaseIntegrationTest
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var result = await response.ReadWrappedResponseAsync<PagedResult<AttendancePolicyListDto>>();
 
-        result.Items.Count.Should().Be(2);
+        result.Should().NotBeNull();
+        result!.Items.Count.Should().Be(2);
         result.Pagination.TotalCount.Should().BeGreaterOrEqualTo(3);
         result.Pagination.HasNextPage.Should().BeTrue();
     }
@@ -265,7 +268,8 @@ public class AttendancePolicyTests : BaseIntegrationTest
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var result = await response.ReadWrappedResponseAsync<PagedResult<AttendancePolicyListDto>>();
 
-        result.Items.Should().Contain(p => p.Id == policy1Id);
+        result.Should().NotBeNull();
+        result!.Items.Should().Contain(p => p.Id == policy1Id);
         result.Items.Should().NotContain(p => p.Id == policy2Id);
     }
 }

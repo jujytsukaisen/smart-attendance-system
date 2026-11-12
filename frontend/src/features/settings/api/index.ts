@@ -1,4 +1,5 @@
 import { apiClient } from '@/shared/api/axios';
+import type { ApiEnvelope } from '@/shared/types';
 import type {
   SystemSettingsDto,
   GeneralSettingsDto,
@@ -16,13 +17,13 @@ const BASE_URL = '/v1/Settings';
 
 export const settingsApi = {
   getSystemSettings: async (): Promise<SystemSettingsDto> => {
-    const response = await apiClient.get<SystemSettingsDto>(`${BASE_URL}/system`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<SystemSettingsDto>>(`${BASE_URL}/system`);
+    return response.data.data;
   },
 
   getGeneralSettings: async (): Promise<GeneralSettingsDto> => {
-    const response = await apiClient.get<GeneralSettingsDto>(`${BASE_URL}/general`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<GeneralSettingsDto>>(`${BASE_URL}/general`);
+    return response.data.data;
   },
 
   updateGeneralSettings: async (data: GeneralSettingsDto): Promise<void> => {
@@ -30,8 +31,8 @@ export const settingsApi = {
   },
 
   getAttendanceSettings: async (): Promise<AttendanceSettingsDto> => {
-    const response = await apiClient.get<AttendanceSettingsDto>(`${BASE_URL}/attendance`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<AttendanceSettingsDto>>(`${BASE_URL}/attendance`);
+    return response.data.data;
   },
 
   updateAttendanceSettings: async (data: AttendanceSettingsDto): Promise<void> => {
@@ -39,8 +40,8 @@ export const settingsApi = {
   },
 
   getSecuritySettings: async (): Promise<SecuritySettingsDto> => {
-    const response = await apiClient.get<SecuritySettingsDto>(`${BASE_URL}/security`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<SecuritySettingsDto>>(`${BASE_URL}/security`);
+    return response.data.data;
   },
 
   updateSecuritySettings: async (data: SecuritySettingsDto): Promise<void> => {
@@ -48,8 +49,8 @@ export const settingsApi = {
   },
 
   getNotificationSettings: async (): Promise<NotificationSettingsDto> => {
-    const response = await apiClient.get<NotificationSettingsDto>(`${BASE_URL}/notifications`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<NotificationSettingsDto>>(`${BASE_URL}/notifications`);
+    return response.data.data;
   },
 
   updateNotificationSettings: async (data: NotificationSettingsDto): Promise<void> => {
@@ -57,8 +58,8 @@ export const settingsApi = {
   },
 
   getDeviceSettings: async (): Promise<DeviceSettingsDto> => {
-    const response = await apiClient.get<DeviceSettingsDto>(`${BASE_URL}/devices`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<DeviceSettingsDto>>(`${BASE_URL}/devices`);
+    return response.data.data;
   },
 
   updateDeviceSettings: async (data: DeviceSettingsDto): Promise<void> => {
@@ -66,8 +67,8 @@ export const settingsApi = {
   },
 
   getEmailSettings: async (): Promise<EmailSettingsDto> => {
-    const response = await apiClient.get<EmailSettingsDto>(`${BASE_URL}/email`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<EmailSettingsDto>>(`${BASE_URL}/email`);
+    return response.data.data;
   },
 
   updateEmailSettings: async (data: EmailSettingsDto): Promise<void> => {
@@ -75,8 +76,8 @@ export const settingsApi = {
   },
 
   getSmsSettings: async (): Promise<SmsSettingsDto> => {
-    const response = await apiClient.get<SmsSettingsDto>(`${BASE_URL}/sms`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<SmsSettingsDto>>(`${BASE_URL}/sms`);
+    return response.data.data;
   },
 
   updateSmsSettings: async (data: SmsSettingsDto): Promise<void> => {
@@ -84,8 +85,8 @@ export const settingsApi = {
   },
 
   getBackupSettings: async (): Promise<BackupSettingsDto> => {
-    const response = await apiClient.get<BackupSettingsDto>(`${BASE_URL}/backup`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<BackupSettingsDto>>(`${BASE_URL}/backup`);
+    return response.data.data;
   },
 
   updateBackupSettings: async (data: BackupSettingsDto): Promise<void> => {
@@ -93,8 +94,8 @@ export const settingsApi = {
   },
 
   getFaceRecognitionSettings: async (): Promise<FaceRecognitionSettingsDto> => {
-    const response = await apiClient.get<FaceRecognitionSettingsDto>(`${BASE_URL}/face-recognition`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<FaceRecognitionSettingsDto>>(`${BASE_URL}/face-recognition`);
+    return response.data.data;
   },
 
   updateFaceRecognitionSettings: async (data: FaceRecognitionSettingsDto): Promise<void> => {

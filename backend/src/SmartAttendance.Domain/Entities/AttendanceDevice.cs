@@ -19,9 +19,9 @@ public class AttendanceDevice : BaseTenantEntity
 
     // Location
     public Guid? BranchId { get; private set; }
-    public double Latitude { get; private set; }
-    public double Longitude { get; private set; }
-    public double AllowedRadiusMeters { get; private set; }
+    public double? Latitude { get; private set; }
+    public double? Longitude { get; private set; }
+    public double? AllowedRadiusMeters { get; private set; }
 
     // Security
     public string? PublicKey { get; private set; }
@@ -65,9 +65,9 @@ public class AttendanceDevice : BaseTenantEntity
         string? operatingSystem,
         string? applicationVersion,
         Guid? branchId,
-        double latitude,
-        double longitude,
-        double allowedRadiusMeters,
+        double? latitude,
+        double? longitude,
+        double? allowedRadiusMeters,
         string? publicKey,
         string? deviceFingerprint,
         bool requireDeviceApproval,
@@ -123,9 +123,9 @@ public class AttendanceDevice : BaseTenantEntity
         string? operatingSystem,
         string? applicationVersion,
         Guid? branchId,
-        double latitude,
-        double longitude,
-        double allowedRadiusMeters,
+        double? latitude,
+        double? longitude,
+        double? allowedRadiusMeters,
         string? publicKey,
         string? deviceFingerprint,
         bool requireDeviceApproval,
@@ -188,9 +188,9 @@ public class AttendanceDevice : BaseTenantEntity
         string? operatingSystem,
         string? applicationVersion,
         Guid? branchId,
-        double latitude,
-        double longitude,
-        double allowedRadiusMeters,
+        double? latitude,
+        double? longitude,
+        double? allowedRadiusMeters,
         string? publicKey,
         string? deviceFingerprint,
         bool requireDeviceApproval,
@@ -282,9 +282,9 @@ public class AttendanceDevice : BaseTenantEntity
         ConnectionStatus = ConnectionStatus.Offline;
     }
 
-    public void UpdateLocation(double latitude, double longitude, double allowedRadiusMeters)
+    public void UpdateLocation(double? latitude, double? longitude, double? allowedRadiusMeters)
     {
-        if (allowedRadiusMeters < 0)
+        if (allowedRadiusMeters.HasValue && allowedRadiusMeters < 0)
             throw new InvalidAttendanceDeviceException("Radius cannot be negative.");
 
         ValidateCoordinates(latitude, longitude);
@@ -345,11 +345,11 @@ public class AttendanceDevice : BaseTenantEntity
         IsDeleted = false;
     }
 
-    private static void ValidateCoordinates(double latitude, double longitude)
+    private static void ValidateCoordinates(double? latitude, double? longitude)
     {
-        if (latitude < -90 || latitude > 90)
+        if (latitude.HasValue && (latitude < -90 || latitude > 90))
             throw new InvalidAttendanceDeviceException("Latitude must be between -90 and 90 degrees.");
-        if (longitude < -180 || longitude > 180)
+        if (longitude.HasValue && (longitude < -180 || longitude > 180))
             throw new InvalidAttendanceDeviceException("Longitude must be between -180 and 180 degrees.");
     }
 }

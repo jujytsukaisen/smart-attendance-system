@@ -1,0 +1,19 @@
+2026-09-05 20:45:23.444 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-09-05 20:45:24.761 +03:00 [INF] Started database seeding process.
+2026-09-05 20:45:26.185 +03:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-09-05 20:45:26.682 +03:00 [INF] Database seeding completed successfully.
+2026-09-05 20:45:26.685 +03:00 [INF] Starting Web Host
+2026-09-05 20:45:26.738 +03:00 [WRN] The WebRootPath was not found: C:\Users\MSI CYBORG 15\Downloads\smart-attendance-system\backend\src\SmartAttendance.API\wwwroot. Static files may be unavailable.
+2026-09-05 20:45:30.411 +03:00 [INF] Authorization Header: 
+2026-09-05 20:45:30.416 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-09-05 20:45:30.611 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 198 ms
+2026-09-05 20:45:31.657 +03:00 [INF] Authorization Header: 
+2026-09-05 20:45:31.666 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 9 ms
+2026-09-05 20:45:58.455 +03:00 [INF] Authorization Header: 
+2026-09-05 20:45:58.459 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 4 ms
+2026-09-05 20:45:59.476 +03:00 [INF] Authorization Header: 
+2026-09-05 20:45:59.484 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 8 ms
+2026-09-05 20:46:04.266 +03:00 [INF] Authorization Header: 
+2026-09-05 20:46:04.278 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 11 ms
+2026-09-05 20:46:05.334 +03:00 [INF] Authorization Header: 
+2026-09-05 20:46:05.336 +03:00 [INF] HTTP OPTIONS /api/v1/Auth/login responded 204 in 1 ms

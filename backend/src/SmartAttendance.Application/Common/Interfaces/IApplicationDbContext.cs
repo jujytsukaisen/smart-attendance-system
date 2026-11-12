@@ -21,10 +21,12 @@ public interface IApplicationDbContext
     DbSet<AttendancePolicy> AttendancePolicies { get; }
     DbSet<AttendanceDevice> AttendanceDevices { get; }
     DbSet<Attendance> Attendances { get; }
+    DbSet<AttendanceEvent> AttendanceEvents { get; }
     DbSet<Leave> Leaves { get; }
     DbSet<Holiday> Holidays { get; }
     DbSet<Notification> Notifications { get; }
     DbSet<AuditLog> AuditLogs { get; }
+    DbSet<AppSetting> AppSettings { get; }
     
     Guid CurrentTenantId { get; }
 

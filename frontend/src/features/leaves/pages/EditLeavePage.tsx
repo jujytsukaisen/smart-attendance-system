@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import { LeaveForm } from '../components';
 import { useLeaveDetails, useUpdateLeave } from '../hooks';
 import type { LeaveFormValues } from '../schemas';
+import { useAuthStore } from '@/features/auth/store';
 
 export function EditLeavePage() {
   const { id } = useParams<{ id: string }>();
@@ -11,19 +12,23 @@ export function EditLeavePage() {
   const { data, isLoading: isLoadingDetails } = useLeaveDetails(id!);
   const mutation = useUpdateLeave();
 
-  const handleSubmit = (values: LeaveFormValues) => {
-    mutation.mutate({
-      leaveId: id!,
-      ...values,
-    }, {
-      onSuccess: () => {
-        toast.success('Leave request updated successfully');
-        navigate('/leaves');
-      },
-      onError: (error: any) => {
-        toast.error(error.response?.data?.title || 'Failed to update leave request');
-      },
-    });
+  const { user } = useAuthStore();
+  const isAdmin = user?.roles?.includes('Admin');
+  const isEmployeeOnly = !isAdmin;
+
+  const handleSubmit = async (values: LeaveFormValues) => {
+    try {
+      await mutation.mutateAsync({
+        leaveId: id!,
+        ...values,
+      });
+      toast.success('Leave request updated successfully');
+      setTimeout(() => {
+        window.location.href = '/leaves';
+      }, 500);
+    } catch (error: any) {
+      toast.error(error.response?.data?.title || 'Failed to update leave request');
+    }
   };
 
   if (isLoadingDetails) {
@@ -66,6 +71,7 @@ export function EditLeavePage() {
         }} 
         onSubmit={handleSubmit} 
         isLoading={mutation.isPending} 
+        isEmployeeView={isEmployeeOnly}
       />
     </div>
   );

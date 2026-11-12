@@ -1,5 +1,6 @@
 import { Input } from '@/shared/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
+import { useTranslation } from '@/shared/i18n';
 
 interface BranchFiltersProps {
   searchQuery: string;
@@ -14,22 +15,23 @@ export const BranchFilters = ({
   statusFilter,
   onStatusChange,
 }: BranchFiltersProps) => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col sm:flex-row gap-4 mb-6">
       <Input
-        placeholder="Search branches by name or code..."
+        placeholder={t('branches.searchPlaceholder')}
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         className="max-w-sm"
       />
       <Select value={statusFilter} onValueChange={(val) => val && onStatusChange(val)}>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="All Status" />
+          <SelectValue placeholder={t('branches.allStatuses')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Status</SelectItem>
-          <SelectItem value="active">Active</SelectItem>
-          <SelectItem value="inactive">Inactive</SelectItem>
+          <SelectItem value="all">{t('branches.allStatuses')}</SelectItem>
+          <SelectItem value="active">{t('common.active')}</SelectItem>
+          <SelectItem value="inactive">{t('common.inactive')}</SelectItem>
         </SelectContent>
       </Select>
     </div>

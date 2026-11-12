@@ -51,6 +51,7 @@ export interface EmailSettingsDto {
   smtpPort: number;
   enableSsl: boolean;
   username: string;
+  password: string;
   senderName: string;
   senderEmail: string;
 }

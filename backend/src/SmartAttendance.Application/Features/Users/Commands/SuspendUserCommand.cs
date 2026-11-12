@@ -37,6 +37,7 @@ public class SuspendUserCommandHandler : IRequestHandler<SuspendUserCommand, Res
         if (user == null) return Result.Failure(new[] { "User not found." });
         user.Suspend();
         _context.Users.Update(user);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

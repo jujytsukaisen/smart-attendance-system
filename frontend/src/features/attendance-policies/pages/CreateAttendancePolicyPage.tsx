@@ -11,7 +11,13 @@ export function CreateAttendancePolicyPage() {
   const createMutation = useCreateAttendancePolicy();
 
   const handleSubmit = (values: AttendancePolicyFormValues) => {
-    createMutation.mutate(values, {
+    // ⚠️ الباك إند يتوقع null (وليس نص فارغ) لحقل الوقت عندما لا يكون محدّدًا
+    const sanitizedValues = {
+      ...values,
+      autoCheckoutTime: values.autoCheckoutTime || undefined,
+    };
+
+    createMutation.mutate(sanitizedValues, {
       onSuccess: () => {
         toast.success('Attendance policy created successfully');
         navigate('/attendance-policies');

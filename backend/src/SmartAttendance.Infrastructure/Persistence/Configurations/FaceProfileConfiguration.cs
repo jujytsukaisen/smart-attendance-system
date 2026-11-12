@@ -23,6 +23,11 @@ public sealed class FaceProfileConfiguration : IEntityTypeConfiguration<FaceProf
             .HasMaxLength(500)
             .HasColumnName("ExternalFaceProfileId");
 
+        // ⚠️ بصمة الوجه (JSON لـ 128 رقم عشري) تحتاج ~2000+ حرف
+        // بينما الـ Convention العام في ApplicationDbContext يحدد كل string بـ 500 حرف كحد أقصى
+        builder.Property(fp => fp.FaceEncoding)
+            .HasMaxLength(8000);
+
         builder.Property(fp => fp.RegistrationStatus)
             .IsRequired()
             .HasConversion<string>()
@@ -62,4 +67,3 @@ public sealed class FaceProfileConfiguration : IEntityTypeConfiguration<FaceProf
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
-

@@ -38,6 +38,73 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                     b.ToTable("RolePermissions", (string)null);
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Entities.AppSetting", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId", "Category")
+                        .HasDatabaseName("IX_AppSettings_Company_Category");
+
+                    b.HasIndex("CompanyId", "Category", "Key")
+                        .IsUnique()
+                        .HasDatabaseName("IX_AppSettings_Company_Category_Key");
+
+                    b.ToTable("AppSettings", (string)null);
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Entities.Attendance", b =>
                 {
                     b.Property<Guid>("Id")
@@ -144,6 +211,9 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("ExcessBreakMinutes")
+                        .HasColumnType("int");
+
                     b.Property<string>("FaceVerificationStatus")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -223,7 +293,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AllowedRadiusMeters")
+                    b.Property<double?>("AllowedRadiusMeters")
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
 
@@ -300,11 +370,11 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("LastSynchronization")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Latitude")
+                    b.Property<double?>("Latitude")
                         .HasPrecision(9, 6)
                         .HasColumnType("float(9)");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("Longitude")
                         .HasPrecision(9, 6)
                         .HasColumnType("float(9)");
 
@@ -387,6 +457,78 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("IX_AttendanceDevices_CompanyId_Code");
 
                     b.ToTable("AttendanceDevices", (string)null);
+                });
+
+            modelBuilder.Entity("SmartAttendance.Domain.Entities.AttendanceEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AttendanceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttendanceId", "Timestamp")
+                        .HasDatabaseName("IX_AttendanceEvents_AttendanceId_Timestamp");
+
+                    b.HasIndex("CompanyId", "Timestamp")
+                        .HasDatabaseName("IX_AttendanceEvents_CompanyId_Timestamp");
+
+                    b.HasIndex("EmployeeId", "Timestamp")
+                        .HasDatabaseName("IX_AttendanceEvents_EmployeeId_Timestamp");
+
+                    b.ToTable("AttendanceEvents", (string)null);
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Entities.AttendancePolicy", b =>
@@ -710,11 +852,11 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<double>("Latitude")
+                    b.Property<double?>("Latitude")
                         .HasPrecision(9, 6)
                         .HasColumnType("float(9)");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("Longitude")
                         .HasPrecision(9, 6)
                         .HasColumnType("float(9)");
 
@@ -723,7 +865,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<double>("RadiusInMeters")
+                    b.Property<double?>("RadiusInMeters")
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
 
@@ -734,7 +876,6 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasColumnType("rowversion");
 
                     b.Property<string>("TimeZone")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -1005,6 +1146,11 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<bool>("RequiresLocationValidation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -1215,6 +1361,10 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FaceEncoding")
+                        .HasMaxLength(8000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FaceProfileId")
                         .HasMaxLength(500)
@@ -1771,6 +1921,9 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int>("MaxBreakDurationMinutes")
+                        .HasColumnType("int");
 
                     b.Property<double>("MaximumWorkingHours")
                         .HasPrecision(5, 2)
@@ -2358,6 +2511,25 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                     b.Navigation("Branch");
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Entities.AttendanceEvent", b =>
+                {
+                    b.HasOne("SmartAttendance.Domain.Entities.Attendance", "Attendance")
+                        .WithMany("Events")
+                        .HasForeignKey("AttendanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartAttendance.Domain.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Attendance");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Entities.Branch", b =>
                 {
                     b.HasOne("SmartAttendance.Domain.Entities.Company", "Company")
@@ -2403,7 +2575,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("BranchId");
 
-                            b1.ToTable("Branches", (string)null);
+                            b1.ToTable("Branches");
 
                             b1.WithOwner()
                                 .HasForeignKey("BranchId");
@@ -2422,7 +2594,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("BranchId");
 
-                            b1.ToTable("Branches", (string)null);
+                            b1.ToTable("Branches");
 
                             b1.WithOwner()
                                 .HasForeignKey("BranchId");
@@ -2441,7 +2613,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("BranchId");
 
-                            b1.ToTable("Branches", (string)null);
+                            b1.ToTable("Branches");
 
                             b1.WithOwner()
                                 .HasForeignKey("BranchId");
@@ -2509,7 +2681,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("CompanyId");
 
-                            b1.ToTable("Companies", (string)null);
+                            b1.ToTable("Companies");
 
                             b1.WithOwner()
                                 .HasForeignKey("CompanyId");
@@ -2528,7 +2700,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("CompanyId");
 
-                            b1.ToTable("Companies", (string)null);
+                            b1.ToTable("Companies");
 
                             b1.WithOwner()
                                 .HasForeignKey("CompanyId");
@@ -2547,7 +2719,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("CompanyId");
 
-                            b1.ToTable("Companies", (string)null);
+                            b1.ToTable("Companies");
 
                             b1.WithOwner()
                                 .HasForeignKey("CompanyId");
@@ -2653,7 +2825,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -2672,7 +2844,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -2691,7 +2863,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -2710,7 +2882,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -2813,7 +2985,7 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users", (string)null);
+                            b1.ToTable("Users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -2931,6 +3103,11 @@ namespace SmartAttendance.Infrastructure.Persistence.Migrations
                         .HasForeignKey("WorkScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartAttendance.Domain.Entities.Attendance", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Entities.AttendancePolicy", b =>

@@ -13,8 +13,12 @@ export const EditDepartmentPage = () => {
   const updateMutation = useUpdateDepartment();
 
   const handleSubmit = async (data: UpdateDepartmentCommand) => {
-    await updateMutation.mutateAsync(data);
-    navigate('/departments');
+    try {
+      await updateMutation.mutateAsync(data);
+      navigate('/departments');
+    } catch {
+      // Error handled by mutation onError toast
+    }
   };
 
   if (isError) {

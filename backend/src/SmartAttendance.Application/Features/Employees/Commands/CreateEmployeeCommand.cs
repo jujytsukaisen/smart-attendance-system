@@ -51,11 +51,11 @@ public class CreateEmployeeCommandValidator : AbstractValidator<CreateEmployeeCo
         RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(256);
         RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(20);
         RuleFor(x => x.JobTitle).NotEmpty().MaximumLength(200);
-        RuleFor(x => x.HireDate).LessThanOrEqualTo(DateTime.UtcNow).WithMessage("Hire date cannot be in the future.");
+        RuleFor(x => x.HireDate).LessThanOrEqualTo(DateTime.UtcNow.AddDays(1)).WithMessage("Hire date cannot be in the future.");
         RuleFor(x => x.DateOfBirth).LessThan(DateTime.UtcNow.AddYears(-16)).WithMessage("Employee must be at least 16 years old.");
         RuleFor(x => x.NationalId).MaximumLength(50);
         RuleFor(x => x.PassportNumber).MaximumLength(50);
-        
+
         RuleFor(x => x.Street).NotEmpty().MaximumLength(500);
         RuleFor(x => x.City).NotEmpty().MaximumLength(200);
         RuleFor(x => x.State).NotEmpty().MaximumLength(200);
@@ -67,15 +67,17 @@ public class CreateEmployeeCommandValidator : AbstractValidator<CreateEmployeeCo
 public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, Result<Guid>>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IIdentityService _identityService;
 
-    public CreateEmployeeCommandHandler(IApplicationDbContext context)
+    public CreateEmployeeCommandHandler(IApplicationDbContext context, IIdentityService identityService)
     {
         _context = context;
+        _identityService = identityService;
     }
 
     public async Task<Result<Guid>> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
     {
-        // Validation
+        // ── Validation ───────────────────────────────────────────────
         var companyExists = await _context.Companies.AnyAsync(c => c.Id == request.CompanyId, cancellationToken);
         if (!companyExists) return Result<Guid>.Failure(new[] { "Company not found." });
 
@@ -89,9 +91,15 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
         if (duplicateEmployeeNumber) return Result<Guid>.Failure(new[] { "Employee number already exists in the company." });
 
         var emailVO = new Email(request.Email);
-        var duplicateEmail = await _context.Employees.AnyAsync(e => e.Email.Value == request.Email, cancellationToken);
-        if (duplicateEmail) return Result<Guid>.Failure(new[] { "Email already exists." });
 
+        var duplicateEmployeeEmail = await _context.Employees.AnyAsync(e => e.CompanyId == request.CompanyId && e.Email.Value == request.Email, cancellationToken);
+        if (duplicateEmployeeEmail) return Result<Guid>.Failure(new[] { "Email already exists in this company." });
+
+        // Prevent creating a user account with an already-taken email
+        var userEmailExists = await _context.Users.AnyAsync(u => u.Email.Value == request.Email, cancellationToken);
+        if (userEmailExists) return Result<Guid>.Failure(new[] { "A user account with this email already exists." });
+
+        // ── Create Employee ──────────────────────────────────────────
         var phoneVO = new PhoneNumber(request.PhoneNumber);
         var addressVO = new Address(request.Street, request.City, request.State, request.Country, request.ZipCode);
 
@@ -117,7 +125,43 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
 
         _context.Employees.Add(employee);
 
+        // ── Auto-create System User account ─────────────────────────
+        // Username = local part of the email (before @), lowercased
+        var username = request.Email.Split('@')[0].ToLowerInvariant();
+
+        // Ensure username uniqueness by appending employee number if already taken
+        var usernameExists = await _context.Users.AnyAsync(u => u.Username == username, cancellationToken);
+        if (usernameExists)
+            username = $"{username}.{request.EmployeeNumber.ToLowerInvariant()}";
+
+        // Temporary password: FirstName@EmployeeNumber (e.g. John@EMP-001)
+        var temporaryPassword = $"{request.FirstName}@{request.EmployeeNumber}";
+
+        var domainUser = SmartAttendance.Domain.Entities.User.Create(
+            request.CompanyId,
+            username,
+            emailVO);
+
+        domainUser.Activate();
+
+        _context.Users.Add(domainUser);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        // Create the ASP.NET Identity account linked to the domain user
+        var (identityResult, _) = await _identityService.CreateUserAsync(domainUser.Id, username, temporaryPassword, request.Email);
+
+        if (!identityResult.Succeeded)
+        {
+            // Roll back both records on failure
+            _context.Users.Remove(domainUser);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync(cancellationToken);
+            return Result<Guid>.Failure(identityResult.Errors);
+        }
+
+        // Assign the default "Employee" role automatically
+        await _identityService.UpdateUserRolesAsync(domainUser.Id, new[] { "Employee" });
+
         return Result<Guid>.Success(employee.Id);
     }
 }
-

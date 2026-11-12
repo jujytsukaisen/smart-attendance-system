@@ -26,7 +26,8 @@ public class ShiftTests
             maximumWorkingHours: 9,
             gracePeriodMinutes: 15,
             allowEarlyCheckInMinutes: 30,
-            allowLateCheckOutMinutes: 30);
+            allowLateCheckOutMinutes: 30,
+            maxBreakDurationMinutes: 60);
     }
 
     [Fact]
@@ -47,7 +48,8 @@ public class ShiftTests
             maximumWorkingHours: 7, // Invalid: Max < Min
             gracePeriodMinutes: 15,
             allowEarlyCheckInMinutes: 30,
-            allowLateCheckOutMinutes: 30);
+            allowLateCheckOutMinutes: 30,
+            maxBreakDurationMinutes: 60);
 
         // Assert
         act.Should().Throw<InvalidShiftException>()

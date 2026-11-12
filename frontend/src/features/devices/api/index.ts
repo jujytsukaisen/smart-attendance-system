@@ -1,9 +1,10 @@
 import { apiClient } from '@/shared/api/axios';
+import type { ApiEnvelope } from '@/shared/types';
 import type { PagedResult } from '@/shared/types';
-import type { 
-  AttendanceDeviceListDto, 
-  AttendanceDeviceDetailsDto, 
-  CreateAttendanceDeviceCommand, 
+import type {
+  AttendanceDeviceListDto,
+  AttendanceDeviceDetailsDto,
+  CreateAttendanceDeviceCommand,
   UpdateAttendanceDeviceCommand,
   DeviceFilter,
   SyncResultDto,
@@ -22,18 +23,18 @@ export const devicesApi = {
     if (filter.deviceStatus) params.append('deviceStatus', filter.deviceStatus.toString());
     if (filter.connectionStatus) params.append('connectionStatus', filter.connectionStatus.toString());
 
-    const response = await apiClient.get<PagedResult<AttendanceDeviceListDto>>(`${BASE_URL}?${params.toString()}`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<PagedResult<AttendanceDeviceListDto>>>(`${BASE_URL}?${params.toString()}`);
+    return response.data.data;
   },
 
   getDeviceById: async (id: string): Promise<AttendanceDeviceDetailsDto> => {
-    const response = await apiClient.get<AttendanceDeviceDetailsDto>(`${BASE_URL}/${id}`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<AttendanceDeviceDetailsDto>>(`${BASE_URL}/${id}`);
+    return response.data.data;
   },
 
   createDevice: async (data: CreateAttendanceDeviceCommand): Promise<string> => {
-    const response = await apiClient.post<string>(BASE_URL, data);
-    return response.data;
+    const response = await apiClient.post<ApiEnvelope<string>>(BASE_URL, data);
+    return response.data.data;
   },
 
   updateDevice: async (data: UpdateAttendanceDeviceCommand): Promise<void> => {
@@ -58,13 +59,13 @@ export const devicesApi = {
   },
 
   syncDevice: async (id: string): Promise<SyncResultDto> => {
-    const response = await apiClient.post<SyncResultDto>(`${BASE_URL}/${id}/sync`);
-    return response.data;
+    const response = await apiClient.post<ApiEnvelope<SyncResultDto>>(`${BASE_URL}/${id}/sync`);
+    return response.data.data;
   },
 
   testConnection: async (id: string): Promise<boolean> => {
-    const response = await apiClient.post<boolean>(`${BASE_URL}/${id}/test-connection`);
-    return response.data;
+    const response = await apiClient.post<ApiEnvelope<boolean>>(`${BASE_URL}/${id}/test-connection`);
+    return response.data.data;
   },
 
   restartDevice: async (id: string): Promise<void> => {
@@ -80,7 +81,7 @@ export const devicesApi = {
   },
 
   downloadLogs: async (id: string): Promise<DeviceLogDto[]> => {
-    const response = await apiClient.get<DeviceLogDto[]>(`${BASE_URL}/${id}/logs`);
-    return response.data;
+    const response = await apiClient.get<ApiEnvelope<DeviceLogDto[]>>(`${BASE_URL}/${id}/logs`);
+    return response.data.data;
   }
 };

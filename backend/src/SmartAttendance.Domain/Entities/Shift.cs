@@ -23,6 +23,7 @@ public class Shift : BaseTenantEntity
     public int GracePeriodMinutes { get; private set; }
     public int AllowEarlyCheckInMinutes { get; private set; }
     public int AllowLateCheckOutMinutes { get; private set; }
+    public int MaxBreakDurationMinutes { get; private set; }
     public bool IsActive { get; private set; }
 
     public Guid WorkScheduleId { get; private set; }
@@ -48,7 +49,8 @@ public class Shift : BaseTenantEntity
         double maximumWorkingHours,
         int gracePeriodMinutes,
         int allowEarlyCheckInMinutes,
-        int allowLateCheckOutMinutes)
+        int allowLateCheckOutMinutes,
+        int maxBreakDurationMinutes)
     {
         CompanyId = companyId;
         WorkScheduleId = workScheduleId;
@@ -64,6 +66,7 @@ public class Shift : BaseTenantEntity
         GracePeriodMinutes = gracePeriodMinutes;
         AllowEarlyCheckInMinutes = allowEarlyCheckInMinutes;
         AllowLateCheckOutMinutes = allowLateCheckOutMinutes;
+        MaxBreakDurationMinutes = maxBreakDurationMinutes;
         
         IsNightShift = EndTime < StartTime;
         IsActive = false;
@@ -83,7 +86,8 @@ public class Shift : BaseTenantEntity
         double maximumWorkingHours,
         int gracePeriodMinutes,
         int allowEarlyCheckInMinutes,
-        int allowLateCheckOutMinutes)
+        int allowLateCheckOutMinutes,
+        int maxBreakDurationMinutes)
     {
         if (companyId == Guid.Empty)
             throw new InvalidShiftException("Company ID cannot be empty.");
@@ -103,6 +107,8 @@ public class Shift : BaseTenantEntity
             throw new InvalidShiftException("Allow early check-in minutes cannot be negative.");
         if (allowLateCheckOutMinutes < 0)
             throw new InvalidShiftException("Allow late check-out minutes cannot be negative.");
+        if (maxBreakDurationMinutes < 0)
+            throw new InvalidShiftException("Max break duration minutes cannot be negative.");
 
         return new Shift(
             companyId,
@@ -118,7 +124,8 @@ public class Shift : BaseTenantEntity
             maximumWorkingHours,
             gracePeriodMinutes,
             allowEarlyCheckInMinutes,
-            allowLateCheckOutMinutes);
+            allowLateCheckOutMinutes,
+            maxBreakDurationMinutes);
     }
 
     public void Update(string name, string code, string? description)
@@ -191,6 +198,20 @@ public class Shift : BaseTenantEntity
 
         AllowEarlyCheckInMinutes = allowEarlyCheckInMinutes;
         AllowLateCheckOutMinutes = allowLateCheckOutMinutes;
+    }
+
+    public void ChangeTypeAndFlexibility(ShiftType shiftType, bool isFlexible)
+    {
+        ShiftType = shiftType;
+        IsFlexible = isFlexible;
+    }
+
+    public void ChangeMaxBreakDuration(int maxBreakDurationMinutes)
+    {
+        if (maxBreakDurationMinutes < 0)
+            throw new InvalidShiftException("Max break duration minutes cannot be negative.");
+
+        MaxBreakDurationMinutes = maxBreakDurationMinutes;
     }
 
     public void AddBreak(Break @break)

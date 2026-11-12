@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const leaveSchema = z.object({
-  companyId: z.string().uuid('Company ID is required'),
-  employeeId: z.string().uuid('Employee ID is required'),
+  companyId: z.string().optional(),
+  employeeId: z.string().optional(),
   leaveType: z.string().min(1, 'Leave Type is required'),
   startDate: z.string().min(1, 'Start date is required'),
   endDate: z.string().min(1, 'End date is required'),

@@ -36,6 +36,11 @@ public class GlobalExceptionMiddleware
             _logger.LogWarning(ex, "Bad request argument.");
             await HandleExceptionAsync(context, ex.Message, StatusCodes.Status400BadRequest, "Bad Request");
         }
+        catch (SmartAttendance.Domain.Exceptions.DomainException ex)
+        {
+            _logger.LogWarning(ex, "Domain exception.");
+            await HandleExceptionAsync(context, ex.Message, StatusCodes.Status400BadRequest, "Bad Request");
+        }
         catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException ex)
         {
             _logger.LogWarning(ex, "Concurrency conflict occurred.");

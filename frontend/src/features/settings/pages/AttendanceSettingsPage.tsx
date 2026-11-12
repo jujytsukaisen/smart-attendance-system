@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -18,14 +17,18 @@ export function AttendanceSettingsPage() {
 
   const form = useForm<AttendanceSettingsDto>({
     resolver: zodResolver(attendanceSettingsSchema),
-    defaultValues: data,
+    values: data || {
+      workingHoursStart: '09:00',
+      workingHoursEnd: '17:00',
+      gracePeriodMinutes: 15,
+      lateThresholdMinutes: 30,
+      minimumHoursForHalfDay: 4,
+      minimumHoursForFullDay: 8,
+      maximumOvertimeHours: 4,
+      weekendRules: 'Strict',
+      holidayRules: 'None',
+    },
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: AttendanceSettingsDto) => {
     await updateMutation.mutateAsync(values);
@@ -163,6 +166,26 @@ export function AttendanceSettingsPage() {
                         <SelectContent>
                           <SelectItem value="Strict">Strict (No attendance allowed)</SelectItem>
                           <SelectItem value="Overtime">Treated as Overtime</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="holidayRules"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Holiday Rules</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger><SelectValue /></SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="None">None (No attendance allowed)</SelectItem>
+                          <SelectItem value="Overtime">Treated as Overtime</SelectItem>
+                          <SelectItem value="Optional">Optional Work Day</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

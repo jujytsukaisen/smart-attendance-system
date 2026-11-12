@@ -40,12 +40,12 @@ public class AssignRolesCommandHandler : IRequestHandler<AssignRolesCommand, Res
     {
         var user = await _context.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
         if (user == null) return Result.Failure(new[] { "User not found." });
-        foreach (var roleName in request.Roles)
-        {
-            var role = await _context.Roles.FirstOrDefaultAsync(x => x.Name == roleName, cancellationToken);
-            if (role != null) user.AssignRole(role);
-        }
+        var rolesToAssign = await _context.Roles.Where(x => request.Roles.Contains(x.Name)).ToListAsync(cancellationToken);
+        user.ReplaceRoles(rolesToAssign);
         _context.Users.Update(user);
+
+        var identityResult = await _identityService.UpdateUserRolesAsync(user.Id, request.Roles);
+        if (!identityResult.Succeeded) return identityResult;
 
         return Result.Success();
     }

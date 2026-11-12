@@ -6,7 +6,56 @@ import { Select as SelectPrimitive } from "@base-ui/react/select"
 import { cn } from "@/shared/utils/index"
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
-const Select = SelectPrimitive.Root
+interface SelectItemsContextType {
+  itemsMap: Map<any, React.ReactNode>
+  registerItem: (value: any, label: React.ReactNode) => void
+  unregisterItem: (value: any) => void
+  tick: number
+}
+
+const SelectItemsContext = React.createContext<SelectItemsContextType | null>(null)
+
+function Select({
+  children,
+  items,
+  ...props
+}: SelectPrimitive.Root.Props<any>) {
+  const [itemsMap] = React.useState(() => new Map<any, React.ReactNode>())
+  const [tick, setTick] = React.useState(0)
+
+  const registerItem = React.useCallback((value: any, label: React.ReactNode) => {
+    if (value !== undefined && value !== null) {
+      if (itemsMap.get(value) !== label) {
+        itemsMap.set(value, label)
+        setTick((t) => t + 1)
+      }
+    }
+  }, [itemsMap])
+
+  const unregisterItem = React.useCallback((value: any) => {
+    if (value !== undefined && value !== null) {
+      if (itemsMap.has(value)) {
+        itemsMap.delete(value)
+        setTick((t) => t + 1)
+      }
+    }
+  }, [itemsMap])
+
+  const contextValue = React.useMemo(() => ({
+    itemsMap,
+    registerItem,
+    unregisterItem,
+    tick,
+  }), [itemsMap, registerItem, unregisterItem, tick])
+
+  return (
+    <SelectItemsContext.Provider value={contextValue}>
+      <SelectPrimitive.Root items={items} {...props}>
+        {children}
+      </SelectPrimitive.Root>
+    </SelectItemsContext.Provider>
+  )
+}
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (
@@ -18,13 +67,32 @@ function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   )
 }
 
-function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
+function SelectValue({ className, placeholder, children, ...props }: SelectPrimitive.Value.Props) {
+  const context = React.useContext(SelectItemsContext)
+
   return (
     <SelectPrimitive.Value
       data-slot="select-value"
       className={cn("flex flex-1 text-left", className)}
+      placeholder={placeholder}
       {...props}
-    />
+    >
+      {(val) => {
+        if (typeof children === "function") {
+          return children(val)
+        }
+        if (children != null) {
+          return children
+        }
+        if (val !== undefined && val !== null && context?.itemsMap.has(val)) {
+          return context.itemsMap.get(val)
+        }
+        if (!val) {
+          return placeholder ?? null
+        }
+        return val
+      }}
+    </SelectPrimitive.Value>
   )
 }
 
@@ -41,7 +109,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-fit items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-full items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -111,11 +179,24 @@ function SelectLabel({
 function SelectItem({
   className,
   children,
+  value,
   ...props
 }: SelectPrimitive.Item.Props) {
+  const context = React.useContext(SelectItemsContext)
+
+  React.useEffect(() => {
+    if (context && value !== undefined && value !== null) {
+      context.registerItem(value, children)
+      return () => {
+        context.unregisterItem(value)
+      }
+    }
+  }, [context, value, children])
+
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
+      value={value}
       className={cn(
         "relative flex w-full cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className

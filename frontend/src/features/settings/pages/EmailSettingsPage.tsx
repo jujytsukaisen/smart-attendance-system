@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -18,14 +17,8 @@ export function EmailSettingsPage() {
 
   const form = useForm<EmailSettingsDto>({
     resolver: zodResolver(emailSettingsSchema),
-    defaultValues: data,
+    values: data || {} as any,
   });
-
-  useEffect(() => {
-    if (data) {
-      form.reset(data);
-    }
-  }, [data, form]);
 
   const onSubmit = async (values: EmailSettingsDto) => {
     await updateMutation.mutateAsync(values);
@@ -96,6 +89,20 @@ export function EmailSettingsPage() {
                       <FormLabel>SMTP Username</FormLabel>
                       <FormControl>
                         <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>SMTP Password</FormLabel>
+                      <FormControl>
+                        <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

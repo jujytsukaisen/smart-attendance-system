@@ -63,7 +63,7 @@ export function EditRolePage() {
     );
   }
 
-  const selectedPermissionNames = role.permissions?.map(p => p.systemName) || [];
+  const selectedPermissionIds = role.permissions?.map(p => p.id) || [];
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 mb-12">
@@ -92,7 +92,7 @@ export function EditRolePage() {
         <div className="lg:col-span-2">
           <PermissionMatrix 
             allPermissions={allPermissions}
-            selectedPermissions={selectedPermissionNames}
+            selectedPermissions={selectedPermissionIds}
             onChange={handleAssignPermissions}
             isLoading={assignMutation.isPending}
           />

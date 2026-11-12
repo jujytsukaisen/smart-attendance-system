@@ -10,8 +10,12 @@ export const CreateDepartmentPage = () => {
   const createMutation = useCreateDepartment();
 
   const handleSubmit = async (data: CreateDepartmentCommand) => {
-    await createMutation.mutateAsync(data);
-    navigate('/departments');
+    try {
+      await createMutation.mutateAsync(data);
+      navigate('/departments');
+    } catch {
+      // Error handled by mutation onError toast
+    }
   };
 
   return (

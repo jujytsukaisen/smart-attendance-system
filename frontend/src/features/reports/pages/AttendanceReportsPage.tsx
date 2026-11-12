@@ -5,6 +5,15 @@ import { ReportFilters, ExportDropdown, ReportDataTable, type ColumnDef } from '
 import { useLateEmployeesReport, useAbsenceReport } from '../hooks';
 import type { ReportFilterDto, LateEmployeesReportDto, AbsenceReportDto } from '../types';
 
+function formatDuration(minutes: number): string {
+  if (!minutes || minutes <= 0) return '0m';
+  const h = Math.floor(minutes / 60);
+  const m = Math.floor(minutes % 60);
+  if (h > 0 && m > 0) return `${h}h ${m}m`;
+  if (h > 0) return `${h}h`;
+  return `${m}m`;
+}
+
 export function AttendanceReportsPage() {
   const [filter, setFilter] = useState<ReportFilterDto>({});
   
@@ -14,7 +23,12 @@ export function AttendanceReportsPage() {
   const lateColumns: ColumnDef<LateEmployeesReportDto>[] = [
     { header: 'Employee', accessorKey: 'employeeName', sortable: true },
     { header: 'Department', accessorKey: 'department', sortable: true },
-    { header: 'Total Late Min', accessorKey: 'totalLateMinutes', sortable: true },
+    { 
+      header: 'Total Late Time', 
+      accessorKey: 'totalLateMinutes', 
+      sortable: true,
+      cell: (item) => formatDuration(item.totalLateMinutes)
+    },
     { header: 'Incidents', accessorKey: 'lateDaysCount', sortable: true },
   ];
 

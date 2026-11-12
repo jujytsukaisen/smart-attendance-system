@@ -21,10 +21,10 @@ public class CreateBranchCommand : IRequest<Result<Guid>>
     public string AddressZipCode { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public double AllowedRadiusMeters { get; set; }
-    public string TimeZone { get; set; } = "UTC";
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public double? AllowedRadiusMeters { get; set; }
+    public string? TimeZone { get; set; }
     public bool IsHeadOffice { get; set; }
 }
 
@@ -42,8 +42,7 @@ public class CreateBranchCommandValidator : AbstractValidator<CreateBranchComman
         RuleFor(x => x.AddressZipCode).NotEmpty().MaximumLength(20);
         RuleFor(x => x.PhoneNumber).MaximumLength(20);
         RuleFor(x => x.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x.Email));
-        RuleFor(x => x.AllowedRadiusMeters).GreaterThan(0);
-        RuleFor(x => x.TimeZone).NotEmpty();
+        RuleFor(x => x.AllowedRadiusMeters).GreaterThan(0).When(x => x.AllowedRadiusMeters.HasValue);
     }
 }
 

@@ -12,13 +12,22 @@ import { useFaceRecognitionSettings, useUpdateFaceRecognitionSettings } from '..
 import { faceRecognitionSettingsSchema } from '../schemas';
 import type { FaceRecognitionSettingsDto } from '../types';
 
+const defaultFormValues: FaceRecognitionSettingsDto = {
+  recognitionThreshold: 80,
+  minimumFaceQuality: 60,
+  livenessDetectionEnabled: true,
+  maskDetectionEnabled: false,
+  spoofDetectionEnabled: true,
+};
+
 export function FaceRecognitionSettingsPage() {
   const { data, isLoading, isError, error } = useFaceRecognitionSettings();
   const updateMutation = useUpdateFaceRecognitionSettings();
 
   const form = useForm<FaceRecognitionSettingsDto>({
     resolver: zodResolver(faceRecognitionSettingsSchema),
-    defaultValues: data,
+    values: data ?? defaultFormValues,
+    defaultValues: data ?? defaultFormValues,
   });
 
   useEffect(() => {
@@ -46,8 +55,6 @@ export function FaceRecognitionSettingsPage() {
     );
   }
 
-
-
   return (
     <div className="space-y-6">
       <Card>
@@ -67,7 +74,11 @@ export function FaceRecognitionSettingsPage() {
                     <FormItem>
                       <FormLabel>Recognition Confidence Threshold (%)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                        <Input 
+                          type="number" 
+                          value={field.value ?? ''} 
+                          onChange={e => field.onChange(e.target.value === '' ? 0 : Number(e.target.value))} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -81,7 +92,11 @@ export function FaceRecognitionSettingsPage() {
                     <FormItem>
                       <FormLabel>Minimum Face Quality (%)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                        <Input 
+                          type="number" 
+                          value={field.value ?? ''} 
+                          onChange={e => field.onChange(e.target.value === '' ? 0 : Number(e.target.value))} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -100,7 +115,7 @@ export function FaceRecognitionSettingsPage() {
                         <CardDescription>Require active blink or movement to prevent photo spoofing.</CardDescription>
                       </div>
                       <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                        <Checkbox checked={!!field.value} onCheckedChange={field.onChange} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -116,7 +131,7 @@ export function FaceRecognitionSettingsPage() {
                         <CardDescription>Enable advanced deepfake and mask detection AI models.</CardDescription>
                       </div>
                       <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                        <Checkbox checked={!!field.value} onCheckedChange={field.onChange} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -132,7 +147,7 @@ export function FaceRecognitionSettingsPage() {
                         <CardDescription>Allow recognition of employees wearing face masks.</CardDescription>
                       </div>
                       <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                        <Checkbox checked={!!field.value} onCheckedChange={field.onChange} />
                       </FormControl>
                     </FormItem>
                   )}

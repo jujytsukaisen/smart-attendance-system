@@ -4,6 +4,7 @@ using SmartAttendance.Application.Features.Breaks.DTOs;
 
 using SmartAttendance.Application.Common.Mappings;
 using SmartAttendance.Domain.Entities;
+using SmartAttendance.Domain.Enums;
 namespace SmartAttendance.Application.Features.Shifts.DTOs;
 
 public class ShiftDetailsDto : IMapFrom<Shift>
@@ -16,7 +17,7 @@ public class ShiftDetailsDto : IMapFrom<Shift>
     public string? Description { get; set; }
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
-    public int ShiftType { get; set; }
+    public ShiftType ShiftType { get; set; }
     public bool IsNightShift { get; set; }
     public bool IsFlexible { get; set; }
     public double MinimumWorkingHours { get; set; }
@@ -24,6 +25,7 @@ public class ShiftDetailsDto : IMapFrom<Shift>
     public int GracePeriodMinutes { get; set; }
     public int AllowEarlyCheckInMinutes { get; set; }
     public int AllowLateCheckOutMinutes { get; set; }
+    public int MaxBreakDurationMinutes { get; set; }
     public bool IsActive { get; set; }
 
     public IReadOnlyCollection<BreakDto> Breaks { get; set; } = Array.Empty<BreakDto>();

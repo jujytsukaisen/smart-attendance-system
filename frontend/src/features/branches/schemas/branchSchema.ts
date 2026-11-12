@@ -11,10 +11,10 @@ export const createBranchSchema = z.object({
   addressZipCode: z.string().min(1, 'Zip Code is required').max(20, 'Zip Code must be at most 20 characters'),
   phoneNumber: z.string().max(20, 'Phone Number must be at most 20 characters').default(''),
   email: z.union([z.string().email('Invalid email address'), z.literal('')]).default(''),
-  latitude: z.coerce.number().min(-90, 'Invalid latitude').max(90, 'Invalid latitude'),
-  longitude: z.coerce.number().min(-180, 'Invalid longitude').max(180, 'Invalid longitude'),
-  allowedRadiusMeters: z.coerce.number().positive('Radius must be greater than 0'),
-  timeZone: z.string().min(1, 'Time Zone is required'),
+  latitude: z.coerce.number().min(-90, 'Invalid latitude').max(90, 'Invalid latitude').optional().nullable(),
+  longitude: z.coerce.number().min(-180, 'Invalid longitude').max(180, 'Invalid longitude').optional().nullable(),
+  allowedRadiusMeters: z.coerce.number().positive('Radius must be greater than 0').optional().nullable(),
+  timeZone: z.string().optional().nullable(),
   isHeadOffice: z.boolean().default(false),
 });
 

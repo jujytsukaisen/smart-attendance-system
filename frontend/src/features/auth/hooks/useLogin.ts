@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { login } from '../api';
 import { useAuthStore } from '../store';
+import { decodeUserFromToken } from '../utils/decodeToken';
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -11,7 +12,9 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      setAuth(data.user, data.token, data.refreshToken);
+      // ⚠️ الباك إند لا يرجع "user" — نبنيه من داخل JWT claims
+      const user = decodeUserFromToken(data.token);
+      setAuth(user, data.token, data.refreshToken);
       toast.success('Logged in successfully');
       navigate('/');
     },

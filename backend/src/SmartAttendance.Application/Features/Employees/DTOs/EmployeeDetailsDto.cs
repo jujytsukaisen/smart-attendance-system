@@ -45,6 +45,10 @@ public class EmployeeDetailsDto : IMapFrom<Employee>
     public string? EmergencyContactPhone { get; set; }
     public string? EmergencyRelationship { get; set; }
 
+    public string? CompanyName { get; set; }
+    public string? BranchName { get; set; }
+    public string? DepartmentName { get; set; }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Employee, EmployeeDetailsDto>()
@@ -55,6 +59,9 @@ public class EmployeeDetailsDto : IMapFrom<Employee>
             .ForMember(d => d.State, opt => opt.MapFrom(s => s.Address.State))
             .ForMember(d => d.ZipCode, opt => opt.MapFrom(s => s.Address.ZipCode))
             .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Address.Country))
+            .ForMember(d => d.CompanyName, opt => opt.MapFrom(s => s.Company != null ? s.Company.Name : null))
+            .ForMember(d => d.BranchName, opt => opt.MapFrom(s => s.Branch != null ? s.Branch.Name : null))
+            .ForMember(d => d.DepartmentName, opt => opt.MapFrom(s => s.Department != null ? s.Department.Name : null))
             .ForMember(d => d.EmergencyContactPhone, opt => opt.MapFrom(s => s.EmergencyContactPhone != null ? s.EmergencyContactPhone.Value : null));
     }
 }

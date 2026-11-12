@@ -28,11 +28,13 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Resul
 {
     private readonly IApplicationDbContext _context;
     private readonly ICurrentUserService _currentUserService;
+    private readonly IIdentityService _identityService;
 
-    public CreateRoleCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
+    public CreateRoleCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _context = context;
         _currentUserService = currentUserService;
+        _identityService = identityService;
     }
 
     public async Task<Result<Guid>> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
@@ -43,6 +45,8 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Resul
         var role = SmartAttendance.Domain.Entities.Role.Create(companyId, request.Name, code, request.Description);
         
         await _context.Roles.AddAsync(role, cancellationToken);
+        
+        await _identityService.CreateRoleAsync(request.Name);
 
         return Result<Guid>.Success(role.Id);
     }

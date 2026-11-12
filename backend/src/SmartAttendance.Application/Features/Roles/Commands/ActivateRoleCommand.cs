@@ -38,6 +38,7 @@ public class ActivateRoleCommandHandler : IRequestHandler<ActivateRoleCommand, R
         
         role.Activate();
         _context.Roles.Update(role);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

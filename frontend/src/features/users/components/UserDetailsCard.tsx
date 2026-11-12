@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { UserStatusBadge } from './UserStatusBadge';
 import type { UserDetailsDto } from '../types';
 import { Badge } from '@/shared/components/ui/badge';
+import { Button } from '@/shared/components/ui/button';
+import { Settings2 } from 'lucide-react';
+import { AssignRolesDialog } from './AssignRolesDialog';
 
 interface UserDetailsCardProps {
   user: UserDetailsDto;
 }
 
 export function UserDetailsCard({ user }: UserDetailsCardProps) {
+  const [isAssignRolesOpen, setIsAssignRolesOpen] = useState(false);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <Card>
@@ -33,11 +38,15 @@ export function UserDetailsCard({ user }: UserDetailsCardProps) {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Roles</CardTitle>
+          <Button variant="outline" size="sm" onClick={() => setIsAssignRolesOpen(true)} className="gap-2">
+            <Settings2 className="h-4 w-4" />
+            Assign Roles
+          </Button>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-2">
             {user.roles && user.roles.length > 0 ? (
               user.roles.map((role) => (
                 <Badge key={role} variant="secondary">
@@ -50,6 +59,13 @@ export function UserDetailsCard({ user }: UserDetailsCardProps) {
           </div>
         </CardContent>
       </Card>
+
+      <AssignRolesDialog
+        userId={user.id}
+        currentRoles={user.roles || []}
+        isOpen={isAssignRolesOpen}
+        onClose={() => setIsAssignRolesOpen(false)}
+      />
     </div>
   );
 }

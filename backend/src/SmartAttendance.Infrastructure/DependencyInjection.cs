@@ -68,36 +68,69 @@ public static class DependencyInjection
 
         services.AddScoped<SmartAttendance.Infrastructure.Persistence.Initialization.IApplicationDbContextInitializer, SmartAttendance.Infrastructure.Persistence.Initialization.ApplicationDbContextInitializer>();
 
-        // ──────────────────────────────────────────────
-        // JWT Authentication (existing — untouched per constraints)
-        // ──────────────────────────────────────────────
-        var jwtSettings = configuration.GetSection("JwtSettings");
-        var secretKey = jwtSettings.GetValue<string>("Secret");
-        
-        if (string.IsNullOrEmpty(secretKey))
-        {
-            throw new InvalidOperationException("JWT Secret is missing from configuration.");
-        }
+// ──────────────────────────────────────────────
+// JWT Authentication (existing — untouched per constraints)
+// ──────────────────────────────────────────────
+var jwtSettings = configuration.GetSection("JwtSettings");
+var secretKey = jwtSettings.GetValue<string>("Secret");
 
-        services.AddAuthentication(options =>
+if (string.IsNullOrEmpty(secretKey))
+{
+    throw new InvalidOperationException("JWT Secret is missing from configuration.");
+}
+
+// 👇 DEBUG - احذفها بعد التشخيص
+Console.WriteLine($"[JWT DI DEBUG] Secret used: '{secretKey}'");
+Console.WriteLine($"[JWT DI DEBUG] Secret length: {secretKey.Length}");
+Console.WriteLine($"[JWT DI DEBUG] Issuer: '{jwtSettings.GetValue<string>("Issuer")}'");
+Console.WriteLine($"[JWT DI DEBUG] Audience: '{jwtSettings.GetValue<string>("Audience")}'");
+
+Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+
+services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings.GetValue<string>("Issuer") ?? "SmartAttendance",
+        ValidAudience = jwtSettings.GetValue<string>("Audience") ?? "SmartAttendanceClient",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        ClockSkew = TimeSpan.Zero
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
         {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
+            Console.WriteLine("TOKEN:");
+            Console.WriteLine(context.Token);
+            return Task.CompletedTask;
+        },
+
+        OnAuthenticationFailed = context =>
         {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings.GetValue<string>("Issuer") ?? "SmartAttendance",
-                ValidAudience = jwtSettings.GetValue<string>("Audience") ?? "SmartAttendanceClient",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-                ClockSkew = TimeSpan.Zero
-            };
-        });
+            Console.WriteLine("JWT ERROR:");
+            Console.WriteLine(context.Exception.ToString());
+            return Task.CompletedTask;
+        },
+
+        OnChallenge = context =>
+        {
+            Console.WriteLine("JWT CHALLENGE:");
+            Console.WriteLine(context.Error);
+            Console.WriteLine(context.ErrorDescription);
+            return Task.CompletedTask;
+        }
+    };
+}); 
 
         // ──────────────────────────────────────────────
         // Identity
@@ -107,8 +140,8 @@ public static class DependencyInjection
             options.Password.RequireDigit = true;
             options.Password.RequireLowercase = true;
             options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 12;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 8;
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.User.RequireUniqueEmail = true;
@@ -131,6 +164,7 @@ public static class DependencyInjection
         // ──────────────────────────────────────────────
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, SmartAttendance.Infrastructure.Services.CurrentUserService>();
+        services.AddScoped<ISystemExecutionContext, SmartAttendance.Infrastructure.Services.SystemExecutionContext>();
         services.AddScoped<SmartAttendance.Infrastructure.Identity.Services.IJwtTokenGenerator, SmartAttendance.Infrastructure.Identity.Services.JwtTokenGenerator>();
         services.AddScoped<SmartAttendance.Application.Common.Interfaces.IAuthenticationService, SmartAttendance.Infrastructure.Identity.Services.AuthenticationService>();
         services.AddScoped<IIdentityService, SmartAttendance.Infrastructure.Identity.Services.IdentityService>();
@@ -155,11 +189,11 @@ public static class DependencyInjection
         // Infrastructure Services
         // ──────────────────────────────────────────────
         services.AddSingleton<IDateTimeProvider, SmartAttendance.Infrastructure.Services.DateTimeProvider>();
-        services.AddScoped<SmartAttendance.Infrastructure.Services.GeoLocation.Providers.IGeoLocationProvider, SmartAttendance.Infrastructure.Services.GeoLocation.Providers.NullGeoLocationProvider>();
+        services.AddScoped<SmartAttendance.Infrastructure.Services.GeoLocation.Providers.IGeoLocationProvider, SmartAttendance.Infrastructure.Services.GeoLocation.Providers.DefaultGeoLocationProvider>();
         services.AddScoped<IGeoLocationService, SmartAttendance.Infrastructure.Services.GeoLocation.GeoLocationService>();
         
         services.AddScoped<SmartAttendance.Infrastructure.Services.ICurrentTenantService, SmartAttendance.Infrastructure.Services.CurrentTenantService>();
-        services.AddScoped<SmartAttendance.Infrastructure.Services.FaceRecognition.Providers.IFaceRecognitionProvider, SmartAttendance.Infrastructure.Services.FaceRecognition.Providers.NullFaceRecognitionProvider>();
+        services.AddScoped<SmartAttendance.Infrastructure.Services.FaceRecognition.Providers.IFaceRecognitionProvider, SmartAttendance.Infrastructure.Services.FaceRecognition.Providers.LocalFaceRecognitionProvider>();
         services.AddScoped<IFaceRecognitionService, SmartAttendance.Infrastructure.Services.FaceRecognition.FaceRecognitionService>();
         services.AddScoped<IFileStorageService, SmartAttendance.Infrastructure.Services.FileStorage.FileStorageService>();
         

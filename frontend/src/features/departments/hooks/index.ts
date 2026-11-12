@@ -35,6 +35,23 @@ export const useDepartment = (id: string) => {
   });
 };
 
+const getErrorMessage = (error: any, fallback: string): string => {
+  const data = error.response?.data;
+  if (data?.detail) return data.detail;
+  if (data?.errors) {
+    if (Array.isArray(data.errors) && data.errors.length > 0) return data.errors[0];
+    if (typeof data.errors === 'object') {
+      const firstKey = Object.keys(data.errors)[0];
+      if (firstKey && Array.isArray(data.errors[firstKey]) && data.errors[firstKey].length > 0) {
+        return data.errors[firstKey][0];
+      }
+    }
+  }
+  if (data?.message) return data.message;
+  if (data?.title) return data.title;
+  return error.message || fallback;
+};
+
 export const useCreateDepartment = () => {
   const queryClient = useQueryClient();
 
@@ -45,8 +62,7 @@ export const useCreateDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.lists() });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to create department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to create department'));
     },
   });
 };
@@ -62,8 +78,7 @@ export const useUpdateDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.detail(variables.departmentId) });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to update department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to update department'));
     },
   });
 };
@@ -78,8 +93,7 @@ export const useDeleteDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.lists() });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to delete department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to delete department'));
     },
   });
 };
@@ -94,8 +108,7 @@ export const useRestoreDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.lists() });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to restore department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to restore department'));
     },
   });
 };
@@ -111,8 +124,7 @@ export const useActivateDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.detail(id) });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to activate department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to activate department'));
     },
   });
 };
@@ -128,8 +140,7 @@ export const useDeactivateDepartment = () => {
       queryClient.invalidateQueries({ queryKey: departmentKeys.detail(id) });
     },
     onError: (error: any) => {
-      const message = error.response?.data?.title || 'Failed to deactivate department';
-      toast.error(message);
+      toast.error(getErrorMessage(error, 'Failed to deactivate department'));
     },
   });
 };

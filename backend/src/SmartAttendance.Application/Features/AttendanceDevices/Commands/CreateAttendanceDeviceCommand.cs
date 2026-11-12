@@ -22,9 +22,9 @@ public class CreateAttendanceDeviceCommand : IRequest<Result<Guid>>
     public string? ApplicationVersion { get; set; }
     
     public Guid? BranchId { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public double AllowedRadiusMeters { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public double? AllowedRadiusMeters { get; set; }
     
     public string? PublicKey { get; set; }
     public string? DeviceFingerprint { get; set; }

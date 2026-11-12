@@ -1,44 +1,44 @@
 export const DeviceType = {
-  WallMounted: 1,
-  Mobile: 2,
-  Desktop: 3,
-  Web: 4,
-  Kiosk: 5,
+  WallMounted: 'WallMounted',
+  Mobile: 'Mobile',
+  Desktop: 'Desktop',
+  Web: 'Web',
+  Kiosk: 'Kiosk',
 } as const;
 
 export type DeviceType = typeof DeviceType[keyof typeof DeviceType];
 
 export const DeviceStatus = {
-  PendingApproval: 1,
-  Approved: 2,
-  Revoked: 3,
-  Maintenance: 4,
-  Retired: 5,
+  PendingApproval: 'PendingApproval',
+  Approved: 'Approved',
+  Revoked: 'Revoked',
+  Maintenance: 'Maintenance',
+  Retired: 'Retired',
 } as const;
 
 export type DeviceStatus = typeof DeviceStatus[keyof typeof DeviceStatus];
 
 export const ConnectionStatus = {
-  Offline: 1,
-  Online: 2,
+  Offline: 'Offline',
+  Online: 'Online',
 } as const;
 
 export type ConnectionStatus = typeof ConnectionStatus[keyof typeof ConnectionStatus];
 
 export const CommunicationProtocol = {
-  TCP: 1,
-  UDP: 2,
-  HTTP: 3,
-  HTTPS: 4,
+  TCP: 'TCP',
+  UDP: 'UDP',
+  HTTP: 'HTTP',
+  HTTPS: 'HTTPS',
 } as const;
 
 export type CommunicationProtocol = typeof CommunicationProtocol[keyof typeof CommunicationProtocol];
 
 export const SyncStatus = {
-  Pending: 1,
-  InProgress: 2,
-  Completed: 3,
-  Failed: 4,
+  Pending: 'Pending',
+  InProgress: 'InProgress',
+  Completed: 'Completed',
+  Failed: 'Failed',
 } as const;
 
 export type SyncStatus = typeof SyncStatus[keyof typeof SyncStatus];

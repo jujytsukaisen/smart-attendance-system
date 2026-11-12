@@ -8,8 +8,10 @@ import { Button } from '@/shared/components/ui/button';
 import { PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 import type { BranchListDto, GetBranchesQuery } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 export const BranchesPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [query, setQuery] = useState<GetBranchesQuery>({
     pageNumber: 1,
@@ -57,13 +59,13 @@ export const BranchesPage = () => {
     
     if (dialogState.type === 'delete') {
       deleteMutation.mutate(dialogState.branchId, {
-        onSuccess: () => toast.success('Branch deleted successfully.'),
-        onError: (err) => toast.error(`Failed to delete: ${err.message}`),
+        onSuccess: () => toast.success(t('common.success')),
+        onError: (err) => toast.error(`${t('common.error')}: ${err.message}`),
       });
     } else {
       restoreMutation.mutate(dialogState.branchId, {
-        onSuccess: () => toast.success('Branch restored successfully.'),
-        onError: (err) => toast.error(`Failed to restore: ${err.message}`),
+        onSuccess: () => toast.success(t('common.success')),
+        onError: (err) => toast.error(`${t('common.error')}: ${err.message}`),
       });
     }
   };
@@ -71,13 +73,13 @@ export const BranchesPage = () => {
   const handleActivateToggle = (branch: BranchListDto) => {
     if (branch.isActive) {
       deactivateMutation.mutate(branch.id, {
-        onSuccess: () => toast.success('Branch deactivated.'),
-        onError: (err) => toast.error(`Failed to deactivate: ${err.message}`),
+        onSuccess: () => toast.success(t('common.success')),
+        onError: (err) => toast.error(`${t('common.error')}: ${err.message}`),
       });
     } else {
       activateMutation.mutate(branch.id, {
-        onSuccess: () => toast.success('Branch activated.'),
-        onError: (err) => toast.error(`Failed to activate: ${err.message}`),
+        onSuccess: () => toast.success(t('common.success')),
+        onError: (err) => toast.error(`${t('common.error')}: ${err.message}`),
       });
     }
   };
@@ -85,7 +87,7 @@ export const BranchesPage = () => {
   if (isError) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center text-destructive">
-        <h2 className="text-xl font-semibold mb-2">Error loading branches</h2>
+        <h2 className="text-xl font-semibold mb-2">{t('common.error')}</h2>
         <p>{error?.message}</p>
       </div>
     );
@@ -95,12 +97,11 @@ export const BranchesPage = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Branches</h2>
-          <p className="text-muted-foreground">Manage branches for your companies.</p>
+          <h2 className="text-2xl font-bold tracking-tight">{t('branches.title')}</h2>
+          <p className="text-muted-foreground">{t('branches.subtitle')}</p>
         </div>
-        <Button onClick={() => navigate('/branches/new')}>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add Branch
+        <Button onClick={() => navigate('/branches/new')} className="gap-2">
+          <PlusCircle className="h-4 w-4" /> {t('branches.addBranch')}
         </Button>
       </div>
 
@@ -111,7 +112,7 @@ export const BranchesPage = () => {
         onStatusChange={handleStatusChange}
       />
 
-      <BranchTable
+      <BranchTable 
         data={data?.items || []}
         isLoading={isLoading}
         onDeleteClick={(id) => openDialog('delete', id)}
@@ -119,27 +120,29 @@ export const BranchesPage = () => {
         onActivateToggle={handleActivateToggle}
       />
 
-      {data?.pagination && (
-        <div className="flex items-center justify-between px-2">
-          <p className="text-sm text-muted-foreground">
-            Showing page {data.pagination.pageNumber} of {data.pagination.totalPages} ({data.pagination.totalCount} total)
-          </p>
-          <div className="flex gap-2">
+      {data && data.pagination.totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-muted-foreground">
+            {t('attendance.showingPage')} {data.pagination.pageNumber} {t('attendance.of')} {data.pagination.totalPages}
+          </div>
+          <div className="flex items-center space-x-2">
             <Button
               variant="outline"
               size="sm"
+              onClick={() => handlePageChange(query.pageNumber - 1)}
               disabled={!data.pagination.hasPreviousPage}
-              onClick={() => handlePageChange(data.pagination.pageNumber - 1)}
             >
-              <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+              <ChevronLeft className="h-4 w-4 mr-1 rtl:rotate-180" />
+              {t('attendance.previous')}
             </Button>
             <Button
               variant="outline"
               size="sm"
+              onClick={() => handlePageChange(query.pageNumber + 1)}
               disabled={!data.pagination.hasNextPage}
-              onClick={() => handlePageChange(data.pagination.pageNumber + 1)}
             >
-              Next <ChevronRight className="h-4 w-4 ml-1" />
+              {t('attendance.next')}
+              <ChevronRight className="h-4 w-4 ml-1 rtl:rotate-180" />
             </Button>
           </div>
         </div>
@@ -147,16 +150,13 @@ export const BranchesPage = () => {
 
       <ActionDialog
         isOpen={dialogState.isOpen}
-        onOpenChange={(isOpen) => setDialogState(prev => ({ ...prev, isOpen }))}
+        onClose={() => setDialogState(prev => ({ ...prev, isOpen: false }))}
         onConfirm={handleConfirmAction}
-        title={dialogState.type === 'delete' ? 'Delete Branch' : 'Restore Branch'}
-        description={
-          dialogState.type === 'delete'
-            ? 'Are you sure you want to delete this branch? This action may impact associated departments and employees.'
-            : 'Are you sure you want to restore this branch?'
-        }
-        confirmText={dialogState.type === 'delete' ? 'Delete' : 'Restore'}
-        isDestructive={dialogState.type === 'delete'}
+        title={dialogState.type === 'delete' ? t('branches.deleteTitle') : t('branches.restoreTitle')}
+        description={dialogState.type === 'delete' ? t('branches.deleteDesc') : t('branches.restoreDesc')}
+        confirmText={dialogState.type === 'delete' ? t('common.delete') : t('employees.restore')}
+        variant={dialogState.type === 'delete' ? 'danger' : 'default'}
+        isLoading={deleteMutation.isPending || restoreMutation.isPending}
       />
     </div>
   );

@@ -72,9 +72,9 @@ export function AttendancePolicyTable({ policies, isLoading }: AttendancePolicyT
   if (isLoading) {
     return (
       <div className="animate-pulse">
-        <div className="h-10 bg-gray-200 rounded w-full mb-4"></div>
+        <div className="h-10 bg-muted rounded w-full mb-4"></div>
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-16 bg-gray-100 rounded w-full mb-2"></div>
+          <div key={i} className="h-16 bg-muted/50 rounded w-full mb-2"></div>
         ))}
       </div>
     );
@@ -82,25 +82,25 @@ export function AttendancePolicyTable({ policies, isLoading }: AttendancePolicyT
 
   if (!policies?.length) {
     return (
-      <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-        <p className="text-gray-500">No attendance policies found.</p>
+      <div className="text-center py-12 bg-card rounded-lg border border-border">
+        <p className="text-muted-foreground">No attendance policies found.</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-card shadow overflow-hidden sm:rounded-lg">
+        <table className="min-w-full divide-y divide-border">
+          <thead className="bg-muted/50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Name / Code
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Mode
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Status
               </th>
               <th scope="col" className="relative px-6 py-3">
@@ -108,20 +108,20 @@ export function AttendancePolicyTable({ policies, isLoading }: AttendancePolicyT
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-card divide-y divide-border">
             {policies.map((policy) => (
-              <tr key={policy.id} className="hover:bg-gray-50 transition-colors duration-150">
+              <tr key={policy.id} className="hover:bg-muted/50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{policy.name}</div>
-                  <div className="text-sm text-gray-500">{policy.code}</div>
+                  <div className="text-sm font-medium text-foreground">{policy.name}</div>
+                  <div className="text-sm text-muted-foreground">{policy.code}</div>
                   {policy.isDefault && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 mt-1">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary mt-1">
                       Default
                     </span>
                   )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm text-foreground">
                     {getAttendanceModeText(policy.attendanceMode)}
                   </span>
                 </td>

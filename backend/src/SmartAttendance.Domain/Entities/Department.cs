@@ -13,6 +13,7 @@ public class Department : BaseTenantEntity
     public string? Description { get; private set; }
     public Guid? ManagerId { get; private set; }
     public Guid BranchId { get; private set; }
+    public bool RequiresLocationValidation { get; private set; }
     public bool IsActive { get; private set; }
 
     // Relationships
@@ -29,13 +30,15 @@ public class Department : BaseTenantEntity
         Guid branchId,
         string name,
         string code,
-        string? description)
+        string? description,
+        bool requiresLocationValidation = true)
     {
         CompanyId = companyId;
         BranchId = branchId;
         Name = name;
         Code = code;
         Description = description;
+        RequiresLocationValidation = requiresLocationValidation;
         IsActive = true;
     }
 
@@ -44,7 +47,8 @@ public class Department : BaseTenantEntity
         Guid branchId,
         string name,
         string code,
-        string? description = null)
+        string? description = null,
+        bool requiresLocationValidation = true)
     {
         if (companyId == Guid.Empty)
             throw new InvalidDepartmentException("Company ID cannot be empty.");
@@ -55,7 +59,12 @@ public class Department : BaseTenantEntity
         if (string.IsNullOrWhiteSpace(code))
             throw new InvalidDepartmentException("Department code cannot be empty.");
 
-        return new Department(companyId, branchId, name, code, description);
+        return new Department(companyId, branchId, name, code, description, requiresLocationValidation);
+    }
+
+    public void SetLocationValidationRequirement(bool requiresLocation)
+    {
+        RequiresLocationValidation = requiresLocation;
     }
 
     public void Activate()

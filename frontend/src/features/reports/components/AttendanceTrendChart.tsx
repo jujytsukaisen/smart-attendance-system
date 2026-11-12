@@ -9,6 +9,7 @@ import {
   Legend
 } from 'recharts';
 import type { AttendanceTrendData } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface AttendanceTrendChartProps {
   data: AttendanceTrendData[];
@@ -16,6 +17,8 @@ interface AttendanceTrendChartProps {
 }
 
 export function AttendanceTrendChart({ data, height = 350 }: AttendanceTrendChartProps) {
+  const { t } = useTranslation();
+
   return (
     <div style={{ height, width: '100%' }}>
       <ResponsiveContainer>
@@ -33,17 +36,22 @@ export function AttendanceTrendChart({ data, height = 350 }: AttendanceTrendChar
               <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={10} />
-          <YAxis tickLine={false} axisLine={false} tickMargin={10} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-muted" />
+          <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={10} className="text-xs" />
+          <YAxis tickLine={false} axisLine={false} tickMargin={10} className="text-xs" />
           <Tooltip 
-            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+            contentStyle={{ 
+              backgroundColor: 'hsl(var(--card))', 
+              borderColor: 'hsl(var(--border))', 
+              borderRadius: '8px', 
+              color: 'hsl(var(--card-foreground))' 
+            }}
           />
           <Legend />
           <Area 
             type="monotone" 
             dataKey="present" 
-            name="Present" 
+            name={t('attendance.present')} 
             stroke="#10b981" 
             fillOpacity={1} 
             fill="url(#colorPresent)" 
@@ -52,7 +60,7 @@ export function AttendanceTrendChart({ data, height = 350 }: AttendanceTrendChar
           <Area 
             type="monotone" 
             dataKey="late" 
-            name="Late" 
+            name={t('attendance.late')} 
             stroke="#f59e0b" 
             fillOpacity={1} 
             fill="url(#colorLate)" 
@@ -61,7 +69,7 @@ export function AttendanceTrendChart({ data, height = 350 }: AttendanceTrendChar
           <Area 
             type="monotone" 
             dataKey="absent" 
-            name="Absent" 
+            name={t('attendance.absent')} 
             stroke="#ef4444" 
             fillOpacity={0.1} 
             fill="#ef4444" 

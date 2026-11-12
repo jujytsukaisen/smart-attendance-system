@@ -35,7 +35,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, Result<PagedR
 
         public async Task<Result<PagedResult<UserDetailsDto>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Users.AsNoTracking().AsQueryable();
+        var query = _context.Users.Include(x => x.Roles).AsNoTracking().AsQueryable();
         var count = await query.CountAsync(cancellationToken);
         var users = await query.OrderBy(x => x.Username).Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToListAsync(cancellationToken);
         var dtos = _mapper.Map<System.Collections.Generic.List<UserDetailsDto>>(users);

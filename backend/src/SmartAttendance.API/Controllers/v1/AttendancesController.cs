@@ -38,7 +38,7 @@ public class AttendancesController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:Attendance.Restore")]
+    [Authorize(Policy = "Permission:Attendance.Update")]
     public async Task<IActionResult> Restore(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreAttendanceCommand { AttendanceId = id }));
@@ -56,6 +56,26 @@ public class AttendancesController : ApiControllerBase
     public async Task<IActionResult> Reject(Guid id)
     {
         return HandleResult(await Mediator.Send(new RejectAttendanceCommand { AttendanceId = id }));
+    }
+
+    /// <summary>
+    /// Returns only the current logged-in employee's own attendance records (self-service).
+    /// </summary>
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyAttendances([FromQuery] GetMyAttendancesQuery query)
+    {
+        return HandleResult(await Mediator.Send(query));
+    }
+
+    /// <summary>
+    /// Returns the live attendance state of the currently logged-in employee for today.
+    /// Values: NotCheckedIn | Working | OnBreak | Finished.
+    /// No Permission policy required — any authenticated user can check their own state.
+    /// </summary>
+    [HttpGet("my/state")]
+    public async Task<IActionResult> GetMyState()
+    {
+        return HandleResult(await Mediator.Send(new GetMyEmployeeStateQuery()));
     }
 
     [HttpGet]
@@ -85,4 +105,41 @@ public class AttendancesController : ApiControllerBase
     {
         return HandleResult(await Mediator.Send(command));
     }
+
+    // ── New Multi-Scan Endpoints ────────────────────────────────────────────────
+
+    /// <summary>
+    /// Smart scan endpoint — automatically determines the correct attendance action
+    /// (CheckIn / BreakStart / BreakEnd / CheckOut) based on the employee's current state.
+    /// Replaces the need to call /check-in and /check-out separately.
+    /// </summary>
+    [HttpPost("scan")]
+    [Authorize(Policy = "Permission:Attendance.Create")]
+    public async Task<IActionResult> RecordScan([FromBody] RecordScanCommand command)
+    {
+        return HandleResult(await Mediator.Send(command));
+    }
+
+    /// <summary>
+    /// Returns the ordered event timeline for a specific attendance record.
+    /// Useful for rendering: 08:00 CheckIn → 10:15 BreakStart → 16:00 CheckOut.
+    /// </summary>
+    [HttpGet("{id}/events")]
+    [Authorize(Policy = "Permission:Attendance.View")]
+    public async Task<IActionResult> GetAttendanceEvents(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new GetAttendanceEventsQuery { AttendanceId = id }));
+    }
+
+    /// <summary>
+    /// Returns the live attendance state of a specific employee for today.
+    /// Values: NotCheckedIn | Working | OnBreak | Finished.
+    /// </summary>
+    [HttpGet("employee/{employeeId}/state")]
+    [Authorize(Policy = "Permission:Attendance.View")]
+    public async Task<IActionResult> GetEmployeeState(Guid employeeId)
+    {
+        return HandleResult(await Mediator.Send(new GetCurrentEmployeeStateQuery { EmployeeId = employeeId }));
+    }
 }
+

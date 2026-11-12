@@ -51,7 +51,7 @@ public class BranchesController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:Branches.Restore")]
+    [Authorize(Policy = "Permission:Branches.Update")]
     public async Task<IActionResult> RestoreBranch(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreBranchCommand { BranchId = id }));

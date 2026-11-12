@@ -15,3 +15,10 @@ export interface PaginationRequest {
   pageNumber: number;
   pageSize: number;
 }
+
+// ⚠️ الغلاف العام الذي يضيفه ResponseWrapperMiddleware لكل ردود الـ API (كل الـ features تحتاجه)
+export interface ApiEnvelope<T> {
+  data: T;
+  statusCode: number;
+  isSuccess: boolean;
+}

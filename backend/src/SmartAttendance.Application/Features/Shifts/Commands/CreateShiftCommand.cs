@@ -27,6 +27,7 @@ public class CreateShiftCommand : IRequest<Result<Guid>>
     public int GracePeriodMinutes { get; set; }
     public int AllowEarlyCheckInMinutes { get; set; }
     public int AllowLateCheckOutMinutes { get; set; }
+    public int MaxBreakDurationMinutes { get; set; }
 }
 
 public class CreateShiftCommandValidator : AbstractValidator<CreateShiftCommand>
@@ -38,8 +39,8 @@ public class CreateShiftCommandValidator : AbstractValidator<CreateShiftCommand>
         RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
         RuleFor(x => x.Code).NotEmpty().MaximumLength(50);
         RuleFor(x => x.Description).MaximumLength(250);
-        RuleFor(x => x.StartTime).NotEmpty();
-        RuleFor(x => x.EndTime).NotEmpty();
+        RuleFor(x => x.StartTime);
+        RuleFor(x => x.EndTime);
         RuleFor(x => x.MinimumWorkingHours).GreaterThan(0);
         RuleFor(x => x.MaximumWorkingHours)
             .GreaterThanOrEqualTo(x => x.MinimumWorkingHours)
@@ -47,6 +48,7 @@ public class CreateShiftCommandValidator : AbstractValidator<CreateShiftCommand>
         RuleFor(x => x.GracePeriodMinutes).GreaterThanOrEqualTo(0);
         RuleFor(x => x.AllowEarlyCheckInMinutes).GreaterThanOrEqualTo(0);
         RuleFor(x => x.AllowLateCheckOutMinutes).GreaterThanOrEqualTo(0);
+        RuleFor(x => x.MaxBreakDurationMinutes).GreaterThanOrEqualTo(0);
     }
 }
 
@@ -91,7 +93,8 @@ public class CreateShiftCommandHandler : IRequestHandler<CreateShiftCommand, Res
             request.MaximumWorkingHours,
             request.GracePeriodMinutes,
             request.AllowEarlyCheckInMinutes,
-            request.AllowLateCheckOutMinutes);
+            request.AllowLateCheckOutMinutes,
+            request.MaxBreakDurationMinutes);
 
         schedule.AddShift(shift);
 

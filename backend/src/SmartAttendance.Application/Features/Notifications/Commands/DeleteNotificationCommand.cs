@@ -25,16 +25,21 @@ public class DeleteNotificationCommandValidator : AbstractValidator<DeleteNotifi
 public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, Result>
 {
     private readonly IApplicationDbContext _context;
+    private readonly ICurrentUserService _currentUserService;
 
-    public DeleteNotificationCommandHandler(IApplicationDbContext context)
+    public DeleteNotificationCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
     {
         _context = context;
+        _currentUserService = currentUserService;
     }
 
     public async Task<Result> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
     {
+        Guid.TryParse(_currentUserService.UserId, out var currentUserId);
+
         var notification = await _context.Notifications.FirstOrDefaultAsync(x => x.Id == request.NotificationId, cancellationToken);
-        if (notification == null) return Result.Failure(new[] { "Notification not found." });
+        if (notification == null || notification.RecipientUserId != currentUserId)
+            return Result.Failure(new[] { "Notification not found." });
         
         _context.Notifications.Remove(notification);
 

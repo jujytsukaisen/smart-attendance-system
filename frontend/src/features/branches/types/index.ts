@@ -6,6 +6,11 @@ export interface BranchDto {
   name: string;
   code: string;
   address: string;
+  addressStreet: string;
+  addressCity: string;
+  addressState: string;
+  addressCountry: string;
+  addressZipCode: string;
   phoneNumber: string;
   email: string;
   latitude: number;

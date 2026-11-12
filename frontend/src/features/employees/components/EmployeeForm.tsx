@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
-import { 
-  Form, 
-  FormControl, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
   FormMessage
 } from '@/shared/components/ui/form';
 import {
@@ -22,7 +22,9 @@ import { createEmployeeSchema, updateEmployeeSchema } from '../schemas/employeeS
 import { useCompanies } from '@/features/companies/hooks';
 import { useBranches } from '@/features/branches/hooks';
 import { useDepartments } from '@/features/departments/hooks';
+import { useAttendancePolicies } from '@/features/attendance-policies/hooks';
 import type { EmployeeDetailsDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface EmployeeFormProps {
   initialData?: EmployeeDetailsDto;
@@ -31,67 +33,97 @@ interface EmployeeFormProps {
 }
 
 export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormProps) => {
+  const { t, isRtl } = useTranslation();
   const isEditMode = !!initialData;
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>(initialData?.companyId || '');
   const [selectedBranchId, setSelectedBranchId] = useState<string>(initialData?.branchId || '');
 
   const form = useForm<any>({
     resolver: zodResolver(isEditMode ? updateEmployeeSchema : createEmployeeSchema) as any,
-    defaultValues: isEditMode 
+    defaultValues: isEditMode
       ? {
-          employeeId: initialData.id,
-          firstName: initialData.firstName,
-          lastName: initialData.lastName,
-          middleName: initialData.middleName || '',
-          preferredName: initialData.preferredName || '',
-          nationalId: initialData.nationalId || '',
-          passportNumber: initialData.passportNumber || '',
-          dateOfBirth: initialData.dateOfBirth ? new Date(initialData.dateOfBirth).toISOString().split('T')[0] : '',
-          gender: initialData.gender,
-          email: initialData.email,
-          phoneNumber: initialData.phoneNumber,
-          street: initialData.street,
-          city: initialData.city,
-          state: initialData.state,
-          zipCode: initialData.zipCode,
-          country: initialData.country,
-          jobTitle: initialData.jobTitle,
-          emergencyContactName: '',
-          emergencyContactPhone: '',
-          emergencyRelationship: '',
-        }
+        employeeId: initialData.id,
+        firstName: initialData.firstName,
+        lastName: initialData.lastName,
+        middleName: initialData.middleName || '',
+        preferredName: initialData.preferredName || '',
+        nationalId: initialData.nationalId || '',
+        passportNumber: initialData.passportNumber || '',
+        dateOfBirth: initialData.dateOfBirth ? new Date(initialData.dateOfBirth).toISOString().split('T')[0] : '',
+        gender: initialData.gender,
+        email: initialData.email,
+        phoneNumber: initialData.phoneNumber,
+        street: initialData.street,
+        city: initialData.city,
+        state: initialData.state,
+        zipCode: initialData.zipCode,
+        country: initialData.country,
+        jobTitle: initialData.jobTitle,
+        emergencyContactName: '',
+        emergencyContactPhone: '',
+        emergencyRelationship: '',
+      }
       : {
-          companyId: '',
-          branchId: '',
-          departmentId: '',
-          attendancePolicyId: '00000000-0000-0000-0000-000000000000', // Mocked policy ID for now
-          employeeNumber: '',
-          firstName: '',
-          lastName: '',
-          middleName: '',
-          preferredName: '',
-          nationalId: '',
-          passportNumber: '',
-          email: '',
-          phoneNumber: '',
-          dateOfBirth: '',
-          gender: 0,
-          hireDate: '',
-          jobTitle: '',
-          street: '',
-          city: '',
-          state: '',
-          zipCode: '',
-          country: '',
-        },
+        companyId: '',
+        branchId: '',
+        departmentId: '',
+        attendancePolicyId: '',
+        employeeNumber: '',
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        preferredName: '',
+        nationalId: '',
+        passportNumber: '',
+        email: '',
+        phoneNumber: '',
+        dateOfBirth: '',
+        gender: 1,
+        hireDate: '',
+        jobTitle: '',
+        street: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: '',
+      },
   });
 
   const { data: companiesData, isLoading: isLoadingCompanies } = useCompanies({ pageNumber: 1, pageSize: 100, isActive: true });
   const { data: branchesData, isLoading: isLoadingBranches } = useBranches({ pageNumber: 1, pageSize: 100, isActive: true });
   const { data: departmentsData, isLoading: isLoadingDepartments } = useDepartments({ pageNumber: 1, pageSize: 100 });
+  const { data: attendancePoliciesData, isLoading: isLoadingAttendancePolicies } = useAttendancePolicies({ pageNumber: 1, pageSize: 100, isActive: true });
 
   const filteredBranches = branchesData?.items.filter(b => b.companyId === selectedCompanyId) || [];
   const filteredDepartments = departmentsData?.items.filter(d => d.branchId === selectedBranchId) || [];
+  const filteredAttendancePolicies = attendancePoliciesData?.items.filter(p => p.companyId === selectedCompanyId) || [];
+
+  const companyItems = (companiesData?.items || []).map((c) => ({
+    value: c.id,
+    label: c.name,
+  }));
+
+  const branchItems = filteredBranches.map((b) => ({
+    value: b.id,
+    label: b.name,
+  }));
+
+  const departmentItems = filteredDepartments.map((d) => ({
+    value: d.id,
+    label: d.name,
+  }));
+
+  const attendancePolicyItems = filteredAttendancePolicies.map((p) => ({
+    value: p.id,
+    label: p.name,
+  }));
+
+  const genderItems = [
+    { value: "1", label: isRtl ? "ذكر" : "Male" },
+    { value: "2", label: isRtl ? "أنثى" : "Female" },
+    { value: "3", label: isRtl ? "أخرى" : "Other" },
+    { value: "4", label: isRtl ? "أفضل عدم التحديد" : "Prefer not to say" },
+  ];
 
   // Reset dependent fields when parent changes
   useEffect(() => {
@@ -111,10 +143,12 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        
+
         {/* Job Information */}
         <div>
-          <h3 className="text-lg font-medium border-b pb-2 mb-4">Job Information</h3>
+          <h3 className="text-lg font-medium border-b border-border pb-2 mb-4 text-foreground">
+            {isRtl ? 'المعلومات الوظيفية' : 'Job Information'}
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {!isEditMode && (
               <>
@@ -123,18 +157,19 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                   name="companyId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company</FormLabel>
-                      <Select 
+                      <FormLabel>{isRtl ? 'الشركة' : 'Company'}</FormLabel>
+                      <Select
+                        items={companyItems}
                         onValueChange={(val) => {
                           field.onChange(val);
                           setSelectedCompanyId(val);
-                        }} 
-                        defaultValue={field.value} 
+                        }}
+                        value={field.value}
                         disabled={isLoadingCompanies}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={isLoadingCompanies ? "Loading..." : "Select Company"} />
+                            <SelectValue placeholder={isLoadingCompanies ? (isRtl ? "جاري التحميل..." : "Loading...") : (isRtl ? "اختر الشركة" : "Select Company")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -153,18 +188,19 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                   name="branchId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Branch</FormLabel>
-                      <Select 
+                      <FormLabel>{isRtl ? 'الفرع' : 'Branch'}</FormLabel>
+                      <Select
+                        items={branchItems}
                         onValueChange={(val) => {
                           field.onChange(val);
                           setSelectedBranchId(val);
-                        }} 
-                        value={field.value} 
+                        }}
+                        value={field.value}
                         disabled={!selectedCompanyId || isLoadingBranches}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={!selectedCompanyId ? "Select Company first" : "Select Branch"} />
+                            <SelectValue placeholder={!selectedCompanyId ? (isRtl ? "اختر الشركة أولاً" : "Select Company first") : (isRtl ? "اختر الفرع" : "Select Branch")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -183,20 +219,49 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                   name="departmentId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Department</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value} 
+                      <FormLabel>{t('employees.department')}</FormLabel>
+                      <Select
+                        items={departmentItems}
+                        onValueChange={field.onChange}
+                        value={field.value}
                         disabled={!selectedBranchId || isLoadingDepartments}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={!selectedBranchId ? "Select Branch first" : "Select Department"} />
+                            <SelectValue placeholder={!selectedBranchId ? (isRtl ? "اختر الفرع أولاً" : "Select Branch first") : (isRtl ? "اختر القسم" : "Select Department")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           {filteredDepartments.map((d) => (
                             <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="attendancePolicyId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{isRtl ? 'سياسة الحضور' : 'Attendance Policy'}</FormLabel>
+                      <Select
+                        items={attendancePolicyItems}
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={!selectedCompanyId || isLoadingAttendancePolicies}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={!selectedCompanyId ? (isRtl ? "اختر الشركة أولاً" : "Select Company first") : (isRtl ? "اختر سياسة الحضور" : "Select Attendance Policy")} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {filteredAttendancePolicies.map((p) => (
+                            <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -210,21 +275,21 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
             {isEditMode && (
               <>
                 <FormItem>
-                  <FormLabel>Company</FormLabel>
+                  <FormLabel>{isRtl ? 'الشركة' : 'Company'}</FormLabel>
                   <FormControl>
-                    <Input value={initialData.companyName || initialData.companyId} disabled />
+                    <Input value={initialData.companyName || initialData.companyId} disabled className="bg-muted" />
                   </FormControl>
                 </FormItem>
                 <FormItem>
-                  <FormLabel>Branch</FormLabel>
+                  <FormLabel>{isRtl ? 'الفرع' : 'Branch'}</FormLabel>
                   <FormControl>
-                    <Input value={initialData.branchName || initialData.branchId} disabled />
+                    <Input value={initialData.branchName || initialData.branchId} disabled className="bg-muted" />
                   </FormControl>
                 </FormItem>
                 <FormItem>
-                  <FormLabel>Department</FormLabel>
+                  <FormLabel>{t('employees.department')}</FormLabel>
                   <FormControl>
-                    <Input value={initialData.departmentName || initialData.departmentId} disabled />
+                    <Input value={initialData.departmentName || initialData.departmentId} disabled className="bg-muted" />
                   </FormControl>
                 </FormItem>
               </>
@@ -235,9 +300,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="jobTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Job Title</FormLabel>
+                  <FormLabel>{t('employees.jobTitle')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Software Engineer" {...field} />
+                    <Input placeholder={isRtl ? "مهندس برمجيات" : "Software Engineer"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -251,7 +316,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                   name="employeeNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Employee Number</FormLabel>
+                      <FormLabel>{t('employees.empNo')}</FormLabel>
                       <FormControl>
                         <Input placeholder="EMP-001" {...field} />
                       </FormControl>
@@ -264,7 +329,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                   name="hireDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Hire Date</FormLabel>
+                      <FormLabel>{t('employees.hireDate')}</FormLabel>
                       <FormControl>
                         <Input type="date" {...field} />
                       </FormControl>
@@ -276,15 +341,15 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
             ) : (
               <>
                 <FormItem>
-                  <FormLabel>Employee Number</FormLabel>
+                  <FormLabel>{t('employees.empNo')}</FormLabel>
                   <FormControl>
-                    <Input value={initialData.employeeNumber} disabled />
+                    <Input value={initialData.employeeNumber} disabled className="bg-muted" />
                   </FormControl>
                 </FormItem>
                 <FormItem>
-                  <FormLabel>Hire Date</FormLabel>
+                  <FormLabel>{t('employees.hireDate')}</FormLabel>
                   <FormControl>
-                    <Input type="date" value={new Date(initialData.hireDate).toISOString().split('T')[0]} disabled />
+                    <Input type="date" value={new Date(initialData.hireDate).toISOString().split('T')[0]} disabled className="bg-muted" />
                   </FormControl>
                 </FormItem>
               </>
@@ -294,16 +359,18 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
 
         {/* Personal Information */}
         <div>
-          <h3 className="text-lg font-medium border-b pb-2 mb-4">Personal Information</h3>
+          <h3 className="text-lg font-medium border-b border-border pb-2 mb-4 text-foreground">
+            {isRtl ? 'المعلومات الشخصية' : 'Personal Information'}
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FormField
               control={form.control}
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>{t('employees.firstName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="John" {...field} />
+                    <Input placeholder={isRtl ? "محمد" : "John"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -314,9 +381,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>{t('employees.lastName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Doe" {...field} />
+                    <Input placeholder={isRtl ? "علي" : "Doe"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -327,9 +394,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('employees.email')}</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john.doe@example.com" {...field} />
+                    <Input type="email" placeholder="example@company.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -340,9 +407,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>{t('employees.phone')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="+1 234 567 890" {...field} />
+                    <Input placeholder="+966 50 000 0000" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -353,7 +420,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="dateOfBirth"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date of Birth</FormLabel>
+                  <FormLabel>{isRtl ? 'تاريخ الميلاد' : 'Date of Birth'}</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} />
                   </FormControl>
@@ -366,20 +433,21 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
-                  <Select 
-                    onValueChange={(v) => field.onChange(parseInt(v))} 
+                  <FormLabel>{isRtl ? 'الجنس' : 'Gender'}</FormLabel>
+                  <Select
+                    items={genderItems}
+                    onValueChange={(v) => field.onChange(parseInt(v))}
                     value={field.value?.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Gender" />
+                        <SelectValue placeholder={isRtl ? "اختر الجنس" : "Select Gender"} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="0">Male</SelectItem>
-                      <SelectItem value="1">Female</SelectItem>
-                      <SelectItem value="2">Other</SelectItem>
+                      {genderItems.map((g) => (
+                        <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -391,7 +459,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="nationalId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>National ID (Optional)</FormLabel>
+                  <FormLabel>{isRtl ? 'الهوية الوطنية / الإقامة (اختياري)' : 'National ID (Optional)'}</FormLabel>
                   <FormControl>
                     <Input {...field} value={field.value || ''} />
                   </FormControl>
@@ -404,16 +472,18 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
 
         {/* Address */}
         <div>
-          <h3 className="text-lg font-medium border-b pb-2 mb-4">Address</h3>
+          <h3 className="text-lg font-medium border-b border-border pb-2 mb-4 text-foreground">
+            {isRtl ? 'العنوان والموقع' : 'Address'}
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="street"
               render={({ field }) => (
                 <FormItem className="md:col-span-2">
-                  <FormLabel>Street Address</FormLabel>
+                  <FormLabel>{isRtl ? 'عنوان الشارع' : 'Street Address'}</FormLabel>
                   <FormControl>
-                    <Input placeholder="123 Main St" {...field} />
+                    <Input placeholder={isRtl ? "شارع الملك فهد" : "123 Main St"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -424,9 +494,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>City</FormLabel>
+                  <FormLabel>{isRtl ? 'المدينة' : 'City'}</FormLabel>
                   <FormControl>
-                    <Input placeholder="New York" {...field} />
+                    <Input placeholder={isRtl ? "الرياض" : "Riyadh"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -437,9 +507,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="state"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>State/Province</FormLabel>
+                  <FormLabel>{isRtl ? 'المنطقة / المحافظة' : 'State/Province'}</FormLabel>
                   <FormControl>
-                    <Input placeholder="NY" {...field} />
+                    <Input placeholder={isRtl ? "المنطقة الوسطى" : "Central Region"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -450,9 +520,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="zipCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Zip/Postal Code</FormLabel>
+                  <FormLabel>{isRtl ? 'الرمز البريدي' : 'Zip/Postal Code'}</FormLabel>
                   <FormControl>
-                    <Input placeholder="10001" {...field} />
+                    <Input placeholder="12345" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -463,9 +533,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Country</FormLabel>
+                  <FormLabel>{isRtl ? 'الدولة' : 'Country'}</FormLabel>
                   <FormControl>
-                    <Input placeholder="USA" {...field} />
+                    <Input placeholder={isRtl ? "المملكة العربية السعودية" : "Saudi Arabia"} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -477,14 +547,16 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
         {/* Emergency Contact (Edit Mode Only for now based on Backend) */}
         {isEditMode && (
           <div>
-            <h3 className="text-lg font-medium border-b pb-2 mb-4">Emergency Contact</h3>
+            <h3 className="text-lg font-medium border-b border-border pb-2 mb-4 text-foreground">
+              {isRtl ? 'جهة اتصال الطوارئ' : 'Emergency Contact'}
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FormField
                 control={form.control}
                 name="emergencyContactName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Contact Name</FormLabel>
+                    <FormLabel>{isRtl ? 'اسم الشخص' : 'Contact Name'}</FormLabel>
                     <FormControl>
                       <Input {...field} value={field.value || ''} />
                     </FormControl>
@@ -497,7 +569,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                 name="emergencyContactPhone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Contact Phone</FormLabel>
+                    <FormLabel>{isRtl ? 'رقم هاتف الطوارئ' : 'Contact Phone'}</FormLabel>
                     <FormControl>
                       <Input {...field} value={field.value || ''} />
                     </FormControl>
@@ -510,7 +582,7 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
                 name="emergencyRelationship"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Relationship</FormLabel>
+                    <FormLabel>{isRtl ? 'صلة القرابة' : 'Relationship'}</FormLabel>
                     <FormControl>
                       <Input {...field} value={field.value || ''} />
                     </FormControl>
@@ -522,9 +594,9 @@ export const EmployeeForm = ({ initialData, onSubmit, isLoading }: EmployeeFormP
           </div>
         )}
 
-        <div className="flex justify-end gap-4 border-t pt-6">
+        <div className="flex justify-end gap-4 border-t border-border pt-6">
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Saving...' : 'Save Employee'}
+            {isLoading ? (isRtl ? 'جاري الحفظ...' : 'Saving...') : (isRtl ? 'حفظ بيانات الموظف' : 'Save Employee')}
           </Button>
         </div>
       </form>

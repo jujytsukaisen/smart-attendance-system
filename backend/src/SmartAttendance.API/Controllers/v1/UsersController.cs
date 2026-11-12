@@ -47,5 +47,55 @@ public class UsersController : ApiControllerBase
     {
         return HandleResult(await Mediator.Send(new DeleteUserCommand { UserId = id }));
     }
-}
 
+    // ────────────────────────────────────────────────
+    // Status management
+    // ────────────────────────────────────────────────
+
+    [HttpPost("{id}/activate")]
+    [Authorize(Policy = "Permission:Users.Update")]
+    public async Task<IActionResult> ActivateUser(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new ActivateUserCommand { UserId = id }));
+    }
+
+    [HttpPost("{id}/suspend")]
+    [Authorize(Policy = "Permission:Users.Update")]
+    public async Task<IActionResult> SuspendUser(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new SuspendUserCommand { UserId = id }));
+    }
+
+    // ────────────────────────────────────────────────
+    // Role assignment
+    // ────────────────────────────────────────────────
+
+    [HttpPost("{id}/assign-roles")]
+    [Authorize(Policy = "Permission:Users.Update")]
+    public async Task<IActionResult> AssignRoles(Guid id, [FromBody] AssignRolesCommand command)
+    {
+        command.UserId = id;
+        return HandleResult(await Mediator.Send(command));
+    }
+
+    // ────────────────────────────────────────────────
+    // Password management
+    // ────────────────────────────────────────────────
+
+    /// <summary>Admin resets password for another user (no current password needed).</summary>
+    [HttpPost("{id}/reset-password")]
+    [Authorize(Policy = "Permission:Users.Update")]
+    public async Task<IActionResult> ResetPassword(Guid id, [FromBody] ResetPasswordCommand command)
+    {
+        command.UserId = id;
+        return HandleResult(await Mediator.Send(command));
+    }
+
+    /// <summary>Authenticated user changes their own password.</summary>
+    [HttpPost("change-password")]
+    [Authorize]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
+    {
+        return HandleResult(await Mediator.Send(command));
+    }
+}

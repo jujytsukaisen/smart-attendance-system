@@ -12,6 +12,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    // يجعل السيرفر قابلاً للوصول من الهاتف عبر الشبكة المحلية
+    host: '0.0.0.0',
+    port: 5173,
+    // HTTPS مطلوب لتفعيل GPS على الهاتف (Geolocation API)
+    // شغّل: npx vite --https
+    // أو استخدم: npm run dev:mobile  (انظر scripts في package.json)
+  },
   test: {
     globals: true,
     environment: 'jsdom',

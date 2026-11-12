@@ -11,10 +11,11 @@ export const employeeKeys = {
   detail: (id: string) => [...employeeKeys.details(), id] as const,
 };
 
-export const useEmployees = (filters: GetEmployeesQuery) => {
+export const useEmployees = (filters: GetEmployeesQuery, enabled: boolean = true) => {
   return useQuery({
     queryKey: employeeKeys.list(filters),
     queryFn: () => employeesApi.getEmployees(filters),
+    enabled,
   });
 };
 

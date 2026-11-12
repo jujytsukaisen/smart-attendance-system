@@ -30,6 +30,7 @@ export const useUnreadNotifications = () => {
   return useQuery({
     queryKey: notificationKeys.list({ status: 'Unread' as NotificationStatus }),
     queryFn: () => notificationsApi.getNotifications({ status: 'Unread' as NotificationStatus }),
+    refetchInterval: 30000, // تحديث كل 30 ثانية
   });
 };
 

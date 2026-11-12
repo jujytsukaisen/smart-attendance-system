@@ -3,12 +3,10 @@ using SmartAttendance.Application.Features.Attendances.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Common.Interfaces;
 using SmartAttendance.Application.Common.Models;
-using SmartAttendance.Application.Features.Attendances.DTOs;
 using System.Linq;
 
 namespace SmartAttendance.Application.Features.Attendances.Queries;
@@ -38,15 +36,21 @@ public class GetAttendanceByIdQueryHandler : IRequestHandler<GetAttendanceByIdQu
             return Result<AttendanceDetailsDto>.Failure(new[] { "Tenant ID is required." });
         }
 
+        // Include Events navigation so AutoMapper can populate Timeline and CurrentState
         var item = await _context.Attendances
             .Where(x => x.Id == request.AttendanceId && x.CompanyId == companyId && !x.IsDeleted)
+            .Include(x => x.Employee)
+            .Include(x => x.AttendanceDevice)
+            .Include(x => x.AttendancePolicy)
+            .Include(x => x.Shift)
+            .Include(x => x.Events)
             .AsNoTracking()
-            .ProjectTo<AttendanceDetailsDto>(_mapper.ConfigurationProvider)
             .FirstOrDefaultAsync(cancellationToken);
             
         if (item == null)
             return Result<AttendanceDetailsDto>.Failure(new[] { "Attendance not found." });
-            
-        return Result<AttendanceDetailsDto>.Success(item);
+        
+        var dto = _mapper.Map<AttendanceDetailsDto>(item);
+        return Result<AttendanceDetailsDto>.Success(dto);
     }
 }

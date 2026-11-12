@@ -63,7 +63,7 @@ public class WorkSchedulesController : ApiControllerBase
     }
 
     [HttpPost("{id}/restore")]
-    [Authorize(Policy = "Permission:WorkSchedules.Delete")]
+    [Authorize(Policy = "Permission:WorkSchedules.Update")]
     public async Task<IActionResult> RestoreSchedule(Guid id)
     {
         return HandleResult(await Mediator.Send(new RestoreWorkScheduleCommand { WorkScheduleId = id }));

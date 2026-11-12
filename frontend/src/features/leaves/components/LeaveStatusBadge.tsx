@@ -1,40 +1,41 @@
 import { Badge } from '@/shared/components/ui/badge';
-import { LeaveStatus } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 interface LeaveStatusBadgeProps {
   status: string | number;
 }
 
 export function LeaveStatusBadge({ status }: LeaveStatusBadgeProps) {
-  // Map both string ('Pending', 'Approved') and numeric (1, 2) values
-  let mappedStatus = status;
-  if (typeof status === 'number' || !isNaN(Number(status))) {
-    switch (Number(status)) {
-      case LeaveStatus.Pending:
-        mappedStatus = 'Pending';
-        break;
-      case LeaveStatus.Approved:
-        mappedStatus = 'Approved';
-        break;
-      case LeaveStatus.Rejected:
-        mappedStatus = 'Rejected';
-        break;
-      case LeaveStatus.Cancelled:
-        mappedStatus = 'Cancelled';
-        break;
-    }
-  }
+  const { t } = useTranslation();
+  const str = String(status || '').trim().toLowerCase();
 
-  switch (mappedStatus) {
-    case 'Approved':
-      return <Badge variant="default" className="bg-green-100 text-green-800 hover:bg-green-100">Approved</Badge>;
-    case 'Pending':
-      return <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Pending</Badge>;
-    case 'Rejected':
-      return <Badge variant="destructive" className="bg-red-100 text-red-800 hover:bg-red-100">Rejected</Badge>;
-    case 'Cancelled':
-      return <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-100">Cancelled</Badge>;
-    default:
-      return <Badge variant="outline">{mappedStatus}</Badge>;
+  if (str === 'approved' || str === '2') {
+    return (
+      <Badge variant="outline" className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/25 font-medium">
+        {t('leaves.approved')}
+      </Badge>
+    );
   }
+  if (str === 'pending' || str === '1' || str === '') {
+    return (
+      <Badge variant="outline" className="bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/25 font-medium">
+        {t('leaves.pending')}
+      </Badge>
+    );
+  }
+  if (str === 'rejected' || str === '3') {
+    return (
+      <Badge variant="outline" className="bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/25 font-medium">
+        {t('leaves.rejected')}
+      </Badge>
+    );
+  }
+  if (str === 'cancelled' || str === '4') {
+    return (
+      <Badge variant="outline" className="bg-muted text-muted-foreground border-border font-medium">
+        {t('leaves.cancelled')}
+      </Badge>
+    );
+  }
+  return <Badge variant="outline" className="bg-muted text-muted-foreground border-border">{status}</Badge>;
 }

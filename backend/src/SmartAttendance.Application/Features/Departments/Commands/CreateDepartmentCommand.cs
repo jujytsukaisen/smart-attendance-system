@@ -16,6 +16,7 @@ public class CreateDepartmentCommand : IRequest<Result<Guid>>
     public string Name { get; set; } = string.Empty;
     public string Code { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public bool RequiresLocationValidation { get; set; } = true;
 }
 
 public class CreateDepartmentCommandValidator : AbstractValidator<CreateDepartmentCommand>
@@ -62,7 +63,8 @@ public class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCo
             request.BranchId,
             request.Name,
             request.Code,
-            request.Description);
+            request.Description,
+            request.RequiresLocationValidation);
 
         _context.Departments.Add(department);
 

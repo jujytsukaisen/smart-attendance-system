@@ -80,7 +80,7 @@ export const DepartmentDetailsPage = () => {
             </div>
             <p className="text-muted-foreground mt-1 flex items-center gap-2">
               <Building2 className="h-4 w-4" />
-              {department.branchName}
+              {department.companyName ? `${department.companyName} • ${department.branchName}` : department.branchName}
             </p>
           </div>
         </div>
@@ -104,8 +104,8 @@ export const DepartmentDetailsPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-card border rounded-lg p-6 flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 bg-card border rounded-lg p-6 flex flex-col gap-4">
           <h3 className="text-lg font-semibold flex items-center gap-2">
             <FileText className="h-5 w-5 text-muted-foreground" />
             General Information
@@ -117,6 +117,14 @@ export const DepartmentDetailsPage = () => {
                 <Hash className="h-3 w-3" /> {department.code}
               </p>
             </div>
+            {department.companyName ? (
+              <div>
+                <p className="text-muted-foreground mb-1">Company</p>
+                <p className="font-medium flex items-center gap-1">
+                  <Building2 className="h-3 w-3" /> {department.companyName}
+                </p>
+              </div>
+            ) : null}
             <div>
               <p className="text-muted-foreground mb-1">Branch</p>
               <p className="font-medium flex items-center gap-1">

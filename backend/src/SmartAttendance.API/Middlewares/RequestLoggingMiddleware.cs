@@ -11,7 +11,9 @@ public class RequestLoggingMiddleware
     private readonly RequestDelegate _next;
     private readonly ILogger<RequestLoggingMiddleware> _logger;
 
-    public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
+    public RequestLoggingMiddleware(
+        RequestDelegate next,
+        ILogger<RequestLoggingMiddleware> logger)
     {
         _next = next;
         _logger = logger;
@@ -20,7 +22,12 @@ public class RequestLoggingMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var sw = Stopwatch.StartNew();
-        
+
+        // اطبع Authorization Header
+        _logger.LogInformation(
+            "Authorization Header: {Header}",
+            context.Request.Headers["Authorization"].ToString());
+
         try
         {
             await _next(context);
@@ -28,6 +35,7 @@ public class RequestLoggingMiddleware
         finally
         {
             sw.Stop();
+
             _logger.LogInformation(
                 "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {ElapsedMilliseconds} ms",
                 context.Request.Method,

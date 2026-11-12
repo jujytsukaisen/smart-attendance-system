@@ -6,13 +6,15 @@ import {
   ReportFilters, 
   ExportDropdown, 
   AttendanceTrendChart, 
-  LeaveDistributionChart,
-  DepartmentComparisonChart
+  LeaveDistributionChart, 
+  DepartmentComparisonChart 
 } from '../components';
 import { useDashboardStatistics } from '../hooks';
 import type { ReportFilterDto } from '../types';
+import { useTranslation } from '@/shared/i18n';
 
 export function ReportsDashboardPage() {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<ReportFilterDto>({});
   const { data, isLoading, isError, error } = useDashboardStatistics(filter);
   if (isError) {
@@ -21,20 +23,18 @@ export function ReportsDashboardPage() {
         <p className="text-destructive">
           {error instanceof Error && !error.message.toLowerCase().includes('internal server error') && !error.message.includes('status code')
             ? error.message
-            : "Failed to load"}
+            : t('common.error')}
         </p>
       </div>
     );
   }
 
-
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Reports & Analytics</h1>
-          <p className="mt-1 text-sm text-gray-500">Comprehensive overview of attendance metrics.</p>
+          <h1 className="text-2xl font-bold tracking-tight">{t('reports.title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('reports.subtitle')}</p>
         </div>
         <ExportDropdown filter={filter} />
       </div>
@@ -52,11 +52,11 @@ export function ReportsDashboardPage() {
       ) : data ? (
         <>
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
-                <Users className="h-4 w-4 text-gray-500" />
+                <CardTitle className="text-sm font-medium">{t('reports.totalStaff')}</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{data.totalEmployees}</div>
@@ -64,75 +64,77 @@ export function ReportsDashboardPage() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Present Today</CardTitle>
-                <UserCheck className="h-4 w-4 text-green-500" />
+                <CardTitle className="text-sm font-medium">{t('reports.presentToday')}</CardTitle>
+                <UserCheck className="h-4 w-4 text-emerald-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{data.presentToday}</div>
+                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{data.presentToday}</div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Absent</CardTitle>
-                <UserX className="h-4 w-4 text-red-500" />
+                <CardTitle className="text-sm font-medium">{t('reports.absentToday')}</CardTitle>
+                <UserX className="h-4 w-4 text-rose-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{data.absentToday}</div>
+                <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">{data.absentToday}</div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Late Arrivals</CardTitle>
-                <Clock className="h-4 w-4 text-yellow-500" />
+                <CardTitle className="text-sm font-medium">{t('reports.lateArrivals')}</CardTitle>
+                <Clock className="h-4 w-4 text-amber-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{data.lateToday}</div>
+                <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{data.lateToday}</div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">On Leave</CardTitle>
-                <CalendarDays className="h-4 w-4 text-blue-500" />
+                <CardTitle className="text-sm font-medium">{t('reports.onLeave')}</CardTitle>
+                <CalendarDays className="h-4 w-4 text-sky-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{data.onLeaveToday}</div>
+                <div className="text-2xl font-bold text-sky-600 dark:text-sky-400">{data.onLeaveToday}</div>
               </CardContent>
             </Card>
           </div>
 
           {/* Charts Row 1 */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <Card className="lg:col-span-2">
               <CardHeader>
-                <CardTitle>Attendance Trend (Last 7 Days)</CardTitle>
-                <CardDescription>Daily present vs absent vs late</CardDescription>
+                <CardTitle>{t('reports.attendanceTrend')}</CardTitle>
+                <CardDescription>{t('reports.attendanceTrendSubtitle')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <AttendanceTrendChart data={data.weeklyTrend} />
+                <AttendanceTrendChart data={data.weeklyTrend || []} />
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader>
-                <CardTitle>Leave Distribution</CardTitle>
-                <CardDescription>Breakdown of current leaves</CardDescription>
+                <CardTitle>{t('reports.leaveDistribution')}</CardTitle>
+                <CardDescription>{t('reports.leaveDistributionSubtitle')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <LeaveDistributionChart data={data.leaveDistribution} />
+                <LeaveDistributionChart data={data.leaveDistribution || []} />
               </CardContent>
             </Card>
           </div>
 
           {/* Charts Row 2 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Department Comparison</CardTitle>
-              <CardDescription>Attendance metrics by department</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <DepartmentComparisonChart data={data.departmentAttendance} />
-            </CardContent>
-          </Card>
+          <div className="grid grid-cols-1 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('reports.departmentComparison')}</CardTitle>
+                <CardDescription>{t('reports.departmentComparisonSubtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <DepartmentComparisonChart data={data.departmentAttendance || []} />
+              </CardContent>
+            </Card>
+          </div>
         </>
       ) : null}
     </div>

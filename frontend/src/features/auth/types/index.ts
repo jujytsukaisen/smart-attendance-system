@@ -7,10 +7,18 @@ export interface User {
   permissions?: string[];
 }
 
+// الشكل الفعلي الذي يرجعه الباك إند داخل "data" (بعد فك الـ ResponseWrapperMiddleware)
 export interface AuthResponse {
   token: string;
   refreshToken: string;
-  user: User;
+  requiresTwoFactor: boolean;
+}
+
+// الغلاف العام الذي يضيفه ResponseWrapperMiddleware لكل ردود الـ API
+export interface ApiEnvelope<T> {
+  data: T;
+  statusCode: number;
+  isSuccess: boolean;
 }
 
 export interface LoginCredentials {

@@ -12,6 +12,7 @@ export interface DepartmentDto {
 export interface DepartmentListDto {
   id: string;
   companyId: string;
+  companyName?: string;
   branchId: string;
   branchName: string;
   name: string;
@@ -23,6 +24,7 @@ export interface DepartmentListDto {
 export interface DepartmentDetailsDto {
   id: string;
   companyId: string;
+  companyName?: string;
   branchId: string;
   branchName: string;
   name: string;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form';
@@ -11,26 +12,45 @@ import { SettingsSaveBar } from '../components';
 import { useGeneralSettings, useUpdateGeneralSettings } from '../hooks';
 import { generalSettingsSchema } from '../schemas';
 import type { GeneralSettingsDto } from '../types';
+import { useTranslation, useLanguageStore } from '@/shared/i18n';
 
 export function GeneralSettingsPage() {
+  const { t, language } = useTranslation();
   const { data, isLoading, isError, error } = useGeneralSettings();
   const updateMutation = useUpdateGeneralSettings();
+  const { theme, setTheme } = useTheme();
 
   const form = useForm<GeneralSettingsDto>({
     resolver: zodResolver(generalSettingsSchema),
-    defaultValues: data,
+    values: data || {
+      companyName: '',
+      theme: 'System',
+      dateFormat: 'YYYY-MM-DD',
+      timeFormat: '24h',
+      timeZone: '',
+      language: 'en'
+    },
   });
 
   useEffect(() => {
-    if (data) {
-      form.reset(data);
+    if (theme) {
+      const formattedTheme = (theme.charAt(0).toUpperCase() + theme.slice(1)) as 'Light' | 'Dark' | 'System';
+      if (['Light', 'Dark', 'System'].includes(formattedTheme)) {
+        form.setValue('theme', formattedTheme, { shouldDirty: false });
+      }
     }
-  }, [data, form]);
+  }, [theme, form]);
+
+  useEffect(() => {
+    if (language && (language === 'ar' || language === 'en')) {
+      form.setValue('language', language, { shouldDirty: false });
+    }
+  }, [language, form]);
 
   const onSubmit = async (values: GeneralSettingsDto) => {
     await updateMutation.mutateAsync(values);
     form.reset(values);
-    toast.success('General settings updated successfully');
+    toast.success(t('settings.savedSuccess'));
   };
 
   if (isLoading) return <Skeleton className="h-[400px] w-full" />;
@@ -40,20 +60,18 @@ export function GeneralSettingsPage() {
         <p className="text-destructive">
           {error instanceof Error && !error.message.toLowerCase().includes('internal server error') && !error.message.includes('status code')
             ? error.message
-            : "Failed to load"}
+            : t('common.error')}
         </p>
       </div>
     );
   }
 
-
-
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>General Settings</CardTitle>
-          <CardDescription>Configure global application parameters.</CardDescription>
+          <CardTitle>{t('settings.generalTitle')}</CardTitle>
+          <CardDescription>{t('settings.generalSubtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -64,7 +82,7 @@ export function GeneralSettingsPage() {
                   name="companyName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name</FormLabel>
+                      <FormLabel>{t('settings.companyName')}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -78,17 +96,23 @@ export function GeneralSettingsPage() {
                   name="theme"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Theme</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <FormLabel>{t('settings.theme')}</FormLabel>
+                      <Select
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          setTheme(val.toLowerCase());
+                        }}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select theme" />
+                            <SelectValue placeholder={t('settings.selectTheme')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Light">Light</SelectItem>
-                          <SelectItem value="Dark">Dark</SelectItem>
-                          <SelectItem value="System">System Default</SelectItem>
+                          <SelectItem value="Light">{t('settings.light')}</SelectItem>
+                          <SelectItem value="Dark">{t('settings.dark')}</SelectItem>
+                          <SelectItem value="System">{t('settings.system')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -101,7 +125,7 @@ export function GeneralSettingsPage() {
                   name="dateFormat"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Date Format</FormLabel>
+                      <FormLabel>{t('settings.dateFormat')}</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger><SelectValue /></SelectTrigger>
@@ -122,14 +146,14 @@ export function GeneralSettingsPage() {
                   name="timeFormat"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Time Format</FormLabel>
+                      <FormLabel>{t('settings.timeFormat')}</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger><SelectValue /></SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="12h">12-hour (AM/PM)</SelectItem>
-                          <SelectItem value="24h">24-hour</SelectItem>
+                          <SelectItem value="12h">{language === 'ar' ? '12 ساعة (ص/م)' : '12-hour (AM/PM)'}</SelectItem>
+                          <SelectItem value="24h">{language === 'ar' ? '24 ساعة' : '24-hour'}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -142,7 +166,7 @@ export function GeneralSettingsPage() {
                   name="timeZone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Time Zone</FormLabel>
+                      <FormLabel>{t('settings.timeZone')}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -156,15 +180,22 @@ export function GeneralSettingsPage() {
                   name="language"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Language</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <FormLabel>{t('settings.language')}</FormLabel>
+                      <Select
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          if (val === 'ar' || val === 'en') {
+                            useLanguageStore.getState().setLanguage(val);
+                          }
+                        }}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger><SelectValue /></SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="en">English</SelectItem>
-                          <SelectItem value="es">Spanish</SelectItem>
-                          <SelectItem value="fr">French</SelectItem>
+                          <SelectItem value="ar">🇸🇦 العربية</SelectItem>
+                          <SelectItem value="en">🇺🇸 English</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
